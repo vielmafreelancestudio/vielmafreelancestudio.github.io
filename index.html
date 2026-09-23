@@ -100,9 +100,6 @@ img { max-width: 100%; display: block; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
-/* =========================================================
-   CANVAS DE FONDO
-   ========================================================= */
 #bg-canvas {
   position: fixed;
   top: 0; left: 0;
@@ -124,9 +121,6 @@ img { max-width: 100%; display: block; }
   padding: 0 20px;
 }
 
-/* =========================================================
-   ICON SVG
-   ========================================================= */
 .icon-svg {
   display: inline-block;
   flex-shrink: 0;
@@ -169,9 +163,6 @@ img { max-width: 100%; display: block; }
 .icon-svg--md { width: 24px; height: 24px; }
 .icon-svg--lg { width: 26px; height: 26px; }
 
-/* =========================================================
-   LANGUAGE BLUR — optimizado
-   ========================================================= */
 body.lang-blur .content-wrapper,
 body.lang-blur .header,
 body.lang-blur .fab-container,
@@ -194,7 +185,6 @@ body.lang-blur #bg-canvas {
               opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Quitar will-change cuando termina la transición (evita reservar memoria) */
 body:not(.lang-blur) .content-wrapper,
 body:not(.lang-blur) .header,
 body:not(.lang-blur) .fab-container,
@@ -213,9 +203,7 @@ body:not(.lang-blur) #bg-canvas {
   transition: opacity 0.4s ease;
 }
 
-body.lang-blur .lang-shade {
-  opacity: 1;
-}
+body.lang-blur .lang-shade { opacity: 1; }
 
 @media (prefers-color-scheme: dark) {
   body.lang-blur .lang-shade { background: rgba(0, 0, 0, 0.15); }
@@ -225,9 +213,6 @@ body.lang-blur .lang-shade {
   body.lang-blur .lang-shade { background: rgba(255, 255, 255, 0.15); }
 }
 
-/* =========================================================
-   HEADER
-   ========================================================= */
 .header {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -307,13 +292,7 @@ body.lang-blur .lang-shade {
   direction: ltr;
 }
 
-/* =========================================================
-   LANGUAGE SELECTOR — DESPLEGABLE
-   ========================================================= */
-.lang-selector {
-  position: relative;
-  direction: ltr;
-}
+.lang-selector { position: relative; direction: ltr; }
 
 .lang-trigger {
   display: inline-flex;
@@ -354,7 +333,6 @@ body.lang-blur .lang-shade {
   font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.04em;
-  transition: background 0.25s ease, color 0.25s ease;
 }
 
 .lang-trigger__label {
@@ -472,9 +450,7 @@ body.lang-blur .lang-shade {
 }
 
 .lang-option.active .lang-option__code,
-.lang-option:hover .lang-option__code {
-  color: var(--accent);
-}
+.lang-option:hover .lang-option__code { color: var(--accent); }
 
 .lang-option__name {
   flex: 1;
@@ -521,14 +497,8 @@ section {
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
   will-change: opacity, transform;
 }
-section.visible {
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
+section.visible { opacity: 1; transform: translate3d(0, 0, 0); }
 
-/* =========================================================
-   HERO
-   ========================================================= */
 #hero {
   min-height: 100vh;
   display: flex; flex-direction: column;
@@ -568,12 +538,7 @@ section.visible {
 }
 
 .hero-title__brand {
-  background: linear-gradient(
-    115deg,
-    var(--accent) 0%,
-    var(--accent-2) 45%,
-    var(--accent) 100%
-  );
+  background: linear-gradient(115deg, var(--accent) 0%, var(--accent-2) 45%, var(--accent) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -652,15 +617,11 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   font-weight: 700; margin-top: 4px;
 }
 
-/* fadeUp mejorado: usamos translate3d para forzar GPU */
 @keyframes fadeUp {
   from { opacity: 0; transform: translate3d(0, 24px, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
-/* =========================================================
-   ABOUT
-   ========================================================= */
 .about-grid {
   display: grid; grid-template-columns: 1fr;
   gap: 40px; align-items: center;
@@ -721,9 +682,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   transform: translate3d(0, -2px, 0);
 }
 
-/* =========================================================
-   SECTION LABELS
-   ========================================================= */
 .section-label {
   display: inline-block;
   font-size: 0.9rem;
@@ -739,9 +697,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .section-label { font-size: 0.8rem; letter-spacing: 0.14em; }
 }
 
-/* =========================================================
-   ABOUT H2
-   ========================================================= */
 #about h2.about-title {
   font-size: clamp(2rem, 6.2vw, 3.4rem);
   line-height: 1.05;
@@ -788,9 +743,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   }
 }
 
-/* =========================================================
-   SERVICES
-   ========================================================= */
 .services-grid {
   display: grid; grid-template-columns: 1fr; gap: 20px;
 }
@@ -900,9 +852,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .service-card__actions .buy-menu { width: 100%; }
 }
 
-/* =========================================================
-   BUY MENU
-   ========================================================= */
 .buy-menu { position: relative; width: 100%; margin-top: auto; }
 
 .buy-trigger {
@@ -987,9 +936,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .buy-option:hover { background: rgba(255, 45, 85, 0.15); }
 }
 
-/* =========================================================
-   PORTFOLIO
-   ========================================================= */
 .portfolio-grid {
   display: grid; grid-template-columns: 1fr; gap: 20px;
 }
@@ -1148,9 +1094,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   color: var(--text-dim); font-style: italic; text-align: center;
 }
 
-/* =========================================================
-   MODAL
-   ========================================================= */
 .case-modal {
   position: fixed; inset: 0; z-index: 300;
   display: flex; align-items: center; justify-content: center;
@@ -1186,11 +1129,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   will-change: transform;
 }
 
-.case-modal__panel::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
-}
+.case-modal__panel::-webkit-scrollbar { display: none; width: 0; height: 0; }
 
 .case-modal.open .case-modal__panel { transform: translate3d(0, 0, 0) scale(1); }
 
@@ -1267,9 +1206,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   font-size: 0.85rem; font-weight: 600; color: var(--text);
 }
 
-/* =========================================================
-   SCROLL HINT
-   ========================================================= */
 .scroll-hint {
   display: flex;
   flex-direction: column;
@@ -1372,9 +1308,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .global-scroll-hint--top { top: calc(var(--header-h) + 10px); }
 }
 
-/* =========================================================
-   CASE MODAL ACTIONS
-   ========================================================= */
 .case-modal__actions {
   display: flex;
   gap: 10px;
@@ -1493,9 +1426,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .case-modal__contact-option:hover { background: rgba(255, 45, 85, 0.15); }
 }
 
-/* =========================================================
-   WECHAT QR MODAL
-   ========================================================= */
 .wechat-modal {
   position: fixed; inset: 0; z-index: 350;
   display: flex; align-items: center; justify-content: center;
@@ -1568,9 +1498,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 }
 .wechat-modal__close:hover { background: var(--accent); transform: rotate(90deg); }
 
-/* =========================================================
-   PROCESS
-   ========================================================= */
 .process-list { display: flex; flex-direction: column; max-width: 800px; }
 
 .process-step {
@@ -1597,9 +1524,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 
 .process-content p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; }
 
-/* =========================================================
-   PRICING
-   ========================================================= */
 .pricing-intro {
   margin-bottom: 2rem; color: var(--text-dim);
   font-size: 0.95rem; max-width: 700px;
@@ -1942,9 +1866,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .plan-mode-tab { padding: 7px 14px; font-size: 0.75rem; }
 }
 
-/* =========================================================
-   CONTACT
-   ========================================================= */
 .contact-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
 @media (min-width: 640px) { .contact-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -2010,9 +1931,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   transform: translate(3px, -3px);
 }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
 .footer {
   padding: 48px 0 60px;
   min-height: 260px;
@@ -2070,14 +1988,8 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   white-space: nowrap;
 }
 .footer__links a:hover { opacity: 0.7; }
-.footer__links .sep {
-  color: var(--text-soft);
-  font-weight: 400;
-}
+.footer__links .sep { color: var(--text-soft); font-weight: 400; }
 
-/* =========================================================
-   FAB
-   ========================================================= */
 .fab-container {
   position: fixed; bottom: 24px; right: 24px;
   z-index: 200; display: flex;
@@ -2181,9 +2093,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   color: var(--accent);
 }
 
-/* =========================================================
-   TOAST
-   ========================================================= */
 .toast {
   position: fixed; bottom: 100px; left: 50%;
   transform: translate(-50%, 20px);
@@ -2232,10 +2141,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .contact-icon .icon-svg { width: 22px; height: 22px; }
 }
 
-/* =========================================================
-   RENDIMIENTO MÓVIL — RALENTIZAR ANIMACIONES INFINITAS
-   (perceptible igual de fluido pero 30–40% menos CPU)
-   ========================================================= */
 @media (max-width: 480px) {
   .fab-main::before     { animation-duration: 3.6s; }
   .hero-tag::before     { animation-duration: 3s; }
@@ -2252,7 +2157,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .global-scroll-hint--top .scroll-hint__arrow { animation-duration: 2s; }
 }
 
-/* Blur más ligero en móvil (ahorra GPU) */
 @media (max-width: 899px) {
   :root { --glass-blur: saturate(160%) blur(12px); }
 }
@@ -2268,9 +2172,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   }
 }
 
-/* =========================================================
-   PREFERS-REDUCED-MOTION — desactivar todo lo decorativo
-   ========================================================= */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -2320,9 +2221,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   }
 }
 
-/* =========================================================
-   ÁRABE — bloqueo total de dirección
-   ========================================================= */
 html[lang="ar"],
 html[lang="ar"] body,
 html[lang="ar"] * {
@@ -2698,7 +2596,7 @@ html[lang="ar"] .hero-title__brand {
         </div>
         <div class="contact-info">
           <span>WeChat</span>
-          <span>vielmastudio</span>
+          <span>vvielmacriollo</span>
         </div>
         <span class="contact-arrow">↗</span>
       </div>
@@ -2785,12 +2683,12 @@ html[lang="ar"] .hero-title__brand {
     <div class="wechat-modal__qr">
       <img src="assets/wechat-qr.png" alt="WeChat QR">
     </div>
-    <div class="wechat-modal__id">vielmastudio</div>
+    <div class="wechat-modal__id">vvielmacriollo</div>
   </div>
 </div>
 
 <script>
-"use strict";
+  "use strict";
 
 /* =========================================================
    TRANSLATIONS
@@ -3294,19 +3192,9 @@ const plansData = [
 
 const portfolioData = [
   {
-    id:"case-loi",
-    emoji:"📄",
-    image:"assets/portfolio-loi.jpg",
-    link:"",
-    title:{
-      en:"Letter of Intent (LOI)", es:"Carta de Intención (LOI)", pt:"Carta de Intenção (LOI)",
-      fr:"Lettre d'Intention (LOI)", de:"Absichtserklärung (LOI)", zh:"意向书 (LOI)",
-      ru:"Письмо о намерениях (LOI)", ar:"خطاب النوايا (LOI)"
-    },
-    type:{
-      en:"Letterhead", es:"Membrete", pt:"Papel Timbrado", fr:"En-tête", de:"Briefkopf",
-      zh:"信头", ru:"Фирменный бланк", ar:"ترويسة"
-    },
+    id:"case-loi", emoji:"📄", image:"assets/portfolio-loi.jpg", link:"",
+    title:{ en:"Letter of Intent (LOI)", es:"Carta de Intención (LOI)", pt:"Carta de Intenção (LOI)", fr:"Lettre d'Intention (LOI)", de:"Absichtserklärung (LOI)", zh:"意向书 (LOI)", ru:"Письмо о намерениях (LOI)", ar:"خطاب النوايا (LOI)" },
+    type:{ en:"Letterhead", es:"Membrete", pt:"Papel Timbrado", fr:"En-tête", de:"Briefkopf", zh:"信头", ru:"Фирменный бланк", ar:"ترويسة" },
     desc:{
       en:"Custom corporate letterhead with full typographic hierarchy and legal identification block. Designed for a maritime sector company to formalize pre-contractual negotiations.",
       es:"Membrete corporativo personalizado con jerarquía tipográfica completa y bloque legal de identificación. Diseñado para una empresa del rubro marítimo que formaliza negociaciones precontractuales.",
@@ -3320,20 +3208,9 @@ const portfolioData = [
     tools:"Microsoft Word · Illustrator"
   },
   {
-    id:"case-invoice-contract",
-    emoji:"🧾",
-    image:"assets/portfolio-invoice-contract.jpg",
-    link:"",
-    title:{
-      en:"Invoice & B2B Contract", es:"Factura y Contrato B2B", pt:"Fatura e Contrato B2B",
-      fr:"Facture et Contrat B2B", de:"Rechnung & B2B-Vertrag", zh:"发票与B2B合同",
-      ru:"Счёт и B2B-договор", ar:"فاتورة وعقد B2B"
-    },
-    type:{
-      en:"Invoice · Contract", es:"Factura · Contrato", pt:"Fatura · Contrato",
-      fr:"Facture · Contrat", de:"Rechnung · Vertrag", zh:"发票 · 合同",
-      ru:"Счёт · Контракт", ar:"فاتورة · عقد"
-    },
+    id:"case-invoice-contract", emoji:"🧾", image:"assets/portfolio-invoice-contract.jpg", link:"",
+    title:{ en:"Invoice & B2B Contract", es:"Factura y Contrato B2B", pt:"Fatura e Contrato B2B", fr:"Facture et Contrat B2B", de:"Rechnung & B2B-Vertrag", zh:"发票与B2B合同", ru:"Счёт и B2B-договор", ar:"فاتورة وعقد B2B" },
+    type:{ en:"Invoice · Contract", es:"Factura · Contrato", pt:"Fatura · Contrato", fr:"Facture · Contrat", de:"Rechnung · Vertrag", zh:"发票 · 合同", ru:"Счёт · Контракт", ar:"فاتورة · عقد" },
     desc:{
       en:"Complete document set — commercial invoice with itemized table and tax calculation, plus a full B2B service contract with clauses, annexes and signature blocks. Same corporate letterhead across all pages for visual consistency.",
       es:"Set documental completo — factura comercial con tabla de conceptos y cálculo de impuestos, más un contrato de servicios B2B completo con cláusulas, anexos y bloques de firma. Mismo membrete corporativo en todas las páginas para consistencia visual.",
@@ -3347,19 +3224,9 @@ const portfolioData = [
     tools:"Microsoft Word · Excel · Adobe Acrobat"
   },
   {
-    id:"case-banner",
-    emoji:"🎨",
-    image:"assets/portfolio-banner.jpg",
-    link:"",
-    title:{
-      en:"Corporate Banner Design", es:"Diseño de Banner Corporativo", pt:"Design de Banner Corporativo",
-      fr:"Design de Bannière Corporate", de:"Corporate Banner Design", zh:"企业横幅设计",
-      ru:"Дизайн корпоративного баннера", ar:"تصميم بانر الشركة"
-    },
-    type:{
-      en:"Banner", es:"Banner", pt:"Banner", fr:"Bannière", de:"Banner",
-      zh:"横幅", ru:"Баннер", ar:"بانر"
-    },
+    id:"case-banner", emoji:"🎨", image:"assets/portfolio-banner.jpg", link:"",
+    title:{ en:"Corporate Banner Design", es:"Diseño de Banner Corporativo", pt:"Design de Banner Corporativo", fr:"Design de Bannière Corporate", de:"Corporate Banner Design", zh:"企业横幅设计", ru:"Дизайн корпоративного баннера", ar:"تصميم بانر الشركة" },
+    type:{ en:"Banner", es:"Banner", pt:"Banner", fr:"Bannière", de:"Banner", zh:"横幅", ru:"Баннер", ar:"بانر" },
     desc:{
       en:"Large-format corporate banner for trade shows, events and social media headers. Designed with the same brand system — colors, typography and letterhead — for full visual coherence.",
       es:"Banner corporativo de gran formato para ferias, eventos y cabeceras de redes sociales. Diseñado con el mismo sistema de marca — colores, tipografía y membrete — para coherencia visual total.",
@@ -3373,19 +3240,9 @@ const portfolioData = [
     tools:"Illustrator · Photoshop · Figma"
   },
   {
-    id:"case-business-card",
-    emoji:"💼",
-    image:"assets/portfolio-business-card.jpg",
-    link:"",
-    title:{
-      en:"Business Card — Rebranding", es:"Tarjeta de Presentación — Rebranding", pt:"Cartão de Visita — Rebranding",
-      fr:"Carte de Visite — Rebranding", de:"Visitenkarte — Rebranding", zh:"名片 — 品牌重塑",
-      ru:"Визитка — Ребрендинг", ar:"بطاقة عمل — إعادة بناء العلامة"
-    },
-    type:{
-      en:"Rebranding", es:"Rebranding", pt:"Rebranding", fr:"Rebranding", de:"Rebranding",
-      zh:"品牌重塑", ru:"Ребрендинг", ar:"إعادة بناء العلامة"
-    },
+    id:"case-business-card", emoji:"💼", image:"assets/portfolio-business-card.jpg", link:"",
+    title:{ en:"Business Card — Rebranding", es:"Tarjeta de Presentación — Rebranding", pt:"Cartão de Visita — Rebranding", fr:"Carte de Visite — Rebranding", de:"Visitenkarte — Rebranding", zh:"名片 — 品牌重塑", ru:"Визитка — Ребрендинг", ar:"بطاقة عمل — إعادة بناء العلامة" },
+    type:{ en:"Rebranding", es:"Rebranding", pt:"Rebranding", fr:"Rebranding", de:"Rebranding", zh:"品牌重塑", ru:"Ребрендинг", ar:"إعادة بناء العلامة" },
     desc:{
       en:"Full rebranding package applied to business cards — front and back design, logo placement, color palette, typography and print-ready specs. Part of a complete corporate identity rollout.",
       es:"Paquete completo de rebranding aplicado a tarjetas de presentación — diseño de frente y reverso, ubicación del logo, paleta de colores, tipografía y especificaciones listas para imprenta. Parte de un rollout completo de identidad corporativa.",
@@ -3399,19 +3256,9 @@ const portfolioData = [
     tools:"Illustrator · InDesign · Figma"
   },
   {
-    id:"case-brochure",
-    emoji:"📊",
-    image:"assets/portfolio-brochure.jpg",
-    link:"",
-    title:{
-      en:"Corporate Brochure Cover", es:"Portada de Brochure Corporativo", pt:"Capa de Brochura Corporativa",
-      fr:"Couverture de Brochure Corporate", de:"Titelblatt einer Firmenbroschüre", zh:"企业宣传册封面",
-      ru:"Обложка корпоративного буклета", ar:"غلاف كتيب الشركة"
-    },
-    type:{
-      en:"Presentation", es:"Presentación", pt:"Apresentação", fr:"Présentation", de:"Präsentation",
-      zh:"演示", ru:"Презентация", ar:"عرض تقديمي"
-    },
+    id:"case-brochure", emoji:"📊", image:"assets/portfolio-brochure.jpg", link:"",
+    title:{ en:"Corporate Brochure Cover", es:"Portada de Brochure Corporativo", pt:"Capa de Brochura Corporativa", fr:"Couverture de Brochure Corporate", de:"Titelblatt einer Firmenbroschüre", zh:"企业宣传册封面", ru:"Обложка корпоративного буклета", ar:"غلاف كتيب الشركة" },
+    type:{ en:"Presentation", es:"Presentación", pt:"Apresentação", fr:"Présentation", de:"Präsentation", zh:"演示", ru:"Презентация", ar:"عرض تقديمي" },
     desc:{
       en:"Cover and inner-page system for a corporate brochure and presentation deck. Built with reusable master pages, custom infographics and full brand consistency across every slide.",
       es:"Portada y sistema de páginas internas para un brochure corporativo y presentación. Construido con páginas maestras reutilizables, infografías personalizadas y consistencia total de marca en cada diapositiva.",
@@ -3425,17 +3272,9 @@ const portfolioData = [
     tools:"InDesign · PowerPoint · Figma"
   },
   {
-    id:"case-3",
-    emoji:"🌐",
-    image:"assets/portfolio-03.jpg",
-    link:"https://vsc.supply",
-    title:{
-      en:"Corporate Website", es:"Web Corporativa", pt:"Site Corporativo", fr:"Site Corporate",
-      de:"Unternehmenswebsite", zh:"企业网站", ru:"Корпоративный сайт", ar:"موقع الشركة"
-    },
-    type:{
-      en:"Web", es:"Web", pt:"Web", fr:"Web", de:"Web", zh:"网站", ru:"Веб", ar:"ويب"
-    },
+    id:"case-3", emoji:"🌐", image:"assets/portfolio-03.jpg", link:"https://vsc.supply",
+    title:{ en:"Corporate Website", es:"Web Corporativa", pt:"Site Corporativo", fr:"Site Corporate", de:"Unternehmenswebsite", zh:"企业网站", ru:"Корпоративный сайт", ar:"موقع الشركة" },
+    type:{ en:"Web", es:"Web", pt:"Web", fr:"Web", de:"Web", zh:"网站", ru:"Веб", ar:"ويب" },
     desc:{
       en:"Full landing + blog + contact system. Built with HTML/CSS/JS, deployed on Netlify.",
       es:"Landing + blog + sistema de contacto completo. Hecho con HTML/CSS/JS, deploy en Netlify.",
@@ -3450,20 +3289,14 @@ const portfolioData = [
   }
 ];
 
-/* =========================================================
-   CONTACTS
-   ========================================================= */
 const CONTACTS = {
   whatsapp: { url:"https://wa.me/584228081109", label:"+58 422 808 109" },
   telegram: { url:"https://t.me/vielmastudio",   label:"t.me/vielmastudio" },
   discord:  { url:"https://discord.gg/8yxuvHDK", label:"discord.gg/8yxuvHDK" },
   email:    { url:"mailto:vvielmacriollo@mail.ru", label:"vvielmacriollo@mail.ru" },
-  wechat:   { id:"vielmastudio" }
+  wechat:   { id:"vvielmacriollo" }
 };
 
-/* =========================================================
-   ICON PATHS
-   ========================================================= */
 const ICONS = {
   whatsapp: "assets/icons/whatsapp.svg",
   telegram: "assets/icons/telegram.svg",
@@ -3506,9 +3339,6 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
-/* =========================================================
-   LANGUAGE SELECTOR — UI SYNC
-   ========================================================= */
 function updateLangSelectorUI() {
   const meta = LANG_META[currentLang] || LANG_META.en;
   const triggerCode  = document.getElementById("langTriggerCode");
@@ -3550,9 +3380,6 @@ function toggleLangMenu() {
   else openLangMenu();
 }
 
-/* =========================================================
-   BLUR SWAP
-   ========================================================= */
 const BLUR_IN_DELAY = 380;
 const BLUR_TOTAL = 900;
 
@@ -3594,9 +3421,6 @@ function blurSwapLanguage(lang) {
   }, BLUR_TOTAL);
 }
 
-/* =========================================================
-   RENDER · SERVICES
-   ========================================================= */
 function renderServices() {
   const grid = document.getElementById("servicesGrid");
   if (!grid) return;
@@ -3628,9 +3452,6 @@ function renderServices() {
   `).join("");
 }
 
-/* =========================================================
-   RENDER · PROCESS
-   ========================================================= */
 function renderProcess() {
   const list = document.getElementById("processList");
   if (!list) return;
@@ -3646,9 +3467,6 @@ function renderProcess() {
   `).join("");
 }
 
-/* =========================================================
-   RENDER · PLANS
-   ========================================================= */
 function renderPlans() {
   const grid = document.getElementById("plansGrid");
   if (!grid) return;
@@ -3704,9 +3522,6 @@ function renderPlans() {
   }).join("");
 }
 
-/* =========================================================
-   RENDER · PORTFOLIO
-   ========================================================= */
 function renderPortfolio() {
   const grid = document.getElementById("portfolioGrid");
   if (!grid) return;
@@ -3744,9 +3559,6 @@ function renderPortfolio() {
   }).join("");
 }
 
-/* =========================================================
-   MODAL · CASE
-   ========================================================= */
 function openCaseModal(id) {
   const item = portfolioData.find(x => x.id === id);
   if (!item) return;
@@ -3875,9 +3687,6 @@ document.addEventListener("keydown", e => {
   }
 });
 
-/* =========================================================
-   WECHAT MODAL
-   ========================================================= */
 function openWechatModal() {
   const modal = document.getElementById("wechatModal");
   if (!modal) return;
@@ -3894,9 +3703,6 @@ function closeWechatModal() {
   document.body.style.overflow = "";
 }
 
-/* =========================================================
-   GLOBAL SCROLL HINT
-   ========================================================= */
 function updateGlobalScrollLabels() {
   const upText = document.querySelector("#globalScrollUp .scroll-hint__text");
   const downText = document.querySelector("#globalScrollDown .scroll-hint__text");
@@ -3951,9 +3757,6 @@ document.addEventListener("click", e => {
   }
 });
 
-/* =========================================================
-   APPLY TRANSLATIONS (init)
-   ========================================================= */
 function applyTranslations(lang) {
   if (!SUPPORTED_LANGS.includes(lang)) lang = "en";
   currentLang = lang;
@@ -3985,9 +3788,6 @@ function applyTranslations(lang) {
   updateGlobalScrollVisibility();
 }
 
-/* =========================================================
-   CHANGE LANGUAGE — blur + swap
-   ========================================================= */
 function changeLanguage(lang) {
   if (lang === currentLang) return;
   if (langSwapInProgress) return;
@@ -4001,7 +3801,7 @@ function changeLanguage(lang) {
 }
 
 /* =========================================================
-   CHANNELS & MESSAGES — CONTEXTUALES
+   CHANNELS & MESSAGES
    ========================================================= */
 const serviceNames = {
   doc:{ en:"Corporate Documents", es:"Documentos Corporativos", pt:"Documentos Corporativos", fr:"Documents d'Entreprise", de:"Unternehmensdokumente", zh:"企业文档", ru:"Корпоративные документы", ar:"مستندات الشركات" },
@@ -4014,82 +3814,28 @@ const serviceNames = {
 };
 
 const serviceBenefit = {
-  doc:       { en:"formal contracts, invoices and letters with a professional corporate letterhead", es:"contratos, facturas y cartas formales con membrete corporativo profesional", pt:"contratos, faturas e cartas formais com papel timbrado corporativo profissional", fr:"contrats, factures et lettres formelles avec un en-tête corporate professionnel", de:"formelle Verträge, Rechnungen und Briefe mit professionellem Firmenbriefkopf", zh:"带有专业企业信头的正式合同、发票和信函", ru:"официальные контракты, счета и письма с профессиональным фирменным бланком", ar:"عقود وفواتير وخطابات رسمية بترويسة شركة احترافية" },
-  pres:      { en:"presentations and brochures that convince investors, clients and partners", es:"presentaciones y brochures que convencen a inversores, clientes y socios", pt:"apresentações e brochuras que convencem investidores, clientes e parceiros", fr:"présentations et brochures qui convainquent investisseurs, clients et partenaires", de:"Präsentationen und Broschüren, die Investoren, Kunden und Partner überzeugen", zh:"能说服投资者、客户和合作伙伴的演示和宣传册", ru:"презентации и буклеты, убеждающие инвесторов, клиентов и партнёров", ar:"عروض وكتيبات تقنع المستثمرين والعملاء والشركاء" },
-  web:       { en:"a modern, fast and responsive website that represents your brand online", es:"una web moderna, rápida y responsive que represente tu marca online", pt:"um site moderno, rápido e responsivo que represente sua marca online", fr:"un site moderne, rapide et responsive qui représente votre marque en ligne", de:"eine moderne, schnelle und responsive Website, die Ihre Marke online repräsentiert", zh:"一个现代、快速、响应式的网站，在线代表您的品牌", ru:"современный, быстрый и адаптивный сайт, представляющий ваш бренд онлайн", ar:"موقع حديث وسريع ومتجاوب يمثل علامتك التجارية عبر الإنترنت" },
-  it:        { en:"server management, backups and corporate email with total reliability", es:"gestión de servidores, respaldos y correo corporativo con total confiabilidad", pt:"gestão de servidores, backups e e-mail corporativo com total confiabilidade", fr:"gestion de serveurs, sauvegardes et e-mail professionnel avec une fiabilité totale", de:"Serververwaltung, Backups und Firmen-E-Mail mit voller Zuverlässigkeit", zh:"服务器管理、备份和企业邮箱，完全可靠", ru:"управление серверами, резервное копирование и корпоративная почта с полной надёжностью", ar:"إدارة الخوادم والنسخ الاحتياطي والبريد الإلكتروني بموثوقية كاملة" },
-  ai:        { en:"custom AI training so your team gets the most out of ChatGPT, Claude or Gemini", es:"entrenamiento de IA personalizada para que tu equipo aproveche al máximo ChatGPT, Claude o Gemini", pt:"treinamento de IA personalizado para que sua equipe aproveite ao máximo ChatGPT, Claude ou Gemini", fr:"formation IA personnalisée pour que votre équipe tire le meilleur de ChatGPT, Claude ou Gemini", de:"individuelles KI-Training, damit Ihr Team das Beste aus ChatGPT, Claude oder Gemini herausholt", zh:"定制AI培训，让您的团队充分利用 ChatGPT、Claude 或 Gemini", ru:"индивидуальное обучение ИИ, чтобы ваша команда максимально использовала ChatGPT, Claude или Gemini", ar:"تدريب ذكاء اصطناعي مخصص لتحقيق أقصى استفادة من ChatGPT أو Claude أو Gemini" },
+  doc:{ en:"formal contracts, invoices and letters with a professional corporate letterhead", es:"contratos, facturas y cartas formales con membrete corporativo profesional", pt:"contratos, faturas e cartas formais com papel timbrado corporativo profissional", fr:"contrats, factures et lettres formelles avec un en-tête corporate professionnel", de:"formelle Verträge, Rechnungen und Briefe mit professionellem Firmenbriefkopf", zh:"带有专业企业信头的正式合同、发票和信函", ru:"официальные контракты, счета и письма с профессиональным фирменным бланком", ar:"عقود وفواتير وخطابات رسمية بترويسة شركة احترافية" },
+  pres:{ en:"presentations and brochures that convince investors, clients and partners", es:"presentaciones y brochures que convencen a inversores, clientes y socios", pt:"apresentações e brochuras que convencem investidores, clientes e parceiros", fr:"présentations et brochures qui convainquent investisseurs, clients et partenaires", de:"Präsentationen und Broschüren, die Investoren, Kunden und Partner überzeugen", zh:"能说服投资者、客户和合作伙伴的演示和宣传册", ru:"презентации и буклеты, убеждающие инвесторов, клиентов и партнёров", ar:"عروض وكتيبات تقنع المستثمرين والعملاء والشركاء" },
+  web:{ en:"a modern, fast and responsive website that represents your brand online", es:"una web moderna, rápida y responsive que represente tu marca online", pt:"um site moderno, rápido e responsivo que represente sua marca online", fr:"un site moderne, rapide et responsive qui représente votre marque en ligne", de:"eine moderne, schnelle und responsive Website, die Ihre Marke online repräsentiert", zh:"一个现代、快速、响应式的网站，在线代表您的品牌", ru:"современный, быстрый и адаптивный сайт, представляющий ваш бренд онлайн", ar:"موقع حديث وسريع ومتجاوب يمثل علامتك التجارية عبر الإنترنت" },
+  it:{ en:"server management, backups and corporate email with total reliability", es:"gestión de servidores, respaldos y correo corporativo con total confiabilidad", pt:"gestão de servidores, backups e e-mail corporativo com total confiabilidade", fr:"gestion de serveurs, sauvegardes et e-mail professionnel avec une fiabilité totale", de:"Serververwaltung, Backups und Firmen-E-Mail mit voller Zuverlässigkeit", zh:"服务器管理、备份和企业邮箱，完全可靠", ru:"управление серверами, резервное копирование и корпоративная почта с полной надёжностью", ar:"إدارة الخوادم والنسخ الاحتياطي والبريد الإلكتروني بموثوقية كاملة" },
+  ai:{ en:"custom AI training so your team gets the most out of ChatGPT, Claude or Gemini", es:"entrenamiento de IA personalizada para que tu equipo aproveche al máximo ChatGPT, Claude o Gemini", pt:"treinamento de IA personalizado para que sua equipe aproveite ao máximo ChatGPT, Claude ou Gemini", fr:"formation IA personnalisée pour que votre équipe tire le meilleur de ChatGPT, Claude ou Gemini", de:"individuelles KI-Training, damit Ihr Team das Beste aus ChatGPT, Claude oder Gemini herausholt", zh:"定制AI培训，让您的团队充分利用 ChatGPT、Claude 或 Gemini", ru:"индивидуальное обучение ИИ, чтобы ваша команда максимально использовала ChatGPT, Claude или Gemini", ar:"تدريب ذكاء اصطناعي مخصص لتحقيق أقصى استفادة من ChatGPT أو Claude أو Gemini" },
   rebranding:{ en:"a complete visual identity redesign: logo, colors, typography and brand book", es:"un rediseño completo de identidad visual: logo, colores, tipografía y manual de marca", pt:"um redesign completo de identidade visual: logotipo, cores, tipografia e manual da marca", fr:"une refonte complète de l'identité visuelle : logo, couleurs, typographie et charte graphique", de:"ein komplettes visuelles Redesign: Logo, Farben, Typografie und Markenhandbuch", zh:"完整的视觉识别重设计：Logo、颜色、字体和品牌手册", ru:"полный редизайн визуальной идентичности: логотип, цвета, типографика и брендбук", ar:"إعادة تصميم كاملة للهوية البصرية: الشعار والألوان والخطوط ودليل العلامة" },
-  support:   { en:"ongoing technical support to keep your systems always running", es:"soporte técnico continuo para mantener tus sistemas siempre operativos", pt:"suporte técnico contínuo para manter seus sistemas sempre operacionais", fr:"un support technique continu pour garder vos systèmes toujours opérationnels", de:"laufender technischer Support, damit Ihre Systeme immer laufen", zh:"持续的技术支持，确保您的系统始终运行", ru:"постоянная техническая поддержка, чтобы ваши системы всегда работали", ar:"دعم فني مستمر للحفاظ على تشغيل أنظمتك دائماً" }
+  support:{ en:"ongoing technical support to keep your systems always running", es:"soporte técnico continuo para mantener tus sistemas siempre operativos", pt:"suporte técnico contínuo para manter seus sistemas sempre operacionais", fr:"un support technique continu pour garder vos systèmes toujours opérationnels", de:"laufender technischer Support, damit Ihre Systeme immer laufen", zh:"持续的技术支持，确保您的系统始终运行", ru:"постоянная техническая поддержка, чтобы ваши системы всегда работали", ar:"دعم فني مستمر للحفاظ على تشغيل أنظمتك دائماً" }
 };
 
 const planBenefit = {
   essentials:{ en:"reliable 48-hour support for day-to-day fixes", es:"soporte confiable en 48 horas para correcciones del día a día", pt:"suporte confiável em 48 horas para correções do dia a dia", fr:"un support fiable sous 48 heures pour les corrections quotidiennes", de:"zuverlässiger 48-Stunden-Support für alltägliche Korrekturen", zh:"可靠的48小时支持，用于日常修复", ru:"надёжная поддержка в течение 48 часов для повседневных правок", ar:"دعم موثوق خلال 48 ساعة للإصلاحات اليومية" },
-  pro:       { en:"priority 8-hour support with a dedicated WhatsApp line", es:"soporte prioritario en 8 horas con línea WhatsApp dedicada", pt:"suporte prioritário em 8 horas com linha WhatsApp dedicada", fr:"un support prioritaire sous 8 heures avec ligne WhatsApp dédiée", de:"Priority-Support innerhalb von 8 Stunden mit dedizierter WhatsApp-Linie", zh:"8小时优先支持，配备专属 WhatsApp 通道", ru:"приоритетная поддержка в течение 8 часов с выделенной линией WhatsApp", ar:"دعم ذو أولوية خلال 8 ساعات مع خط واتساب مخصص" },
-  elite:     { en:"critical 4-hour support with unlimited revisions and 24/7 emergency", es:"soporte crítico en 4 horas con revisiones ilimitadas y emergencias 24/7", pt:"suporte crítico em 4 horas com revisões ilimitadas e emergências 24/7", fr:"un support critique sous 4 heures avec révisions illimitées et urgences 24/7", de:"kritischer 4-Stunden-Support mit unbegrenzten Revisionsrunden und 24/7-Notfall", zh:"4小时关键支持，无限修改和24/7紧急响应", ru:"критическая поддержка в течение 4 часов с неограниченными правками и экстренной помощью 24/7", ar:"دعم حرج خلال 4 ساعات مع مراجعات غير محدودة وطوارئ على مدار الساعة" }
+  pro:{ en:"priority 8-hour support with a dedicated WhatsApp line", es:"soporte prioritario en 8 horas con línea WhatsApp dedicada", pt:"suporte prioritário em 8 horas com linha WhatsApp dedicada", fr:"un support prioritaire sous 8 heures avec ligne WhatsApp dédiée", de:"Priority-Support innerhalb von 8 Stunden mit dedizierter WhatsApp-Linie", zh:"8小时优先支持，配备专属 WhatsApp 通道", ru:"приоритетная поддержка в течение 8 часов с выделенной линией WhatsApp", ar:"دعم ذو أولوية خلال 8 ساعات مع خط واتساب مخصص" },
+  elite:{ en:"critical 4-hour support with unlimited revisions and 24/7 emergency", es:"soporte crítico en 4 horas con revisiones ilimitadas y emergencias 24/7", pt:"suporte crítico em 4 horas com revisões ilimitadas e emergências 24/7", fr:"un support critique sous 4 heures avec révisions illimitées et urgences 24/7", de:"kritischer 4-Stunden-Support mit unbegrenzten Revisionsrunden und 24/7-Notfall", zh:"4小时关键支持，无限修改和24/7紧急响应", ru:"критическая поддержка в течение 4 часов с неограниченными правками и экстренной помощью 24/7", ar:"دعم حرج خلال 4 ساعات مع مراجعات غير محدودة وطوارئ على مدار الساعة" }
 };
 
 const caseLabels = {
-  "case-loi":{
-    en:"a corporate letterhead like the Letter of Intent (LOI) you showed",
-    es:"un membrete corporativo como la Carta de Intención (LOI) que mostraste",
-    pt:"um papel timbrado corporativo como a Carta de Intenção (LOI) que você mostrou",
-    fr:"un en-tête corporate comme la Lettre d'Intention (LOI) que vous avez montrée",
-    de:"einen Firmenbriefkopf wie die Absichtserklärung (LOI), die Sie gezeigt haben",
-    zh:"像您展示的意向书 (LOI) 那样的企业信头",
-    ru:"фирменный бланк как в Письме о намерениях (LOI), которое вы показали",
-    ar:"ترويسة شركة مثل خطاب النوايا (LOI) الذي عرضته"
-  },
-  "case-invoice-contract":{
-    en:"an invoice and B2B contract set like the one you showed",
-    es:"un set de factura y contrato B2B como el que mostraste",
-    pt:"um conjunto de fatura e contrato B2B como o que você mostrou",
-    fr:"un ensemble facture + contrat B2B comme celui que vous avez montré",
-    de:"ein Rechnungs- und B2B-Vertragsset wie das, das Sie gezeigt haben",
-    zh:"像您展示的发票与B2B合同套装",
-    ru:"комплект счёта и B2B-договора, как тот, что вы показали",
-    ar:"مجموعة فاتورة وعقد B2B مثل التي عرضتها"
-  },
-  "case-banner":{
-    en:"a corporate banner like the one you showed",
-    es:"un banner corporativo como el que mostraste",
-    pt:"um banner corporativo como o que você mostrou",
-    fr:"une bannière corporate comme celle que vous avez montrée",
-    de:"ein Firmenbanner wie das, das Sie gezeigt haben",
-    zh:"像您展示的企业横幅",
-    ru:"корпоративный баннер, как тот, что вы показали",
-    ar:"بانر شركة مثل الذي عرضته"
-  },
-  "case-business-card":{
-    en:"a full rebranding package including business cards like the one you showed",
-    es:"un paquete completo de rebranding con tarjetas de presentación como el que mostraste",
-    pt:"um pacote completo de rebranding com cartões de visita como o que você mostrou",
-    fr:"un pack complet de rebranding avec cartes de visite comme celui que vous avez montré",
-    de:"ein komplettes Rebranding-Paket inkl. Visitenkarten wie das, das Sie gezeigt haben",
-    zh:"完整的品牌重塑方案，包含您展示的名片",
-    ru:"полный пакет ребрендинга с визитками, как тот, что вы показали",
-    ar:"حزمة إعادة بناء كاملة تشمل بطاقات العمل مثل التي عرضتها"
-  },
-  "case-brochure":{
-    en:"a corporate brochure/presentation cover like the one you showed",
-    es:"una portada de brochure/presentación corporativa como la que mostraste",
-    pt:"uma capa de brochura/apresentação corporativa como a que você mostrou",
-    fr:"une couverture de brochure/présentation corporate comme celle que vous avez montrée",
-    de:"ein Titelblatt einer Firmenbroschüre/Präsentation wie das, das Sie gezeigt haben",
-    zh:"像您展示的企业宣传册/演示封面",
-    ru:"обложку корпоративного буклета/презентации, как ту, что вы показали",
-    ar:"غلاف كتيب/عرض تقديمي للشركة مثل الذي عرضته"
-  },
-  "case-3":{
-    en:"a corporate website like the one you showed",
-    es:"una web corporativa como la que mostraste",
-    pt:"um site corporativo como o que você mostrou",
-    fr:"un site corporate comme celui que vous avez montré",
-    de:"eine Unternehmenswebsite wie die, die Sie gezeigt haben",
-    zh:"像您展示的企业网站",
-    ru:"корпоративный сайт, как тот, что вы показали",
-    ar:"موقع شركة مثل الذي عرضته"
-  }
+  "case-loi":{ en:"a corporate letterhead like the Letter of Intent (LOI) you showed", es:"un membrete corporativo como la Carta de Intención (LOI) que mostraste", pt:"um papel timbrado corporativo como a Carta de Intenção (LOI) que você mostrou", fr:"un en-tête corporate comme la Lettre d'Intention (LOI) que vous avez montrée", de:"einen Firmenbriefkopf wie die Absichtserklärung (LOI), die Sie gezeigt haben", zh:"像您展示的意向书 (LOI) 那样的企业信头", ru:"фирменный бланк как в Письме о намерениях (LOI), которое вы показали", ar:"ترويسة شركة مثل خطاب النوايا (LOI) الذي عرضته" },
+  "case-invoice-contract":{ en:"an invoice and B2B contract set like the one you showed", es:"un set de factura y contrato B2B como el que mostraste", pt:"um conjunto de fatura e contrato B2B como o que você mostrou", fr:"un ensemble facture + contrat B2B comme celui que vous avez montré", de:"ein Rechnungs- und B2B-Vertragsset wie das, das Sie gezeigt haben", zh:"像您展示的发票与B2B合同套装", ru:"комплект счёта и B2B-договора, как тот, что вы показали", ar:"مجموعة فاتورة وعقد B2B مثل التي عرضتها" },
+  "case-banner":{ en:"a corporate banner like the one you showed", es:"un banner corporativo como el que mostraste", pt:"um banner corporativo como o que você mostrou", fr:"une bannière corporate comme celle que vous avez montrée", de:"ein Firmenbanner wie das, das Sie gezeigt haben", zh:"像您展示的企业横幅", ru:"корпоративный баннер, как тот, что вы показали", ar:"بانر شركة مثل الذي عرضته" },
+  "case-business-card":{ en:"a full rebranding package including business cards like the one you showed", es:"un paquete completo de rebranding con tarjetas de presentación como el que mostraste", pt:"um pacote completo de rebranding com cartões de visita como o que você mostrou", fr:"un pack complet de rebranding avec cartes de visite comme celui que vous avez montré", de:"ein komplettes Rebranding-Paket inkl. Visitenkarten wie das, das Sie gezeigt haben", zh:"完整的品牌重塑方案，包含您展示的名片", ru:"полный пакет ребрендинга с визитками, как тот, что вы показали", ar:"حزمة إعادة بناء كاملة تشمل بطاقات العمل مثل التي عرضتها" },
+  "case-brochure":{ en:"a corporate brochure/presentation cover like the one you showed", es:"una portada de brochure/presentación corporativa como la que mostraste", pt:"uma capa de brochura/apresentação corporativa como a que você mostrou", fr:"une couverture de brochure/présentation corporate comme celle que vous avez montrée", de:"ein Titelblatt einer Firmenbroschüre/Präsentation wie das, das Sie gezeigt haben", zh:"像您展示的企业宣传册/演示封面", ru:"обложку корпоративного буклета/презентации, как ту, что вы показали", ar:"غلاف كتيب/عرض تقديمي للشركة مثل الذي عرضته" },
+  "case-3":{ en:"a corporate website like the one you showed", es:"una web corporativa como la que mostraste", pt:"um site corporativo como o que você mostrou", fr:"un site corporate comme celui que vous avez montré", de:"eine Unternehmenswebsite wie die, die Sie gezeigt haben", zh:"像您展示的企业网站", ru:"корпоративный сайт, как тот, что вы показали", ar:"موقع شركة مثل الذي عرضته" }
 };
 
 function buildServiceMessage(key, price) {
@@ -4211,9 +3957,6 @@ function buyCase(caseId, channel) {
   openChannel(channel, message, subject);
 }
 
-/* =========================================================
-   CLIPBOARD + TOAST
-   ========================================================= */
 function copyToClipboard(text) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
@@ -4327,9 +4070,6 @@ if (wechatContactCard) {
   });
 }
 
-/* =========================================================
-   EVENTS — MENUS & BUY FLOWS
-   ========================================================= */
 document.addEventListener("click", e => {
 
   const tab = e.target.closest(".plan-mode-tab");
@@ -4438,13 +4178,12 @@ document.getElementById("portfolioGrid").addEventListener("click", e => {
 });
 
 /* =========================================================
-   SCROLL REVEAL — con pausa de animaciones fuera de vista
+   SCROLL REVEAL
    ========================================================= */
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add("visible");
-      /* Reactivar will-change temporalmente y luego quitarlo */
       entry.target.style.willChange = "opacity, transform";
       setTimeout(() => { entry.target.style.willChange = "auto"; }, 900);
     }
@@ -4453,31 +4192,25 @@ const revealObserver = new IntersectionObserver(entries => {
 
 document.querySelectorAll("section").forEach(el => revealObserver.observe(el));
 
-/* =========================================================
-   PAUSA GLOBAL DE ANIMACIONES CUANDO LA PESTAÑA NO ESTÁ VISIBLE
-   — libera CPU/batería en móvil y desktop
-   ========================================================= */
-function pauseAllAnimations() {
-  document.documentElement.classList.add("animations-paused");
-  document.body.classList.add("animations-paused");
-}
-function resumeAllAnimations() {
-  document.documentElement.classList.remove("animations-paused");
-  document.body.classList.remove("animations-paused");
-}
 document.addEventListener("visibilitychange", () => {
-  if (document.hidden) pauseAllAnimations();
-  else resumeAllAnimations();
+  if (document.hidden) {
+    document.documentElement.classList.add("animations-paused");
+    document.body.classList.add("animations-paused");
+  } else {
+    document.documentElement.classList.remove("animations-paused");
+    document.body.classList.remove("animations-paused");
+  }
 });
 
 /* =========================================================
-   CANVAS · PARTICLE FIELD — VERSIÓN OPTIMIZADA POR TIER
+   CANVAS · PARTICLE FIELD — v3 SUPER-OPTIMIZADO
+   Spatial Hashing + Canvas Offscreen + Auto-Adaptación
    ========================================================= */
 
-/* -------- Detección de dispositivo y preferencias -------- */
 const mqReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const mqDarkMode     = window.matchMedia("(prefers-color-scheme: dark)");
 
+/* -------- Detección de tier -------- */
 function detectTier() {
   const w = window.innerWidth;
   const ua = navigator.userAgent || "";
@@ -4498,18 +4231,24 @@ function detectTier() {
 
 let CURRENT_TIER = detectTier();
 
+/* Configuración por tier — AHORA CON MUCHO MÁS PARTÍCULAS */
 const TIER_CONFIG = {
-  minimal: { dprMax: 1,    count: 0,   connect: 0,   fps: 0,  explosions: false, mouse: false },
-  mobile:  { dprMax: 1.25, count: 70,  connect: 90,  fps: 60, explosions: true,  mouse: true  },
-  tablet:  { dprMax: 1.5,  count: 120, connect: 110, fps: 60, explosions: true,  mouse: true  },
-  laptop:  { dprMax: 1.75, count: 270, connect: 120, fps: 60, explosions: true,  mouse: true  },
-  desktop: { dprMax: 2,    count: 520, connect: 130, fps: 0,  explosions: true,  mouse: true  }
+  minimal: { dprMax: 1,    baseCount: 0,   maxCount: 0,    connect: 0,   fps: 0,  explosions: false, mouse: false },
+  mobile:  { dprMax: 1.25, baseCount: 180, maxCount: 320,  connect: 85,  fps: 60, explosions: true,  mouse: true  },
+  tablet:  { dprMax: 1.5,  baseCount: 320, maxCount: 520,  connect: 100, fps: 60, explosions: true,  mouse: true  },
+  laptop:  { dprMax: 1.75, baseCount: 480, maxCount: 700,  connect: 115, fps: 60, explosions: true,  mouse: true  },
+  desktop: { dprMax: 2,    baseCount: 650, maxCount: 1000, connect: 125, fps: 0,  explosions: true,  mouse: true  }
 };
 
-let CFG = TIER_CONFIG[CURRENT_TIER];
+let CFG = Object.assign({}, TIER_CONFIG[CURRENT_TIER]);
+let currentCount = CFG.baseCount;
 
+/* -------- Canvas principal + canvas offscreen para conexiones -------- */
 const canvas = document.getElementById("bg-canvas");
 const ctx = canvas.getContext("2d", { alpha: true });
+
+const connectionCanvas = document.createElement("canvas");
+const connectionCtx = connectionCanvas.getContext("2d", { alpha: true });
 
 let width, height;
 let dpr = Math.min(window.devicePixelRatio || 1, CFG.dprMax);
@@ -4522,7 +4261,7 @@ let cursorPulse = 0;
 window.__mouseX = -1000;
 window.__mouseY = -1000;
 
-/* Colores cacheados */
+/* -------- Colores cacheados -------- */
 let cachedColors = null;
 function refreshColors() {
   const isDark = mqDarkMode.matches;
@@ -4537,6 +4276,7 @@ refreshColors();
 if (mqDarkMode.addEventListener) mqDarkMode.addEventListener("change", refreshColors);
 else if (mqDarkMode.addListener) mqDarkMode.addListener(refreshColors);
 
+/* -------- Física -------- */
 const MARGIN = 20;
 const ABDUCT_RATIO = 0.35;
 const ABDUCT_RADIUS = 300;
@@ -4550,44 +4290,107 @@ const BASE_SPEED = 0.6;
 const BORDER_BOUNCE = 0.95;
 const EXPLOSION_FORCE = 26;
 const EXPLOSION_RADIUS = CFG.explosions ? (CURRENT_TIER === "mobile" ? 160 : 280) : 0;
-const MAX_CONNECTIONS_PER_PARTICLE = CURRENT_TIER === "mobile" ? 6 : 12;
 
+/* -------- Spatial Hashing — Grid -------- */
+/* Divide la pantalla en celdas del tamaño de CONNECT_DIST.
+   Cada partícula se asigna a una celda.
+   Al buscar vecinos, solo miramos celdas adyacentes (3×3 = 9 celdas).
+   Complejidad pasa de O(n²) a O(n·k) donde k ≈ vecinos promedio. */
+let gridCols = 0;
+let gridRows = 0;
+let cellSize = 0;
+let grid = [];       // Array de arrays de índices
+let gridFlat = [];   // Bucket pooling
+
+function initGrid() {
+  cellSize = CFG.connect || 100;
+  gridCols = Math.max(1, Math.ceil(width / cellSize));
+  gridRows = Math.max(1, Math.ceil(height / cellSize));
+  const total = gridCols * gridRows;
+  grid = new Array(total);
+  for (let i = 0; i < total; i++) grid[i] = [];
+  gridFlat = new Array(total);
+  for (let i = 0; i < total; i++) gridFlat[i] = [];
+}
+
+function rebuildGrid() {
+  const total = gridCols * gridRows;
+  for (let i = 0; i < total; i++) {
+    if (grid[i].length) grid[i].length = 0;
+  }
+  for (let i = 0; i < particles.length; i++) {
+    const p = particles[i];
+    const cx = Math.min(gridCols - 1, Math.max(0, (p.x / cellSize) | 0));
+    const cy = Math.min(gridRows - 1, Math.max(0, (p.y / cellSize) | 0));
+    const idx = cy * gridCols + cx;
+    grid[idx].push(i);
+  }
+}
+
+/* -------- Canvas resize -------- */
 function resizeCanvas() {
   width = window.innerWidth;
   height = window.innerHeight;
+
   canvas.width = Math.floor(width * dpr);
   canvas.height = Math.floor(height * dpr);
   canvas.style.width = width + "px";
   canvas.style.height = height + "px";
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  connectionCanvas.width = canvas.width;
+  connectionCanvas.height = canvas.height;
+  connectionCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+  initGrid();
 }
 
+/* -------- Creación de partículas -------- */
 function createParticles() {
   particles = [];
-  if (CFG.count === 0) return;
+  if (CFG.baseCount === 0) return;
 
-  for (let i = 0; i < CFG.count; i++) {
-    const isAbducible = Math.random() < ABDUCT_RATIO;
-    const angle = Math.random() * Math.PI * 2;
-    const speed = BASE_SPEED * (0.6 + Math.random() * 0.8);
-    particles.push({
-      x: MARGIN + Math.random() * (width - MARGIN * 2),
-      y: MARGIN + Math.random() * (height - MARGIN * 2),
-      vx: Math.cos(angle) * speed,
-      vy: Math.sin(angle) * speed,
-      r: Math.random() * 2 + 1,
-      baseR: Math.random() * 2 + 1,
-      phase: Math.random() * Math.PI * 2,
-      phaseSpeed: 0.02 + Math.random() * 0.03,
-      driftAngle: Math.random() * Math.PI * 2,
-      driftSpeed: 0.008 + Math.random() * 0.015,
-      driftAmount: 0.02 + Math.random() * 0.04,
-      cooldown: 0,
-      abducible: isAbducible
-    });
+  for (let i = 0; i < CFG.baseCount; i++) {
+    particles.push(makeParticle());
   }
+  currentCount = particles.length;
 }
 
+function makeParticle() {
+  const isAbducible = Math.random() < ABDUCT_RATIO;
+  const angle = Math.random() * Math.PI * 2;
+  const speed = BASE_SPEED * (0.6 + Math.random() * 0.8);
+  return {
+    x: MARGIN + Math.random() * (width - MARGIN * 2),
+    y: MARGIN + Math.random() * (height - MARGIN * 2),
+    vx: Math.cos(angle) * speed,
+    vy: Math.sin(angle) * speed,
+    r: Math.random() * 2 + 1,
+    baseR: Math.random() * 2 + 1,
+    phase: Math.random() * Math.PI * 2,
+    phaseSpeed: 0.02 + Math.random() * 0.03,
+    driftAngle: Math.random() * Math.PI * 2,
+    driftSpeed: 0.008 + Math.random() * 0.015,
+    driftAmount: 0.02 + Math.random() * 0.04,
+    cooldown: 0,
+    abducible: isAbducible
+  };
+}
+
+/* Añade o quita partículas dinámicamente sin recrear todas */
+function adaptParticleCount(target) {
+  target = Math.max(0, Math.min(CFG.maxCount, target));
+
+  if (target > particles.length) {
+    const diff = target - particles.length;
+    for (let i = 0; i < diff; i++) particles.push(makeParticle());
+  } else if (target < particles.length) {
+    particles.length = target;
+  }
+  currentCount = particles.length;
+}
+
+/* -------- Explosiones -------- */
 function triggerExplosion(x, y) {
   if (!CFG.explosions) return;
   explosions.push({ x, y, r: 10, maxR: EXPLOSION_RADIUS, alpha: 1 });
@@ -4607,33 +4410,82 @@ function triggerExplosion(x, y) {
   cursorPulse = 1;
 }
 
+/* -------- Loop principal con auto-adaptación FPS -------- */
 let lastFrameTime = 0;
-let rafId = null;
 let isPaused = false;
+
+/* Métricas FPS */
+let frameCount = 0;
+let fpsTimer = 0;
+let currentFps = 60;
+let lastAdaptTime = 0;
+const ADAPT_INTERVAL = 1500;         // ms entre adaptaciones
+const TARGET_FPS = 60;
+const LOW_FPS_THRESHOLD = 45;        // por debajo → reducir
+const HIGH_FPS_THRESHOLD = 57;       // por encima sostenido → subir
+let consecutiveHighFps = 0;
+let consecutiveLowFps = 0;
 
 document.addEventListener("visibilitychange", () => {
   isPaused = document.hidden;
 });
 
 function drawParticles(now) {
-  rafId = requestAnimationFrame(drawParticles);
+  requestAnimationFrame(drawParticles);
 
   if (isPaused) return;
-  if (CFG.count === 0) {
+  if (CFG.baseCount === 0) {
     ctx.clearRect(0, 0, width, height);
     return;
   }
 
+  /* Cap de FPS */
   if (CFG.fps > 0) {
     const interval = 1000 / CFG.fps;
     if (now - lastFrameTime < interval) return;
     lastFrameTime = now;
   }
 
+  /* --- Medición FPS + auto-adaptación --- */
+  frameCount++;
+  if (!fpsTimer) fpsTimer = now;
+  const elapsed = now - fpsTimer;
+  if (elapsed >= 1000) {
+    currentFps = (frameCount * 1000) / elapsed;
+    frameCount = 0;
+    fpsTimer = now;
+
+    /* Auto-adaptación cada ADAPT_INTERVAL */
+    if (now - lastAdaptTime > ADAPT_INTERVAL) {
+      lastAdaptTime = now;
+
+      if (currentFps < LOW_FPS_THRESHOLD) {
+        consecutiveLowFps++;
+        consecutiveHighFps = 0;
+        if (consecutiveLowFps >= 2 && currentCount > 60) {
+          /* Bajar 15% */
+          adaptParticleCount(Math.floor(currentCount * 0.85));
+          consecutiveLowFps = 0;
+        }
+      } else if (currentFps > HIGH_FPS_THRESHOLD) {
+        consecutiveHighFps++;
+        consecutiveLowFps = 0;
+        if (consecutiveHighFps >= 3 && currentCount < CFG.maxCount) {
+          /* Subir 12% */
+          adaptParticleCount(Math.floor(currentCount * 1.12));
+          consecutiveHighFps = 0;
+        }
+      } else {
+        consecutiveLowFps = 0;
+        consecutiveHighFps = 0;
+      }
+    }
+  }
+
   const colors = cachedColors;
   ctx.clearRect(0, 0, width, height);
 
-  /* Update */
+  /* --- Update partículas --- */
   for (let i = 0; i < particles.length; i++) {
     const p = particles[i];
 
@@ -4689,32 +4541,80 @@ function drawParticles(now) {
     p.r = p.baseR + Math.sin(p.phase) * 0.6;
   }
 
-  /* Conexiones limitadas */
+  /* --- Conexiones con Spatial Hashing ---
+     Solo comparamos con partículas de celdas adyacentes (9 celdas).
+     Esto reduce el costo de O(n²) a O(n·k). */
+  rebuildGrid();
+
   const connectDistSq = CFG.connect * CFG.connect;
-  for (let i = 0; i < particles.length; i++) {
-    const pi = particles[i];
-    let connections = 0;
-    for (let j = i + 1; j < particles.length; j++) {
-      if (connections >= MAX_CONNECTIONS_PER_PARTICLE) break;
-      const pj = particles[j];
-      const dx = pi.x - pj.x;
-      const dy = pi.y - pj.y;
-      const distSq = dx * dx + dy * dy;
-      if (distSq < connectDistSq) {
-        const dist = Math.sqrt(distSq);
-        const alpha = (1 - dist / CFG.connect) * 0.25;
-        ctx.beginPath();
-        ctx.moveTo(pi.x, pi.y);
-        ctx.lineTo(pj.x, pj.y);
-        ctx.strokeStyle = `rgba(255, 45, 85, ${alpha})`;
-        ctx.lineWidth = 0.5;
-        ctx.stroke();
-        connections++;
+  const halfCell = cellSize * 0.5;
+
+  for (let cy = 0; cy < gridRows; cy++) {
+    for (let cx = 0; cx < gridCols; cx++) {
+      const cellIdx = cy * gridCols + cx;
+      const cell = grid[cellIdx];
+      if (!cell.length) continue;
+
+      /* Revisar las 9 celdas vecinas (incluida la propia) */
+      for (let ny = -1; ny <= 1; ny++) {
+        const nyAbs = cy + ny;
+        if (nyAbs < 0 || nyAbs >= gridRows) continue;
+        for (let nx = -1; nx <= 1; nx++) {
+          const nxAbs = cx + nx;
+          if (nxAbs < 0 || nxAbs >= gridCols) continue;
+          /* Solo comprobar par de celdas una vez: si es la misma celda, solo i<j;
+             si es celda vecina, siempre comparar todas */
+          if (ny === 0 && nx === 0) {
+            for (let a = 0; a < cell.length; a++) {
+              const pi = particles[cell[a]];
+              for (let b = a + 1; b < cell.length; b++) {
+                const pj = particles[cell[b]];
+                const dx = pi.x - pj.x;
+                const dy = pi.y - pj.y;
+                const distSq = dx * dx + dy * dy;
+                if (distSq < connectDistSq) {
+                  const dist = Math.sqrt(distSq);
+                  const alpha = (1 - dist / CFG.connect) * 0.22;
+                  ctx.beginPath();
+                  ctx.moveTo(pi.x, pi.y);
+                  ctx.lineTo(pj.x, pj.y);
+                  ctx.strokeStyle = `rgba(255, 45, 85, ${alpha})`;
+                  ctx.lineWidth = 0.5;
+                  ctx.stroke();
+                }
+              }
+            }
+          } else {
+            const neighborIdx = nyAbs * gridCols + nxAbs;
+            /* Solo procesar vecino "mayor" para no duplicar (nx,ny) y (-nx,-ny) */
+            if (ny < 0 || (ny === 0 && nx < 0)) continue;
+            const neighbor = grid[neighborIdx];
+            for (let a = 0; a < cell.length; a++) {
+              const pi = particles[cell[a]];
+              for (let b = 0; b < neighbor.length; b++) {
+                const pj = particles[neighbor[b]];
+                const dx = pi.x - pj.x;
+                const dy = pi.y - pj.y;
+                const distSq = dx * dx + dy * dy;
+                if (distSq < connectDistSq) {
+                  const dist = Math.sqrt(distSq);
+                  const alpha = (1 - dist / CFG.connect) * 0.22;
+                  ctx.beginPath();
+                  ctx.moveTo(pi.x, pi.y);
+                  ctx.lineTo(pj.x, pj.y);
+                  ctx.strokeStyle = `rgba(255, 45, 85, ${alpha})`;
+                  ctx.lineWidth = 0.5;
+                  ctx.stroke();
+                }
+              }
+            }
+          }
+        }
       }
     }
   }
 
-  /* Líneas hacia el mouse */
+  /* --- Líneas hacia el mouse --- */
   if (CFG.mouse && mouseX > 0 && mouseY > 0) {
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
@@ -4733,7 +4633,7 @@ function drawParticles(now) {
     }
   }
 
-  /* Dibujar partículas */
+  /* --- Dibujar partículas --- */
   for (let i = 0; i < particles.length; i++) {
     const p = particles[i];
     const dx = p.x - mouseX, dy = p.y - mouseY;
@@ -4760,7 +4660,7 @@ function drawParticles(now) {
     }
   }
 
-  /* Cursor glow */
+  /* --- Cursor glow --- */
   if (CFG.mouse && mouseX > 0 && mouseY > 0) {
     cursorPulse *= 0.9;
     const glowRadius = 110 + cursorPulse * 140;
@@ -4779,7 +4679,7 @@ function drawParticles(now) {
     ctx.fill();
   }
 
-  /* Explosiones */
+  /* --- Explosiones --- */
   if (CFG.explosions) {
     explosions = explosions.filter(ex => ex.alpha > 0.02);
     for (let i = 0; i < explosions.length; i++) {
@@ -4859,24 +4759,27 @@ window.addEventListener("resize", () => {
     const newTier = detectTier();
     if (newTier !== CURRENT_TIER) {
       CURRENT_TIER = newTier;
-      CFG = TIER_CONFIG[newTier];
+      CFG = Object.assign({}, TIER_CONFIG[newTier]);
       dpr = Math.min(window.devicePixelRatio || 1, CFG.dprMax);
       refreshColors();
+      resizeCanvas();
+      createParticles();
+    } else {
+      resizeCanvas();
+      initGrid();
     }
-    resizeCanvas();
-    createParticles();
   }, 200);
 });
 
 function initCanvas() {
   resizeCanvas();
   createParticles();
-  if (CFG.count === 0) return;
-  rafId = requestAnimationFrame(drawParticles);
+  if (CFG.baseCount === 0) return;
+  requestAnimationFrame(drawParticles);
 }
 
 /* =========================================================
-   LIQUID BLOB — optimizado con cap de FPS y pausa
+   LIQUID BLOB
    ========================================================= */
 (function initLiquidPhoto() {
   const blob = document.getElementById("aboutBlob");
