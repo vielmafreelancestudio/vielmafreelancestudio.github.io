@@ -12,6 +12,7 @@
 <meta property="og:type" content="website">
 <title>Vielma. Freelance Studio</title>
 
+<!-- ✅ FAVICON "V." -->
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <link rel="shortcut icon" href="assets/favicon.png">
@@ -107,10 +108,7 @@ img { max-width: 100%; display: block; }
   z-index: 0;
   pointer-events: none;
   opacity: 0.95;
-  transition: opacity 0.45s ease, filter 0.45s ease;
-  will-change: opacity;
-  contain: strict;
-  transform: translateZ(0);
+  transition: filter 0.45s ease;
 }
 
 .content-wrapper {
@@ -121,6 +119,9 @@ img { max-width: 100%; display: block; }
   padding: 0 20px;
 }
 
+/* =========================================================
+   ICON SVG
+   ========================================================= */
 .icon-svg {
   display: inline-block;
   flex-shrink: 0;
@@ -145,7 +146,6 @@ img { max-width: 100%; display: block; }
   mask-size: contain;
 
   transition: filter 0.25s ease, transform 0.25s ease;
-  transform: translateZ(0);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -163,18 +163,20 @@ img { max-width: 100%; display: block; }
 .icon-svg--md { width: 24px; height: 24px; }
 .icon-svg--lg { width: 26px; height: 26px; }
 
+/* =========================================================
+   LANGUAGE BLUR
+   ========================================================= */
 body.lang-blur .content-wrapper,
 body.lang-blur .header,
 body.lang-blur .fab-container,
 body.lang-blur .global-scroll-hint,
 body.lang-blur #bg-canvas {
-  filter: blur(10px);
-  opacity: 0.5;
-  transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: blur(14px);
+  opacity: 0.65;
+  transition: filter 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
   user-select: none;
-  will-change: filter, opacity;
 }
 
 .content-wrapper,
@@ -185,27 +187,26 @@ body.lang-blur #bg-canvas {
               opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-body:not(.lang-blur) .content-wrapper,
-body:not(.lang-blur) .header,
-body:not(.lang-blur) .fab-container,
-body:not(.lang-blur) .global-scroll-hint,
-body:not(.lang-blur) #bg-canvas {
-  will-change: auto;
-}
-
 .lang-shade {
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
   background: rgba(255, 255, 255, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
 }
 
-body.lang-blur .lang-shade { opacity: 1; }
+body.lang-blur .lang-shade {
+  opacity: 1;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
 
 @media (prefers-color-scheme: dark) {
+  .lang-shade { background: rgba(0, 0, 0, 0); }
   body.lang-blur .lang-shade { background: rgba(0, 0, 0, 0.15); }
 }
 
@@ -213,6 +214,9 @@ body.lang-blur .lang-shade { opacity: 1; }
   body.lang-blur .lang-shade { background: rgba(255, 255, 255, 0.15); }
 }
 
+/* =========================================================
+   HEADER
+   ========================================================= */
 .header {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -292,7 +296,13 @@ body.lang-blur .lang-shade { opacity: 1; }
   direction: ltr;
 }
 
-.lang-selector { position: relative; direction: ltr; }
+/* =========================================================
+   LANGUAGE SELECTOR — DESPLEGABLE
+   ========================================================= */
+.lang-selector {
+  position: relative;
+  direction: ltr;
+}
 
 .lang-trigger {
   display: inline-flex;
@@ -333,6 +343,7 @@ body.lang-blur .lang-shade { opacity: 1; }
   font-size: 0.64rem;
   font-weight: 800;
   letter-spacing: 0.04em;
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
 .lang-trigger__label {
@@ -342,7 +353,9 @@ body.lang-blur .lang-shade { opacity: 1; }
   transition: color 0.25s ease;
 }
 
-.lang-trigger:hover .lang-trigger__label { color: var(--text); }
+.lang-trigger:hover .lang-trigger__label {
+  color: var(--text);
+}
 
 .lang-trigger__chevron {
   display: inline-block;
@@ -351,7 +364,6 @@ body.lang-blur .lang-shade { opacity: 1; }
   margin-left: 2px;
   transition: transform 0.3s var(--ease);
   color: var(--text-dim);
-  transform: translateZ(0);
 }
 
 .lang-trigger__chevron svg {
@@ -361,8 +373,13 @@ body.lang-blur .lang-shade { opacity: 1; }
   fill: currentColor;
 }
 
-.lang-selector.open .lang-trigger__chevron { transform: rotate(180deg); }
-.lang-selector.open .lang-trigger { border-color: var(--accent); }
+.lang-selector.open .lang-trigger__chevron {
+  transform: rotate(180deg);
+}
+
+.lang-selector.open .lang-trigger {
+  border-color: var(--accent);
+}
 
 .lang-menu {
   position: absolute;
@@ -383,10 +400,8 @@ body.lang-blur .lang-shade { opacity: 1; }
   transform: translateY(-8px) scale(0.96);
   transform-origin: top right;
   pointer-events: none;
-  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 150;
-  will-change: opacity, transform;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -450,7 +465,9 @@ body.lang-blur .lang-shade { opacity: 1; }
 }
 
 .lang-option.active .lang-option__code,
-.lang-option:hover .lang-option__code { color: var(--accent); }
+.lang-option:hover .lang-option__code {
+  color: var(--accent);
+}
 
 .lang-option__name {
   flex: 1;
@@ -469,12 +486,21 @@ body.lang-blur .lang-shade { opacity: 1; }
   transition: opacity 0.18s ease;
 }
 
-.lang-option.active .lang-option__check { opacity: 1; }
+.lang-option.active .lang-option__check {
+  opacity: 1;
+}
 
 @media (max-width: 480px) {
-  .lang-trigger { padding: 0 8px 0 10px; gap: 6px; }
-  .lang-trigger__label { display: none; }
-  .lang-menu { min-width: 190px; }
+  .lang-trigger {
+    padding: 0 8px 0 10px;
+    gap: 6px;
+  }
+  .lang-trigger__label {
+    display: none;
+  }
+  .lang-menu {
+    min-width: 190px;
+  }
 }
 
 .btn {
@@ -482,23 +508,22 @@ body.lang-blur .lang-shade { opacity: 1; }
   gap: 8px; padding: 14px 28px; border-radius: 100px;
   background: var(--text); color: var(--bg);
   font-size: 0.9rem; font-weight: 700;
-  cursor: pointer;
-  transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+  cursor: pointer; transition: all var(--transition);
   font-family: inherit; white-space: nowrap;
-  transform: translateZ(0);
 }
 
-.btn:hover { transform: translate3d(0, -2px, 0); box-shadow: 0 12px 28px rgba(0,0,0,0.18); }
+.btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(0,0,0,0.18); }
 
 section {
   padding: 100px 0;
-  opacity: 0;
-  transform: translate3d(0, 30px, 0);
+  opacity: 0; transform: translateY(30px);
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-  will-change: opacity, transform;
 }
-section.visible { opacity: 1; transform: translate3d(0, 0, 0); }
+section.visible { opacity: 1; transform: translateY(0); }
 
+/* =========================================================
+   HERO
+   ========================================================= */
 #hero {
   min-height: 100vh;
   display: flex; flex-direction: column;
@@ -515,7 +540,6 @@ section.visible { opacity: 1; transform: translate3d(0, 0, 0); }
   border-radius: 100px; font-size: 0.78rem; font-weight: 700;
   margin-bottom: 1.75rem; letter-spacing: 0.02em;
   animation: fadeUp 0.8s var(--ease) both;
-  will-change: opacity, transform;
 }
 
 .hero-title {
@@ -528,7 +552,6 @@ section.visible { opacity: 1; transform: translate3d(0, 0, 0); }
   letter-spacing: -0.045em;
   line-height: 1.02;
   text-rendering: geometricPrecision;
-  will-change: opacity, transform;
 }
 
 .hero-title__dot {
@@ -538,7 +561,12 @@ section.visible { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 .hero-title__brand {
-  background: linear-gradient(115deg, var(--accent) 0%, var(--accent-2) 45%, var(--accent) 100%);
+  background: linear-gradient(
+    115deg,
+    var(--accent) 0%,
+    var(--accent-2) 45%,
+    var(--accent) 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -547,7 +575,9 @@ section.visible { opacity: 1; transform: translate3d(0, 0, 0); }
   filter: drop-shadow(0 2px 24px rgba(255, 45, 85, 0.25));
 }
 
-html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
+html[lang="ar"] .hero-title__brand {
+  unicode-bidi: isolate;
+}
 
 @media (max-width: 480px) {
   .hero-title {
@@ -562,7 +592,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   color: var(--text-dim); max-width: 640px;
   margin-bottom: 1.5rem; font-weight: 400;
   animation: fadeUp 1s var(--ease) 0.2s both;
-  will-change: opacity, transform;
 }
 
 .hero-tag {
@@ -570,17 +599,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   margin-bottom: 2.5rem; display: flex;
   align-items: center; gap: 8px;
   animation: fadeUp 1s var(--ease) 0.25s both;
-  will-change: opacity, transform;
 }
 
 .hero-tag::before {
   content: ''; display: inline-block;
   width: 6px; height: 6px; background: var(--accent);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
+  border-radius: 50%; animation: pulse 2s infinite;
   flex-shrink: 0;
-  transform: translateZ(0);
-  will-change: transform, opacity;
 }
 
 @keyframes pulse {
@@ -588,17 +613,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   50% { opacity: 0.5; transform: scale(1.3); }
 }
 
-#hero .btn {
-  animation: fadeUp 1.1s var(--ease) 0.3s both;
-  will-change: opacity, transform;
-}
+#hero .btn { animation: fadeUp 1.1s var(--ease) 0.3s both; }
 
 .hero-stats {
   display: flex; gap: 48px; margin-top: 80px;
   padding-top: 40px; border-top: 1px solid var(--border-soft);
   width: 100%; max-width: 640px; flex-wrap: wrap;
   animation: fadeUp 1.2s var(--ease) 0.4s both;
-  will-change: opacity, transform;
 }
 
 .stat { text-align: left; }
@@ -618,10 +639,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translate3d(0, 24px, 0); }
-  to { opacity: 1; transform: translate3d(0, 0, 0); }
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* =========================================================
+   ABOUT
+   ========================================================= */
 .about-grid {
   display: grid; grid-template-columns: 1fr;
   gap: 40px; align-items: center;
@@ -636,7 +660,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   aspect-ratio: 1; cursor: default;
   filter: drop-shadow(0 20px 40px rgba(255, 45, 85, 0.25));
   margin: 0 auto;
-  transform: translateZ(0);
 }
 
 .about-blob__svg { width: 100%; height: 100%; overflow: visible; display: block; }
@@ -644,7 +667,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 .about-blob__img {
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   transform-origin: center;
-  will-change: transform;
 }
 
 .about-blob:hover .about-blob__img { transform: scale(1.04); }
@@ -673,15 +695,14 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border: 1px solid var(--glass-border);
   padding: 8px 16px; border-radius: 100px;
   font-size: 0.78rem; font-weight: 600; color: var(--text);
-  transition: transform var(--transition), border-color var(--transition), color var(--transition);
-  transform: translateZ(0);
+  transition: all var(--transition);
 }
 
-.diff-tag:hover {
-  border-color: var(--accent); color: var(--accent);
-  transform: translate3d(0, -2px, 0);
-}
+.diff-tag:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
+/* =========================================================
+   SECTION LABELS
+   ========================================================= */
 .section-label {
   display: inline-block;
   font-size: 0.9rem;
@@ -697,6 +718,9 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .section-label { font-size: 0.8rem; letter-spacing: 0.14em; }
 }
 
+/* =========================================================
+   ABOUT H2
+   ========================================================= */
 #about h2.about-title {
   font-size: clamp(2rem, 6.2vw, 3.4rem);
   line-height: 1.05;
@@ -743,6 +767,9 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   }
 }
 
+/* =========================================================
+   SERVICES
+   ========================================================= */
 .services-grid {
   display: grid; grid-template-columns: 1fr; gap: 20px;
 }
@@ -763,9 +790,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   position: relative;
   overflow: visible;
   isolation: isolate;
-  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
-  transform: translateZ(0);
-  will-change: transform;
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
 }
 
 .service-card::after {
@@ -775,7 +800,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.4s var(--ease);
+  transition: opacity 0.35s var(--ease);
   box-shadow: 0 0 0 1px var(--accent) inset,
               0 0 50px -10px var(--accent),
               0 0 80px -30px var(--accent-2);
@@ -785,7 +810,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 .service-card:hover::after { opacity: 0.85; }
 
 .service-card:hover {
-  transform: translate3d(0, -6px, 0);
+  transform: translateY(-6px);
   border-color: var(--accent);
   box-shadow: var(--shadow-lg),
               0 24px 60px -24px var(--accent),
@@ -800,8 +825,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-radius: 16px; display: grid; place-items: center;
-  transition: transform 0.35s var(--ease);
-  transform: translateZ(0);
+  transition: transform 0.3s var(--ease);
 }
 
 .service-card:hover .service-icon { transform: scale(1.08) rotate(-4deg); }
@@ -830,15 +854,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   color: #fff; font-size: 0.82rem; font-weight: 700;
   border: none; cursor: pointer; font-family: inherit;
-  white-space: nowrap;
-  transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+  white-space: nowrap; transition: all var(--transition);
   box-shadow: 0 6px 18px rgba(255, 45, 85, 0.35);
   flex-shrink: 0;
-  transform: translateZ(0);
 }
 
 .btn-plans:hover {
-  transform: translate3d(0, -2px, 0);
+  transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(255, 45, 85, 0.5);
   filter: brightness(1.05);
 }
@@ -852,6 +874,9 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .service-card__actions .buy-menu { width: 100%; }
 }
 
+/* =========================================================
+   BUY MENU
+   ========================================================= */
 .buy-menu { position: relative; width: 100%; margin-top: auto; }
 
 .buy-trigger {
@@ -864,18 +889,15 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border: 1px solid var(--glass-border);
   position: relative; z-index: 2; border-radius: 100px;
   font-weight: 700; display: inline-flex; align-items: center;
-  gap: 6px;
-  transition: transform var(--transition), background var(--transition),
-              border-color var(--transition), color var(--transition), box-shadow var(--transition);
+  gap: 6px; transition: all var(--transition);
   font-family: inherit; cursor: pointer;
-  transform: translateZ(0);
 }
 
 .buy-trigger:hover {
   background: var(--accent);
   border-color: var(--accent);
   color: #fff;
-  transform: translate3d(0, -2px, 0);
+  transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(255, 45, 85, 0.3);
 }
 
@@ -895,13 +917,10 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border: 1px solid var(--glass-border); border-radius: 14px;
   padding: 6px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
   display: flex; flex-direction: column; gap: 2px;
-  opacity: 0;
-  transform: translate3d(0, 8px, 0) scale(0.96);
+  opacity: 0; transform: translateY(8px) scale(0.96);
   pointer-events: none;
-  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 10;
-  will-change: opacity, transform;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -909,8 +928,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 }
 
 .buy-menu.open .buy-options {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1; transform: translateY(0) scale(1);
   pointer-events: all;
 }
 
@@ -920,9 +938,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   background: transparent; color: var(--text);
   font-size: 0.82rem; font-weight: 600; text-align: left;
   cursor: pointer; font-family: inherit;
-  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
-  border: none; width: 100%;
-  transform: translateZ(0);
+  transition: all 0.15s ease; border: none; width: 100%;
 }
 
 .buy-option .icon-svg { width: 20px; height: 20px; }
@@ -936,6 +952,9 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .buy-option:hover { background: rgba(255, 45, 85, 0.15); }
 }
 
+/* =========================================================
+   PORTFOLIO
+   ========================================================= */
 .portfolio-grid {
   display: grid; grid-template-columns: 1fr; gap: 20px;
 }
@@ -949,17 +968,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius); overflow: hidden;
-  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
-  box-shadow: var(--shadow);
+  transition: all 0.3s var(--ease); box-shadow: var(--shadow);
   display: flex; flex-direction: column;
   cursor: pointer; position: relative;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 .portfolio-card:hover {
-  transform: translate3d(0, -6px, 0);
-  border-color: var(--accent);
+  transform: translateY(-6px); border-color: var(--accent);
   box-shadow: var(--shadow-lg);
 }
 
@@ -971,10 +986,8 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 
 .portfolio-card__media img {
   width: 100%; height: 100%; object-fit: cover;
-  transition: transform 0.6s var(--ease);
-  display: block;
+  transition: transform 0.6s var(--ease); display: block;
   position: absolute; inset: 0;
-  will-change: transform;
 }
 
 .portfolio-card__emoji {
@@ -1014,9 +1027,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 .portfolio-card__live::before {
   content: ''; width: 6px; height: 6px;
   background: #fff; border-radius: 50%;
-  animation: livePulse 2s ease-in-out infinite;
-  transform: translateZ(0);
-  will-change: transform, opacity;
+  animation: livePulse 2s infinite;
 }
 
 @keyframes livePulse {
@@ -1053,15 +1064,12 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border: 1px solid var(--glass-border);
   font-size: 0.8rem; font-weight: 700;
   cursor: pointer; font-family: inherit;
-  transition: transform var(--transition), background var(--transition),
-              border-color var(--transition), color var(--transition);
-  transform: translateZ(0);
+  transition: all var(--transition);
 }
 
 .portfolio-card__btn:hover {
   background: var(--accent); border-color: var(--accent);
-  color: #fff;
-  transform: translate3d(0, -2px, 0);
+  color: #fff; transform: translateY(-2px);
 }
 
 .portfolio-card__btn span { transition: transform 0.3s var(--ease); display: inline-block; }
@@ -1076,16 +1084,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border); color: var(--text);
   font-size: 0.95rem; font-weight: 700;
-  transition: transform var(--transition), background var(--transition),
-              border-color var(--transition), color var(--transition), box-shadow var(--transition);
+  transition: all var(--transition);
   flex-shrink: 0; text-decoration: none;
-  transform: translateZ(0);
 }
 
 .portfolio-card__link:hover {
   background: var(--accent); border-color: var(--accent);
-  color: #fff;
-  transform: translate3d(0, -2px, 0) rotate(-8deg);
+  color: #fff; transform: translateY(-2px) rotate(-8deg);
   box-shadow: 0 8px 20px rgba(255, 45, 85, 0.35);
 }
 
@@ -1094,11 +1099,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   color: var(--text-dim); font-style: italic; text-align: center;
 }
 
+/* =========================================================
+   MODAL
+   ========================================================= */
 .case-modal {
   position: fixed; inset: 0; z-index: 300;
   display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  opacity: 0; pointer-events: none;
+  padding: 20px; opacity: 0; pointer-events: none;
   transition: opacity 0.3s var(--ease);
 }
 
@@ -1121,17 +1128,20 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
-  transform: translate3d(0, 20px, 0) scale(0.97);
+  transform: translateY(20px) scale(0.97);
   transition: transform 0.4s var(--ease);
   z-index: 1;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  will-change: transform;
 }
 
-.case-modal__panel::-webkit-scrollbar { display: none; width: 0; height: 0; }
+.case-modal__panel::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
 
-.case-modal.open .case-modal__panel { transform: translate3d(0, 0, 0) scale(1); }
+.case-modal.open .case-modal__panel { transform: translateY(0) scale(1); }
 
 .case-modal__close {
   position: absolute; top: 14px; right: 14px;
@@ -1140,10 +1150,8 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   font-size: 1.5rem; line-height: 1; border: none;
   cursor: pointer; z-index: 3; display: flex;
   align-items: center; justify-content: center;
-  transition: transform var(--transition), background var(--transition);
-  font-family: inherit;
+  transition: all var(--transition); font-family: inherit;
   backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
-  transform: translateZ(0);
 }
 
 .case-modal__close:hover { background: var(--accent); transform: rotate(90deg); }
@@ -1206,6 +1214,9 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   font-size: 0.85rem; font-weight: 600; color: var(--text);
 }
 
+/* =========================================================
+   SCROLL HINT — genérico (modal + global)
+   ========================================================= */
 .scroll-hint {
   display: flex;
   flex-direction: column;
@@ -1236,13 +1247,11 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   color: var(--accent);
   animation: scrollBounce 1.6s ease-in-out infinite;
   display: block;
-  transform: translateZ(0);
-  will-change: transform, opacity;
 }
 
 @keyframes scrollBounce {
-  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.85; }
-  50% { transform: translate3d(0, 5px, 0); opacity: 1; }
+  0%, 100% { transform: translateY(0); opacity: 0.85; }
+  50% { transform: translateY(5px); opacity: 1; }
 }
 
 .case-modal__scroll-hint {
@@ -1273,9 +1282,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border-color: var(--accent);
 }
 
-.global-scroll-hint:hover .scroll-hint__arrow { color: #fff; }
+.global-scroll-hint:hover .scroll-hint__arrow {
+  color: #fff;
+}
 
-.global-scroll-hint--bottom { bottom: 24px; }
+.global-scroll-hint--bottom {
+  bottom: 24px;
+}
 
 .global-scroll-hint--bottom.hidden {
   opacity: 0;
@@ -1283,7 +1296,9 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   pointer-events: none;
 }
 
-.global-scroll-hint--top { top: calc(var(--header-h) + 14px); }
+.global-scroll-hint--top {
+  top: calc(var(--header-h) + 14px);
+}
 
 .global-scroll-hint--top.hidden {
   opacity: 0;
@@ -1296,18 +1311,26 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 }
 
 @keyframes scrollBounceUp {
-  0%, 100% { transform: translate3d(0, 0, 0); opacity: 0.85; }
-  50% { transform: translate3d(0, -5px, 0); opacity: 1; }
+  0%, 100% { transform: translateY(0); opacity: 0.85; }
+  50% { transform: translateY(-5px); opacity: 1; }
 }
 
 @media (max-width: 480px) {
-  .scroll-hint { font-size: 0.6rem; padding: 6px 12px; }
+  .scroll-hint {
+    font-size: 0.6rem;
+    padding: 6px 12px;
+  }
   .scroll-hint__arrow { font-size: 0.9rem; }
+
   .case-modal__scroll-hint { bottom: 12px; }
+
   .global-scroll-hint--bottom { bottom: 18px; }
   .global-scroll-hint--top { top: calc(var(--header-h) + 10px); }
 }
 
+/* =========================================================
+   CASE MODAL ACTIONS
+   ========================================================= */
 .case-modal__actions {
   display: flex;
   gap: 10px;
@@ -1324,17 +1347,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   color: var(--text);
   border: 1px solid var(--glass-border);
   font-size: 0.88rem; font-weight: 700;
-  text-decoration: none;
-  transition: transform var(--transition), background var(--transition),
-              border-color var(--transition), color var(--transition);
+  text-decoration: none; transition: all var(--transition);
   font-family: inherit; cursor: pointer;
-  transform: translateZ(0);
 }
 
 .case-modal__btn:hover {
   background: var(--accent); border-color: var(--accent);
-  color: #fff;
-  transform: translate3d(0, -2px, 0);
+  color: #fff; transform: translateY(-2px);
 }
 
 .case-modal__btn--primary {
@@ -1378,12 +1397,10 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   flex-direction: column;
   gap: 2px;
   opacity: 0;
-  transform: translate3d(0, 8px, 0) scale(0.96);
+  transform: translateY(8px) scale(0.96);
   pointer-events: none;
-  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 10;
-  will-change: opacity, transform;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1392,7 +1409,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 
 .case-modal__contact-menu.open .case-modal__contact-options {
   opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
+  transform: translateY(0) scale(1);
   pointer-events: all;
 }
 
@@ -1409,12 +1426,15 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   text-align: left;
   cursor: pointer;
   font-family: inherit;
-  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  transition: all 0.15s ease;
   border: none;
   width: 100%;
 }
 
-.case-modal__contact-option .icon-svg { width: 20px; height: 20px; }
+.case-modal__contact-option .icon-svg {
+  width: 20px;
+  height: 20px;
+}
 
 .case-modal__contact-option:hover {
   background: var(--accent-soft);
@@ -1426,11 +1446,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .case-modal__contact-option:hover { background: rgba(255, 45, 85, 0.15); }
 }
 
+/* =========================================================
+   WECHAT QR MODAL
+   ========================================================= */
 .wechat-modal {
   position: fixed; inset: 0; z-index: 350;
   display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  opacity: 0; pointer-events: none;
+  padding: 20px; opacity: 0; pointer-events: none;
   transition: opacity 0.3s var(--ease);
 }
 .wechat-modal.open { opacity: 1; pointer-events: all; }
@@ -1451,12 +1473,11 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   padding: 28px;
   display: flex; flex-direction: column; align-items: center;
   box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
-  transform: translate3d(0, 20px, 0) scale(0.97);
+  transform: translateY(20px) scale(0.97);
   transition: transform 0.4s var(--ease);
   z-index: 1;
-  will-change: transform;
 }
-.wechat-modal.open .wechat-modal__panel { transform: translate3d(0, 0, 0) scale(1); }
+.wechat-modal.open .wechat-modal__panel { transform: translateY(0) scale(1); }
 
 .wechat-modal__title {
   font-size: 1.1rem; font-weight: 800;
@@ -1492,20 +1513,20 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   font-size: 1.4rem; line-height: 1; border: none;
   cursor: pointer; z-index: 2; display: flex;
   align-items: center; justify-content: center;
-  transition: transform var(--transition), background var(--transition);
-  font-family: inherit;
-  transform: translateZ(0);
+  transition: all var(--transition); font-family: inherit;
 }
 .wechat-modal__close:hover { background: var(--accent); transform: rotate(90deg); }
 
+/* =========================================================
+   PROCESS
+   ========================================================= */
 .process-list { display: flex; flex-direction: column; max-width: 800px; }
 
 .process-step {
   display: grid; grid-template-columns: 70px 1fr;
   gap: 24px; padding: 28px 0;
   border-bottom: 1px solid var(--border-soft);
-  transition: padding-left 0.3s var(--ease);
-  align-items: flex-start;
+  transition: all 0.3s var(--ease); align-items: flex-start;
 }
 
 .process-step:last-child { border-bottom: none; }
@@ -1524,6 +1545,9 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 
 .process-content p { font-size: 0.88rem; color: var(--text-dim); line-height: 1.6; }
 
+/* =========================================================
+   PRICING
+   ========================================================= */
 .pricing-intro {
   margin-bottom: 2rem; color: var(--text-dim);
   font-size: 0.95rem; max-width: 700px;
@@ -1556,8 +1580,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   padding: 8px 20px; border-radius: 100px;
   font-size: 0.82rem; font-weight: 700;
   color: var(--text-dim); background: transparent;
-  border: none; cursor: pointer;
-  transition: background 0.2s ease, color 0.2s ease;
+  border: none; cursor: pointer; transition: all 0.2s ease;
   font-family: inherit; letter-spacing: 0.02em;
 }
 
@@ -1582,12 +1605,10 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   padding: 32px 28px 28px;
   display: flex;
   flex-direction: column;
-  transition: transform 0.35s var(--ease), border-color 0.35s var(--ease), box-shadow 0.35s var(--ease);
+  transition: transform 0.3s var(--ease), border-color 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease);
   box-shadow: var(--shadow);
   overflow: hidden;
   isolation: isolate;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 .plan-card::after {
@@ -1597,7 +1618,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.4s var(--ease);
+  transition: opacity 0.35s var(--ease);
   box-shadow: 0 0 0 1px var(--plan-color, var(--accent)) inset,
               0 0 55px -8px var(--plan-color, var(--accent)),
               0 0 90px -30px var(--plan-color, var(--accent));
@@ -1607,7 +1628,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 .plan-card:hover::after { opacity: 0.9; }
 
 .plan-card:hover {
-  transform: translate3d(0, -6px, 0);
+  transform: translateY(-6px);
   border-color: var(--plan-color, var(--accent));
   box-shadow: var(--shadow-lg),
               0 24px 70px -24px var(--plan-color, var(--accent)),
@@ -1742,16 +1763,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border: 1px solid var(--glass-border);
   font-size: 0.88rem; font-weight: 700;
   cursor: pointer; font-family: inherit;
-  transition: transform var(--transition), background var(--transition),
-              border-color var(--transition), color var(--transition), box-shadow var(--transition);
-  transform: translateZ(0);
+  transition: all var(--transition);
 }
 
 .plan-cta__btn:hover {
   background: var(--plan-color, var(--accent));
   border-color: var(--plan-color, var(--accent));
-  color: #fff;
-  transform: translate3d(0, -2px, 0);
+  color: #fff; transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(255, 45, 85, 0.3);
 }
 
@@ -1771,13 +1789,10 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border: 1px solid var(--glass-border); border-radius: 14px;
   padding: 6px; box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
   display: flex; flex-direction: column; gap: 2px;
-  opacity: 0;
-  transform: translate3d(0, 8px, 0) scale(0.96);
+  opacity: 0; transform: translateY(8px) scale(0.96);
   pointer-events: none;
-  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 10;
-  will-change: opacity, transform;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1785,8 +1800,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 }
 
 .plan-cta.open .plan-cta__menu {
-  opacity: 1;
-  transform: translate3d(0, 0, 0) scale(1);
+  opacity: 1; transform: translateY(0) scale(1);
   pointer-events: all;
 }
 
@@ -1796,8 +1810,7 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   background: transparent; color: var(--text);
   font-size: 0.82rem; font-weight: 600;
   text-align: left; cursor: pointer;
-  font-family: inherit;
-  transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+  font-family: inherit; transition: all 0.15s ease;
   border: none; width: 100%;
 }
 
@@ -1866,6 +1879,9 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .plan-mode-tab { padding: 7px 14px; font-size: 0.75rem; }
 }
 
+/* =========================================================
+   CONTACT
+   ========================================================= */
 .contact-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
 
 @media (min-width: 640px) { .contact-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -1879,15 +1895,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
   text-decoration: none; color: var(--text);
-  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+  transition: all var(--transition);
   box-shadow: var(--shadow); position: relative;
   cursor: pointer;
-  transform: translateZ(0);
 }
 
 .contact-card:hover {
-  transform: translate3d(0, -3px, 0);
-  border-color: var(--accent);
+  transform: translateY(-3px); border-color: var(--accent);
   box-shadow: var(--shadow-lg);
 }
 
@@ -1899,13 +1913,13 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
   border-radius: 50%;
-  flex-shrink: 0;
-  transition: transform 0.35s var(--ease);
+  flex-shrink: 0; transition: transform 0.3s var(--ease);
   overflow: hidden;
-  transform: translateZ(0);
 }
 
-.contact-icon .icon-svg { width: 26px; height: 26px; }
+.contact-icon .icon-svg {
+  width: 26px; height: 26px;
+}
 
 .contact-card:hover .contact-icon { transform: scale(1.1) rotate(-6deg); }
 
@@ -1923,14 +1937,16 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 
 .contact-arrow {
   font-size: 1.1rem; color: var(--text-soft);
-  transition: color 0.3s ease, transform 0.3s var(--ease);
+  transition: all 0.3s var(--ease);
 }
 
 .contact-card:hover .contact-arrow {
-  color: var(--accent);
-  transform: translate(3px, -3px);
+  color: var(--accent); transform: translate(3px, -3px);
 }
 
+/* =========================================================
+   FOOTER
+   ========================================================= */
 .footer {
   padding: 48px 0 60px;
   min-height: 260px;
@@ -1988,8 +2004,14 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   white-space: nowrap;
 }
 .footer__links a:hover { opacity: 0.7; }
-.footer__links .sep { color: var(--text-soft); font-weight: 400; }
+.footer__links .sep {
+  color: var(--text-soft);
+  font-weight: 400;
+}
 
+/* =========================================================
+   FAB
+   ========================================================= */
 .fab-container {
   position: fixed; bottom: 24px; right: 24px;
   z-index: 200; display: flex;
@@ -2004,13 +2026,11 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   font-size: 1.4rem; cursor: pointer;
   box-shadow: 0 8px 24px rgba(255, 45, 85, 0.45),
               0 0 40px -8px rgba(255, 107, 53, 0.6);
-  transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
+  transition: all var(--transition);
   display: flex; align-items: center; justify-content: center;
   font-family: inherit;
   border: none;
   position: relative;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 .fab-main::before {
@@ -2022,8 +2042,6 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   opacity: 0.35;
   z-index: -1;
   animation: fabPulse 2.4s ease-in-out infinite;
-  transform: translateZ(0);
-  will-change: transform, opacity;
 }
 
 @keyframes fabPulse {
@@ -2060,13 +2078,11 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 .fab-options {
   display: flex; flex-direction: column; gap: 10px;
   opacity: 0; pointer-events: none;
-  transform: translate3d(0, 10px, 0);
-  transition: opacity var(--transition), transform var(--transition);
-  will-change: opacity, transform;
+  transform: translateY(10px); transition: all var(--transition);
 }
 
 .fab-options.open {
-  opacity: 1; pointer-events: all; transform: translate3d(0, 0, 0);
+  opacity: 1; pointer-events: all; transform: translateY(0);
 }
 
 .fab-option {
@@ -2078,21 +2094,21 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   border: 1px solid var(--glass-border); border-radius: 100px;
   text-decoration: none; color: var(--text);
   font-size: 0.85rem; font-weight: 600;
-  box-shadow: var(--shadow);
-  transition: transform var(--transition), border-color var(--transition), color var(--transition);
+  box-shadow: var(--shadow); transition: all var(--transition);
   white-space: nowrap;
   cursor: pointer;
-  transform: translateZ(0);
 }
 
 .fab-option .icon-svg { width: 20px; height: 20px; }
 
 .fab-option:hover {
-  border-color: var(--accent);
-  transform: translateX(-4px);
+  border-color: var(--accent); transform: translateX(-4px);
   color: var(--accent);
 }
 
+/* =========================================================
+   TOAST
+   ========================================================= */
 .toast {
   position: fixed; bottom: 100px; left: 50%;
   transform: translate(-50%, 20px);
@@ -2101,10 +2117,8 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   font-size: 0.85rem; font-weight: 600;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
   opacity: 0; pointer-events: none;
-  transition: opacity 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   z-index: 9999; white-space: nowrap;
-  will-change: opacity, transform;
 }
 .toast.show { opacity: 1; transform: translate(-50%, 0); }
 
@@ -2113,13 +2127,11 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
 }
 
 .fade-in {
-  opacity: 0;
-  transform: translate3d(0, 30px, 0);
+  opacity: 0; transform: translateY(30px);
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-  will-change: opacity, transform;
 }
 
-.fade-in.visible { opacity: 1; transform: translate3d(0, 0, 0); }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
 
 @media (min-width: 900px) { .nav { display: flex; } }
 
@@ -2141,86 +2153,9 @@ html[lang="ar"] .hero-title__brand { unicode-bidi: isolate; }
   .contact-icon .icon-svg { width: 22px; height: 22px; }
 }
 
-@media (max-width: 480px) {
-  .fab-main::before     { animation-duration: 3.6s; }
-  .hero-tag::before     { animation-duration: 3s; }
-  .portfolio-card__live::before { animation-duration: 3s; }
-  .scroll-hint__arrow   { animation-duration: 2.2s; }
-  .global-scroll-hint--top .scroll-hint__arrow { animation-duration: 2.2s; }
-}
-
-@media (min-width: 481px) and (max-width: 899px) {
-  .fab-main::before     { animation-duration: 3s; }
-  .hero-tag::before     { animation-duration: 2.5s; }
-  .portfolio-card__live::before { animation-duration: 2.5s; }
-  .scroll-hint__arrow   { animation-duration: 2s; }
-  .global-scroll-hint--top .scroll-hint__arrow { animation-duration: 2s; }
-}
-
-@media (max-width: 899px) {
-  :root { --glass-blur: saturate(160%) blur(12px); }
-}
-@media (max-width: 480px) {
-  :root { --glass-blur: saturate(150%) blur(8px); }
-  body.lang-blur .lang-shade {
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    background: rgba(255, 255, 255, 0.1);
-  }
-  @media (prefers-color-scheme: dark) {
-    body.lang-blur .lang-shade { background: rgba(0, 0, 0, 0.15); }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-
-  .fab-main::before,
-  .hero-tag::before,
-  .portfolio-card__live::before,
-  .scroll-hint__arrow,
-  .global-scroll-hint--top .scroll-hint__arrow {
-    animation: none !important;
-  }
-
-  .fab-main::before { opacity: 0.3; }
-  .hero-tag::before,
-  .portfolio-card__live::before { opacity: 1; transform: none; }
-  .scroll-hint__arrow { transform: none !important; }
-
-  body.lang-blur .content-wrapper,
-  body.lang-blur .header,
-  body.lang-blur .fab-container,
-  body.lang-blur .global-scroll-hint,
-  body.lang-blur #bg-canvas {
-    filter: none;
-    opacity: 0.35;
-  }
-
-  body.lang-blur .lang-shade {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
-  }
-
-  .hero-badge,
-  .hero-title,
-  .hero-sub,
-  .hero-tag,
-  #hero .btn,
-  .hero-stats {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
-
+/* =========================================================
+   ÁRABE — bloqueo total de dirección
+   ========================================================= */
 html[lang="ar"],
 html[lang="ar"] body,
 html[lang="ar"] * {
@@ -2228,6 +2163,9 @@ html[lang="ar"] * {
   unicode-bidi: plaintext;
 }
 
+/* =========================================================
+   ABOUT H2 — gradiente también en árabe
+   ========================================================= */
 html[lang="ar"] #about h2.about-title,
 html[lang="ar"] h2.about-title {
   direction: ltr;
@@ -2262,6 +2200,9 @@ html[lang="ar"] h2.about-title {
   }
 }
 
+/* =========================================================
+   HERO H1 — gradiente también en árabe
+   ========================================================= */
 html[lang="ar"] .hero-title__brand {
   direction: ltr;
   unicode-bidi: isolate;
@@ -2284,6 +2225,9 @@ html[lang="ar"] .hero-title__brand {
 
 <div class="lang-shade" aria-hidden="true"></div>
 
+<!-- =========================================================
+     INDICADOR GLOBAL DE SCROLL — SUPERIOR (scroll up)
+     ========================================================= -->
 <button type="button"
         class="scroll-hint global-scroll-hint global-scroll-hint--top hidden"
         id="globalScrollUp"
@@ -2308,8 +2252,12 @@ html[lang="ar"] .hero-title__brand {
 
     <div class="header__actions">
 
+      <!-- =========================================================
+           SELECTOR DE IDIOMAS — DESPLEGABLE
+           ========================================================= -->
       <div class="lang-selector" id="langSelector">
 
+        <!-- Botón trigger (cerrado) -->
         <button class="lang-trigger" id="langTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
           <span class="lang-trigger__code" id="langTriggerCode">EN</span>
           <span class="lang-trigger__label" id="langTriggerLabel">English</span>
@@ -2320,6 +2268,7 @@ html[lang="ar"] .hero-title__brand {
           </span>
         </button>
 
+        <!-- Panel desplegable con los 8 idiomas -->
         <div class="lang-menu" id="langMenu" role="listbox" aria-label="Language options">
 
           <button class="lang-option" type="button" role="option" data-lang="en">
@@ -2380,6 +2329,7 @@ html[lang="ar"] .hero-title__brand {
 
         </div>
       </div>
+      <!-- ========================================================= -->
 
     </div>
   </div>
@@ -2634,6 +2584,9 @@ html[lang="ar"] .hero-title__brand {
 
 </div>
 
+<!-- =========================================================
+     INDICADOR GLOBAL DE SCROLL — INFERIOR (scroll down)
+     ========================================================= -->
 <button type="button"
         class="scroll-hint global-scroll-hint global-scroll-hint--bottom"
         id="globalScrollDown"
@@ -3065,7 +3018,7 @@ const translations = {
 };
 
 /* =========================================================
-   LANGUAGE METADATA
+   LANGUAGE METADATA — para el selector desplegable
    ========================================================= */
 const LANG_META = {
   en: { code:"EN", label:"English" },
@@ -3192,9 +3145,19 @@ const plansData = [
 
 const portfolioData = [
   {
-    id:"case-loi", emoji:"📄", image:"assets/portfolio-loi.jpg", link:"",
-    title:{ en:"Letter of Intent (LOI)", es:"Carta de Intención (LOI)", pt:"Carta de Intenção (LOI)", fr:"Lettre d'Intention (LOI)", de:"Absichtserklärung (LOI)", zh:"意向书 (LOI)", ru:"Письмо о намерениях (LOI)", ar:"خطاب النوايا (LOI)" },
-    type:{ en:"Letterhead", es:"Membrete", pt:"Papel Timbrado", fr:"En-tête", de:"Briefkopf", zh:"信头", ru:"Фирменный бланк", ar:"ترويسة" },
+    id:"case-loi",
+    emoji:"📄",
+    image:"assets/portfolio-loi.jpg",
+    link:"",
+    title:{
+      en:"Letter of Intent (LOI)", es:"Carta de Intención (LOI)", pt:"Carta de Intenção (LOI)",
+      fr:"Lettre d'Intention (LOI)", de:"Absichtserklärung (LOI)", zh:"意向书 (LOI)",
+      ru:"Письмо о намерениях (LOI)", ar:"خطاب النوايا (LOI)"
+    },
+    type:{
+      en:"Letterhead", es:"Membrete", pt:"Papel Timbrado", fr:"En-tête", de:"Briefkopf",
+      zh:"信头", ru:"Фирменный бланк", ar:"ترويسة"
+    },
     desc:{
       en:"Custom corporate letterhead with full typographic hierarchy and legal identification block. Designed for a maritime sector company to formalize pre-contractual negotiations.",
       es:"Membrete corporativo personalizado con jerarquía tipográfica completa y bloque legal de identificación. Diseñado para una empresa del rubro marítimo que formaliza negociaciones precontractuales.",
@@ -3208,9 +3171,20 @@ const portfolioData = [
     tools:"Microsoft Word · Illustrator"
   },
   {
-    id:"case-invoice-contract", emoji:"🧾", image:"assets/portfolio-invoice-contract.jpg", link:"",
-    title:{ en:"Invoice & B2B Contract", es:"Factura y Contrato B2B", pt:"Fatura e Contrato B2B", fr:"Facture et Contrat B2B", de:"Rechnung & B2B-Vertrag", zh:"发票与B2B合同", ru:"Счёт и B2B-договор", ar:"فاتورة وعقد B2B" },
-    type:{ en:"Invoice · Contract", es:"Factura · Contrato", pt:"Fatura · Contrato", fr:"Facture · Contrat", de:"Rechnung · Vertrag", zh:"发票 · 合同", ru:"Счёт · Контракт", ar:"فاتورة · عقد" },
+    id:"case-invoice-contract",
+    emoji:"🧾",
+    image:"assets/portfolio-invoice-contract.jpg",
+    link:"",
+    title:{
+      en:"Invoice & B2B Contract", es:"Factura y Contrato B2B", pt:"Fatura e Contrato B2B",
+      fr:"Facture et Contrat B2B", de:"Rechnung & B2B-Vertrag", zh:"发票与B2B合同",
+      ru:"Счёт и B2B-договор", ar:"فاتورة وعقد B2B"
+    },
+    type:{
+      en:"Invoice · Contract", es:"Factura · Contrato", pt:"Fatura · Contrato",
+      fr:"Facture · Contrat", de:"Rechnung · Vertrag", zh:"发票 · 合同",
+      ru:"Счёт · Контракт", ar:"فاتورة · عقد"
+    },
     desc:{
       en:"Complete document set — commercial invoice with itemized table and tax calculation, plus a full B2B service contract with clauses, annexes and signature blocks. Same corporate letterhead across all pages for visual consistency.",
       es:"Set documental completo — factura comercial con tabla de conceptos y cálculo de impuestos, más un contrato de servicios B2B completo con cláusulas, anexos y bloques de firma. Mismo membrete corporativo en todas las páginas para consistencia visual.",
@@ -3224,9 +3198,19 @@ const portfolioData = [
     tools:"Microsoft Word · Excel · Adobe Acrobat"
   },
   {
-    id:"case-banner", emoji:"🎨", image:"assets/portfolio-banner.jpg", link:"",
-    title:{ en:"Corporate Banner Design", es:"Diseño de Banner Corporativo", pt:"Design de Banner Corporativo", fr:"Design de Bannière Corporate", de:"Corporate Banner Design", zh:"企业横幅设计", ru:"Дизайн корпоративного баннера", ar:"تصميم بانر الشركة" },
-    type:{ en:"Banner", es:"Banner", pt:"Banner", fr:"Bannière", de:"Banner", zh:"横幅", ru:"Баннер", ar:"بانر" },
+    id:"case-banner",
+    emoji:"🎨",
+    image:"assets/portfolio-banner.jpg",
+    link:"",
+    title:{
+      en:"Corporate Banner Design", es:"Diseño de Banner Corporativo", pt:"Design de Banner Corporativo",
+      fr:"Design de Bannière Corporate", de:"Corporate Banner Design", zh:"企业横幅设计",
+      ru:"Дизайн корпоративного баннера", ar:"تصميم بانر الشركة"
+    },
+    type:{
+      en:"Banner", es:"Banner", pt:"Banner", fr:"Bannière", de:"Banner",
+      zh:"横幅", ru:"Баннер", ar:"بانر"
+    },
     desc:{
       en:"Large-format corporate banner for trade shows, events and social media headers. Designed with the same brand system — colors, typography and letterhead — for full visual coherence.",
       es:"Banner corporativo de gran formato para ferias, eventos y cabeceras de redes sociales. Diseñado con el mismo sistema de marca — colores, tipografía y membrete — para coherencia visual total.",
@@ -3240,9 +3224,19 @@ const portfolioData = [
     tools:"Illustrator · Photoshop · Figma"
   },
   {
-    id:"case-business-card", emoji:"💼", image:"assets/portfolio-business-card.jpg", link:"",
-    title:{ en:"Business Card — Rebranding", es:"Tarjeta de Presentación — Rebranding", pt:"Cartão de Visita — Rebranding", fr:"Carte de Visite — Rebranding", de:"Visitenkarte — Rebranding", zh:"名片 — 品牌重塑", ru:"Визитка — Ребрендинг", ar:"بطاقة عمل — إعادة بناء العلامة" },
-    type:{ en:"Rebranding", es:"Rebranding", pt:"Rebranding", fr:"Rebranding", de:"Rebranding", zh:"品牌重塑", ru:"Ребрендинг", ar:"إعادة بناء العلامة" },
+    id:"case-business-card",
+    emoji:"💼",
+    image:"assets/portfolio-business-card.jpg",
+    link:"",
+    title:{
+      en:"Business Card — Rebranding", es:"Tarjeta de Presentación — Rebranding", pt:"Cartão de Visita — Rebranding",
+      fr:"Carte de Visite — Rebranding", de:"Visitenkarte — Rebranding", zh:"名片 — 品牌重塑",
+      ru:"Визитка — Ребрендинг", ar:"بطاقة عمل — إعادة بناء العلامة"
+    },
+    type:{
+      en:"Rebranding", es:"Rebranding", pt:"Rebranding", fr:"Rebranding", de:"Rebranding",
+      zh:"品牌重塑", ru:"Ребрендинг", ar:"إعادة بناء العلامة"
+    },
     desc:{
       en:"Full rebranding package applied to business cards — front and back design, logo placement, color palette, typography and print-ready specs. Part of a complete corporate identity rollout.",
       es:"Paquete completo de rebranding aplicado a tarjetas de presentación — diseño de frente y reverso, ubicación del logo, paleta de colores, tipografía y especificaciones listas para imprenta. Parte de un rollout completo de identidad corporativa.",
@@ -3256,9 +3250,19 @@ const portfolioData = [
     tools:"Illustrator · InDesign · Figma"
   },
   {
-    id:"case-brochure", emoji:"📊", image:"assets/portfolio-brochure.jpg", link:"",
-    title:{ en:"Corporate Brochure Cover", es:"Portada de Brochure Corporativo", pt:"Capa de Brochura Corporativa", fr:"Couverture de Brochure Corporate", de:"Titelblatt einer Firmenbroschüre", zh:"企业宣传册封面", ru:"Обложка корпоративного буклета", ar:"غلاف كتيب الشركة" },
-    type:{ en:"Presentation", es:"Presentación", pt:"Apresentação", fr:"Présentation", de:"Präsentation", zh:"演示", ru:"Презентация", ar:"عرض تقديمي" },
+    id:"case-brochure",
+    emoji:"📊",
+    image:"assets/portfolio-brochure.jpg",
+    link:"",
+    title:{
+      en:"Corporate Brochure Cover", es:"Portada de Brochure Corporativo", pt:"Capa de Brochura Corporativa",
+      fr:"Couverture de Brochure Corporate", de:"Titelblatt einer Firmenbroschüre", zh:"企业宣传册封面",
+      ru:"Обложка корпоративного буклета", ar:"غلاف كتيب الشركة"
+    },
+    type:{
+      en:"Presentation", es:"Presentación", pt:"Apresentação", fr:"Présentation", de:"Präsentation",
+      zh:"演示", ru:"Презентация", ar:"عرض تقديمي"
+    },
     desc:{
       en:"Cover and inner-page system for a corporate brochure and presentation deck. Built with reusable master pages, custom infographics and full brand consistency across every slide.",
       es:"Portada y sistema de páginas internas para un brochure corporativo y presentación. Construido con páginas maestras reutilizables, infografías personalizadas y consistencia total de marca en cada diapositiva.",
@@ -3272,9 +3276,17 @@ const portfolioData = [
     tools:"InDesign · PowerPoint · Figma"
   },
   {
-    id:"case-3", emoji:"🌐", image:"assets/portfolio-03.jpg", link:"https://vsc.supply",
-    title:{ en:"Corporate Website", es:"Web Corporativa", pt:"Site Corporativo", fr:"Site Corporate", de:"Unternehmenswebsite", zh:"企业网站", ru:"Корпоративный сайт", ar:"موقع الشركة" },
-    type:{ en:"Web", es:"Web", pt:"Web", fr:"Web", de:"Web", zh:"网站", ru:"Веб", ar:"ويب" },
+    id:"case-3",
+    emoji:"🌐",
+    image:"assets/portfolio-03.jpg",
+    link:"https://vsc.supply",
+    title:{
+      en:"Corporate Website", es:"Web Corporativa", pt:"Site Corporativo", fr:"Site Corporate",
+      de:"Unternehmenswebsite", zh:"企业网站", ru:"Корпоративный сайт", ar:"موقع الشركة"
+    },
+    type:{
+      en:"Web", es:"Web", pt:"Web", fr:"Web", de:"Web", zh:"网站", ru:"Веб", ar:"ويب"
+    },
     desc:{
       en:"Full landing + blog + contact system. Built with HTML/CSS/JS, deployed on Netlify.",
       es:"Landing + blog + sistema de contacto completo. Hecho con HTML/CSS/JS, deploy en Netlify.",
@@ -3289,6 +3301,9 @@ const portfolioData = [
   }
 ];
 
+/* =========================================================
+   CONTACTS
+   ========================================================= */
 const CONTACTS = {
   whatsapp: { url:"https://wa.me/584228081109", label:"+58 422 808 109" },
   telegram: { url:"https://t.me/vielmastudio",   label:"t.me/vielmastudio" },
@@ -3297,6 +3312,9 @@ const CONTACTS = {
   wechat:   { id:"vielmastudio" }
 };
 
+/* =========================================================
+   ICON PATHS
+   ========================================================= */
 const ICONS = {
   whatsapp: "assets/icons/whatsapp.svg",
   telegram: "assets/icons/telegram.svg",
@@ -3339,6 +3357,9 @@ function escapeHtml(str) {
     .replace(/'/g, "&#39;");
 }
 
+/* =========================================================
+   LANGUAGE SELECTOR — UI SYNC
+   ========================================================= */
 function updateLangSelectorUI() {
   const meta = LANG_META[currentLang] || LANG_META.en;
   const triggerCode  = document.getElementById("langTriggerCode");
@@ -3376,10 +3397,16 @@ function closeLangMenu() {
 function toggleLangMenu() {
   const sel = document.getElementById("langSelector");
   if (!sel) return;
-  if (sel.classList.contains("open")) closeLangMenu();
-  else openLangMenu();
+  if (sel.classList.contains("open")) {
+    closeLangMenu();
+  } else {
+    openLangMenu();
+  }
 }
 
+/* =========================================================
+   BLUR SWAP
+   ========================================================= */
 const BLUR_IN_DELAY = 380;
 const BLUR_TOTAL = 900;
 
@@ -3421,6 +3448,9 @@ function blurSwapLanguage(lang) {
   }, BLUR_TOTAL);
 }
 
+/* =========================================================
+   RENDER · SERVICES
+   ========================================================= */
 function renderServices() {
   const grid = document.getElementById("servicesGrid");
   if (!grid) return;
@@ -3452,6 +3482,9 @@ function renderServices() {
   `).join("");
 }
 
+/* =========================================================
+   RENDER · PROCESS
+   ========================================================= */
 function renderProcess() {
   const list = document.getElementById("processList");
   if (!list) return;
@@ -3467,6 +3500,9 @@ function renderProcess() {
   `).join("");
 }
 
+/* =========================================================
+   RENDER · PLANS
+   ========================================================= */
 function renderPlans() {
   const grid = document.getElementById("plansGrid");
   if (!grid) return;
@@ -3522,6 +3558,9 @@ function renderPlans() {
   }).join("");
 }
 
+/* =========================================================
+   RENDER · PORTFOLIO
+   ========================================================= */
 function renderPortfolio() {
   const grid = document.getElementById("portfolioGrid");
   if (!grid) return;
@@ -3559,6 +3598,9 @@ function renderPortfolio() {
   }).join("");
 }
 
+/* =========================================================
+   MODAL · CASE
+   ========================================================= */
 function openCaseModal(id) {
   const item = portfolioData.find(x => x.id === id);
   if (!item) return;
@@ -3605,8 +3647,11 @@ function openCaseModal(id) {
     const hint  = modal.querySelector("#caseModalScrollHint");
     if (panel && hint) {
       const onScroll = () => {
-        if (panel.scrollTop > 20) hint.classList.add("hidden");
-        else hint.classList.remove("hidden");
+        if (panel.scrollTop > 20) {
+          hint.classList.add("hidden");
+        } else {
+          hint.classList.remove("hidden");
+        }
       };
       panel.addEventListener("scroll", onScroll, { passive: true });
     }
@@ -3687,6 +3732,9 @@ document.addEventListener("keydown", e => {
   }
 });
 
+/* =========================================================
+   WECHAT MODAL
+   ========================================================= */
 function openWechatModal() {
   const modal = document.getElementById("wechatModal");
   if (!modal) return;
@@ -3703,6 +3751,9 @@ function closeWechatModal() {
   document.body.style.overflow = "";
 }
 
+/* =========================================================
+   GLOBAL SCROLL HINT
+   ========================================================= */
 function updateGlobalScrollLabels() {
   const upText = document.querySelector("#globalScrollUp .scroll-hint__text");
   const downText = document.querySelector("#globalScrollDown .scroll-hint__text");
@@ -3710,32 +3761,31 @@ function updateGlobalScrollLabels() {
   if (downText) downText.textContent = t("scroll.down");
 }
 
-let scrollRafPending = false;
 function updateGlobalScrollVisibility() {
-  if (scrollRafPending) return;
-  scrollRafPending = true;
-  requestAnimationFrame(() => {
-    scrollRafPending = false;
+  const down = document.getElementById("globalScrollDown");
+  const up = document.getElementById("globalScrollUp");
+  if (!down || !up) return;
 
-    const down = document.getElementById("globalScrollDown");
-    const up = document.getElementById("globalScrollUp");
-    if (!down || !up) return;
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
 
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const NEAR_BOTTOM = 60;
+  const NEAR_TOP = 60;
 
-    const NEAR_BOTTOM = 60;
-    const NEAR_TOP = 60;
+  const atBottom = (docHeight - scrollTop) <= NEAR_BOTTOM;
+  const atTop = scrollTop <= NEAR_TOP;
 
-    const atBottom = (docHeight - scrollTop) <= NEAR_BOTTOM;
-    const atTop = scrollTop <= NEAR_TOP;
+  if (atBottom) {
+    down.classList.add("hidden");
+  } else {
+    down.classList.remove("hidden");
+  }
 
-    if (atBottom) down.classList.add("hidden");
-    else down.classList.remove("hidden");
-
-    if (atBottom) up.classList.remove("hidden");
-    else up.classList.add("hidden");
-  });
+  if (atBottom) {
+    up.classList.remove("hidden");
+  } else {
+    up.classList.add("hidden");
+  }
 }
 
 window.addEventListener("scroll", updateGlobalScrollVisibility, { passive: true });
@@ -3757,6 +3807,9 @@ document.addEventListener("click", e => {
   }
 });
 
+/* =========================================================
+   APPLY TRANSLATIONS (init)
+   ========================================================= */
 function applyTranslations(lang) {
   if (!SUPPORTED_LANGS.includes(lang)) lang = "en";
   currentLang = lang;
@@ -3788,6 +3841,9 @@ function applyTranslations(lang) {
   updateGlobalScrollVisibility();
 }
 
+/* =========================================================
+   CHANGE LANGUAGE — blur + swap
+   ========================================================= */
 function changeLanguage(lang) {
   if (lang === currentLang) return;
   if (langSwapInProgress) return;
@@ -3801,7 +3857,7 @@ function changeLanguage(lang) {
 }
 
 /* =========================================================
-   CHANNELS & MESSAGES
+   CHANNELS & MESSAGES — CONTEXTUALES
    ========================================================= */
 const serviceNames = {
   doc:{ en:"Corporate Documents", es:"Documentos Corporativos", pt:"Documentos Corporativos", fr:"Documents d'Entreprise", de:"Unternehmensdokumente", zh:"企业文档", ru:"Корпоративные документы", ar:"مستندات الشركات" },
@@ -3814,28 +3870,82 @@ const serviceNames = {
 };
 
 const serviceBenefit = {
-  doc:{ en:"formal contracts, invoices and letters with a professional corporate letterhead", es:"contratos, facturas y cartas formales con membrete corporativo profesional", pt:"contratos, faturas e cartas formais com papel timbrado corporativo profissional", fr:"contrats, factures et lettres formelles avec un en-tête corporate professionnel", de:"formelle Verträge, Rechnungen und Briefe mit professionellem Firmenbriefkopf", zh:"带有专业企业信头的正式合同、发票和信函", ru:"официальные контракты, счета и письма с профессиональным фирменным бланком", ar:"عقود وفواتير وخطابات رسمية بترويسة شركة احترافية" },
-  pres:{ en:"presentations and brochures that convince investors, clients and partners", es:"presentaciones y brochures que convencen a inversores, clientes y socios", pt:"apresentações e brochuras que convencem investidores, clientes e parceiros", fr:"présentations et brochures qui convainquent investisseurs, clients et partenaires", de:"Präsentationen und Broschüren, die Investoren, Kunden und Partner überzeugen", zh:"能说服投资者、客户和合作伙伴的演示和宣传册", ru:"презентации и буклеты, убеждающие инвесторов, клиентов и партнёров", ar:"عروض وكتيبات تقنع المستثمرين والعملاء والشركاء" },
-  web:{ en:"a modern, fast and responsive website that represents your brand online", es:"una web moderna, rápida y responsive que represente tu marca online", pt:"um site moderno, rápido e responsivo que represente sua marca online", fr:"un site moderne, rapide et responsive qui représente votre marque en ligne", de:"eine moderne, schnelle und responsive Website, die Ihre Marke online repräsentiert", zh:"一个现代、快速、响应式的网站，在线代表您的品牌", ru:"современный, быстрый и адаптивный сайт, представляющий ваш бренд онлайн", ar:"موقع حديث وسريع ومتجاوب يمثل علامتك التجارية عبر الإنترنت" },
-  it:{ en:"server management, backups and corporate email with total reliability", es:"gestión de servidores, respaldos y correo corporativo con total confiabilidad", pt:"gestão de servidores, backups e e-mail corporativo com total confiabilidade", fr:"gestion de serveurs, sauvegardes et e-mail professionnel avec une fiabilité totale", de:"Serververwaltung, Backups und Firmen-E-Mail mit voller Zuverlässigkeit", zh:"服务器管理、备份和企业邮箱，完全可靠", ru:"управление серверами, резервное копирование и корпоративная почта с полной надёжностью", ar:"إدارة الخوادم والنسخ الاحتياطي والبريد الإلكتروني بموثوقية كاملة" },
-  ai:{ en:"custom AI training so your team gets the most out of ChatGPT, Claude or Gemini", es:"entrenamiento de IA personalizada para que tu equipo aproveche al máximo ChatGPT, Claude o Gemini", pt:"treinamento de IA personalizado para que sua equipe aproveite ao máximo ChatGPT, Claude ou Gemini", fr:"formation IA personnalisée pour que votre équipe tire le meilleur de ChatGPT, Claude ou Gemini", de:"individuelles KI-Training, damit Ihr Team das Beste aus ChatGPT, Claude oder Gemini herausholt", zh:"定制AI培训，让您的团队充分利用 ChatGPT、Claude 或 Gemini", ru:"индивидуальное обучение ИИ, чтобы ваша команда максимально использовала ChatGPT, Claude или Gemini", ar:"تدريب ذكاء اصطناعي مخصص لتحقيق أقصى استفادة من ChatGPT أو Claude أو Gemini" },
+  doc:       { en:"formal contracts, invoices and letters with a professional corporate letterhead", es:"contratos, facturas y cartas formales con membrete corporativo profesional", pt:"contratos, faturas e cartas formais com papel timbrado corporativo profissional", fr:"contrats, factures et lettres formelles avec un en-tête corporate professionnel", de:"formelle Verträge, Rechnungen und Briefe mit professionellem Firmenbriefkopf", zh:"带有专业企业信头的正式合同、发票和信函", ru:"официальные контракты, счета и письма с профессиональным фирменным бланком", ar:"عقود وفواتير وخطابات رسمية بترويسة شركة احترافية" },
+  pres:      { en:"presentations and brochures that convince investors, clients and partners", es:"presentaciones y brochures que convencen a inversores, clientes y socios", pt:"apresentações e brochuras que convencem investidores, clientes e parceiros", fr:"présentations et brochures qui convainquent investisseurs, clients et partenaires", de:"Präsentationen und Broschüren, die Investoren, Kunden und Partner überzeugen", zh:"能说服投资者、客户和合作伙伴的演示和宣传册", ru:"презентации и буклеты, убеждающие инвесторов, клиентов и партнёров", ar:"عروض وكتيبات تقنع المستثمرين والعملاء والشركاء" },
+  web:       { en:"a modern, fast and responsive website that represents your brand online", es:"una web moderna, rápida y responsive que represente tu marca online", pt:"um site moderno, rápido e responsivo que represente sua marca online", fr:"un site moderne, rapide et responsive qui représente votre marque en ligne", de:"eine moderne, schnelle und responsive Website, die Ihre Marke online repräsentiert", zh:"一个现代、快速、响应式的网站，在线代表您的品牌", ru:"современный, быстрый и адаптивный сайт, представляющий ваш бренд онлайн", ar:"موقع حديث وسريع ومتجاوب يمثل علامتك التجارية عبر الإنترنت" },
+  it:        { en:"server management, backups and corporate email with total reliability", es:"gestión de servidores, respaldos y correo corporativo con total confiabilidad", pt:"gestão de servidores, backups e e-mail corporativo com total confiabilidade", fr:"gestion de serveurs, sauvegardes et e-mail professionnel avec une fiabilité totale", de:"Serververwaltung, Backups und Firmen-E-Mail mit voller Zuverlässigkeit", zh:"服务器管理、备份和企业邮箱，完全可靠", ru:"управление серверами, резервное копирование и корпоративная почта с полной надёжностью", ar:"إدارة الخوادم والنسخ الاحتياطي والبريد الإلكتروني بموثوقية كاملة" },
+  ai:        { en:"custom AI training so your team gets the most out of ChatGPT, Claude or Gemini", es:"entrenamiento de IA personalizada para que tu equipo aproveche al máximo ChatGPT, Claude o Gemini", pt:"treinamento de IA personalizado para que sua equipe aproveite ao máximo ChatGPT, Claude ou Gemini", fr:"formation IA personnalisée pour que votre équipe tire le meilleur de ChatGPT, Claude ou Gemini", de:"individuelles KI-Training, damit Ihr Team das Beste aus ChatGPT, Claude oder Gemini herausholt", zh:"定制AI培训，让您的团队充分利用 ChatGPT、Claude 或 Gemini", ru:"индивидуальное обучение ИИ, чтобы ваша команда максимально использовала ChatGPT, Claude или Gemini", ar:"تدريب ذكاء اصطناعي مخصص لتحقيق أقصى استفادة من ChatGPT أو Claude أو Gemini" },
   rebranding:{ en:"a complete visual identity redesign: logo, colors, typography and brand book", es:"un rediseño completo de identidad visual: logo, colores, tipografía y manual de marca", pt:"um redesign completo de identidade visual: logotipo, cores, tipografia e manual da marca", fr:"une refonte complète de l'identité visuelle : logo, couleurs, typographie et charte graphique", de:"ein komplettes visuelles Redesign: Logo, Farben, Typografie und Markenhandbuch", zh:"完整的视觉识别重设计：Logo、颜色、字体和品牌手册", ru:"полный редизайн визуальной идентичности: логотип, цвета, типографика и брендбук", ar:"إعادة تصميم كاملة للهوية البصرية: الشعار والألوان والخطوط ودليل العلامة" },
-  support:{ en:"ongoing technical support to keep your systems always running", es:"soporte técnico continuo para mantener tus sistemas siempre operativos", pt:"suporte técnico contínuo para manter seus sistemas sempre operacionais", fr:"un support technique continu pour garder vos systèmes toujours opérationnels", de:"laufender technischer Support, damit Ihre Systeme immer laufen", zh:"持续的技术支持，确保您的系统始终运行", ru:"постоянная техническая поддержка, чтобы ваши системы всегда работали", ar:"دعم فني مستمر للحفاظ على تشغيل أنظمتك دائماً" }
+  support:   { en:"ongoing technical support to keep your systems always running", es:"soporte técnico continuo para mantener tus sistemas siempre operativos", pt:"suporte técnico contínuo para manter seus sistemas sempre operacionais", fr:"un support technique continu pour garder vos systèmes toujours opérationnels", de:"laufender technischer Support, damit Ihre Systeme immer laufen", zh:"持续的技术支持，确保您的系统始终运行", ru:"постоянная техническая поддержка, чтобы ваши системы всегда работали", ar:"دعم فني مستمر للحفاظ على تشغيل أنظمتك دائماً" }
 };
 
 const planBenefit = {
   essentials:{ en:"reliable 48-hour support for day-to-day fixes", es:"soporte confiable en 48 horas para correcciones del día a día", pt:"suporte confiável em 48 horas para correções do dia a dia", fr:"un support fiable sous 48 heures pour les corrections quotidiennes", de:"zuverlässiger 48-Stunden-Support für alltägliche Korrekturen", zh:"可靠的48小时支持，用于日常修复", ru:"надёжная поддержка в течение 48 часов для повседневных правок", ar:"دعم موثوق خلال 48 ساعة للإصلاحات اليومية" },
-  pro:{ en:"priority 8-hour support with a dedicated WhatsApp line", es:"soporte prioritario en 8 horas con línea WhatsApp dedicada", pt:"suporte prioritário em 8 horas com linha WhatsApp dedicada", fr:"un support prioritaire sous 8 heures avec ligne WhatsApp dédiée", de:"Priority-Support innerhalb von 8 Stunden mit dedizierter WhatsApp-Linie", zh:"8小时优先支持，配备专属 WhatsApp 通道", ru:"приоритетная поддержка в течение 8 часов с выделенной линией WhatsApp", ar:"دعم ذو أولوية خلال 8 ساعات مع خط واتساب مخصص" },
-  elite:{ en:"critical 4-hour support with unlimited revisions and 24/7 emergency", es:"soporte crítico en 4 horas con revisiones ilimitadas y emergencias 24/7", pt:"suporte crítico em 4 horas com revisões ilimitadas e emergências 24/7", fr:"un support critique sous 4 heures avec révisions illimitées et urgences 24/7", de:"kritischer 4-Stunden-Support mit unbegrenzten Revisionsrunden und 24/7-Notfall", zh:"4小时关键支持，无限修改和24/7紧急响应", ru:"критическая поддержка в течение 4 часов с неограниченными правками и экстренной помощью 24/7", ar:"دعم حرج خلال 4 ساعات مع مراجعات غير محدودة وطوارئ على مدار الساعة" }
+  pro:       { en:"priority 8-hour support with a dedicated WhatsApp line", es:"soporte prioritario en 8 horas con línea WhatsApp dedicada", pt:"suporte prioritário em 8 horas com linha WhatsApp dedicada", fr:"un support prioritaire sous 8 heures avec ligne WhatsApp dédiée", de:"Priority-Support innerhalb von 8 Stunden mit dedizierter WhatsApp-Linie", zh:"8小时优先支持，配备专属 WhatsApp 通道", ru:"приоритетная поддержка в течение 8 часов с выделенной линией WhatsApp", ar:"دعم ذو أولوية خلال 8 ساعات مع خط واتساب مخصص" },
+  elite:     { en:"critical 4-hour support with unlimited revisions and 24/7 emergency", es:"soporte crítico en 4 horas con revisiones ilimitadas y emergencias 24/7", pt:"suporte crítico em 4 horas com revisões ilimitadas e emergências 24/7", fr:"un support critique sous 4 heures avec révisions illimitées et urgences 24/7", de:"kritischer 4-Stunden-Support mit unbegrenzten Revisionsrunden und 24/7-Notfall", zh:"4小时关键支持，无限修改和24/7紧急响应", ru:"критическая поддержка в течение 4 часов с неограниченными правками и экстренной помощью 24/7", ar:"دعم حرج خلال 4 ساعات مع مراجعات غير محدودة وطوارئ على مدار الساعة" }
 };
 
 const caseLabels = {
-  "case-loi":{ en:"a corporate letterhead like the Letter of Intent (LOI) you showed", es:"un membrete corporativo como la Carta de Intención (LOI) que mostraste", pt:"um papel timbrado corporativo como a Carta de Intenção (LOI) que você mostrou", fr:"un en-tête corporate comme la Lettre d'Intention (LOI) que vous avez montrée", de:"einen Firmenbriefkopf wie die Absichtserklärung (LOI), die Sie gezeigt haben", zh:"像您展示的意向书 (LOI) 那样的企业信头", ru:"фирменный бланк как в Письме о намерениях (LOI), которое вы показали", ar:"ترويسة شركة مثل خطاب النوايا (LOI) الذي عرضته" },
-  "case-invoice-contract":{ en:"an invoice and B2B contract set like the one you showed", es:"un set de factura y contrato B2B como el que mostraste", pt:"um conjunto de fatura e contrato B2B como o que você mostrou", fr:"un ensemble facture + contrat B2B comme celui que vous avez montré", de:"ein Rechnungs- und B2B-Vertragsset wie das, das Sie gezeigt haben", zh:"像您展示的发票与B2B合同套装", ru:"комплект счёта и B2B-договора, как тот, что вы показали", ar:"مجموعة فاتورة وعقد B2B مثل التي عرضتها" },
-  "case-banner":{ en:"a corporate banner like the one you showed", es:"un banner corporativo como el que mostraste", pt:"um banner corporativo como o que você mostrou", fr:"une bannière corporate comme celle que vous avez montrée", de:"ein Firmenbanner wie das, das Sie gezeigt haben", zh:"像您展示的企业横幅", ru:"корпоративный баннер, как тот, что вы показали", ar:"بانر شركة مثل الذي عرضته" },
-  "case-business-card":{ en:"a full rebranding package including business cards like the one you showed", es:"un paquete completo de rebranding con tarjetas de presentación como el que mostraste", pt:"um pacote completo de rebranding com cartões de visita como o que você mostrou", fr:"un pack complet de rebranding avec cartes de visite comme celui que vous avez montré", de:"ein komplettes Rebranding-Paket inkl. Visitenkarten wie das, das Sie gezeigt haben", zh:"完整的品牌重塑方案，包含您展示的名片", ru:"полный пакет ребрендинга с визитками, как тот, что вы показали", ar:"حزمة إعادة بناء كاملة تشمل بطاقات العمل مثل التي عرضتها" },
-  "case-brochure":{ en:"a corporate brochure/presentation cover like the one you showed", es:"una portada de brochure/presentación corporativa como la que mostraste", pt:"uma capa de brochura/apresentação corporativa como a que você mostrou", fr:"une couverture de brochure/présentation corporate comme celle que vous avez montrée", de:"ein Titelblatt einer Firmenbroschüre/Präsentation wie das, das Sie gezeigt haben", zh:"像您展示的企业宣传册/演示封面", ru:"обложку корпоративного буклета/презентации, как ту, что вы показали", ar:"غلاف كتيب/عرض تقديمي للشركة مثل الذي عرضته" },
-  "case-3":{ en:"a corporate website like the one you showed", es:"una web corporativa como la que mostraste", pt:"um site corporativo como o que você mostrou", fr:"un site corporate comme celui que vous avez montré", de:"eine Unternehmenswebsite wie die, die Sie gezeigt haben", zh:"像您展示的企业网站", ru:"корпоративный сайт, как тот, что вы показали", ar:"موقع شركة مثل الذي عرضته" }
+  "case-loi":{
+    en:"a corporate letterhead like the Letter of Intent (LOI) you showed",
+    es:"un membrete corporativo como la Carta de Intención (LOI) que mostraste",
+    pt:"um papel timbrado corporativo como a Carta de Intenção (LOI) que você mostrou",
+    fr:"un en-tête corporate comme la Lettre d'Intention (LOI) que vous avez montrée",
+    de:"einen Firmenbriefkopf wie die Absichtserklärung (LOI), die Sie gezeigt haben",
+    zh:"像您展示的意向书 (LOI) 那样的企业信头",
+    ru:"фирменный бланк как в Письме о намерениях (LOI), которое вы показали",
+    ar:"ترويسة شركة مثل خطاب النوايا (LOI) الذي عرضته"
+  },
+  "case-invoice-contract":{
+    en:"an invoice and B2B contract set like the one you showed",
+    es:"un set de factura y contrato B2B como el que mostraste",
+    pt:"um conjunto de fatura e contrato B2B como o que você mostrou",
+    fr:"un ensemble facture + contrat B2B comme celui que vous avez montré",
+    de:"ein Rechnungs- und B2B-Vertragsset wie das, das Sie gezeigt haben",
+    zh:"像您展示的发票与B2B合同套装",
+    ru:"комплект счёта и B2B-договора, как тот, что вы показали",
+    ar:"مجموعة فاتورة وعقد B2B مثل التي عرضتها"
+  },
+  "case-banner":{
+    en:"a corporate banner like the one you showed",
+    es:"un banner corporativo como el que mostraste",
+    pt:"um banner corporativo como o que você mostrou",
+    fr:"une bannière corporate comme celle que vous avez montrée",
+    de:"ein Firmenbanner wie das, das Sie gezeigt haben",
+    zh:"像您展示的企业横幅",
+    ru:"корпоративный баннер, как тот, что вы показали",
+    ar:"بانر شركة مثل الذي عرضته"
+  },
+  "case-business-card":{
+    en:"a full rebranding package including business cards like the one you showed",
+    es:"un paquete completo de rebranding con tarjetas de presentación como el que mostraste",
+    pt:"um pacote completo de rebranding com cartões de visita como o que você mostrou",
+    fr:"un pack complet de rebranding avec cartes de visite comme celui que vous avez montré",
+    de:"ein komplettes Rebranding-Paket inkl. Visitenkarten wie das, das Sie gezeigt haben",
+    zh:"完整的品牌重塑方案，包含您展示的名片",
+    ru:"полный пакет ребрендинга с визитками, как тот, что вы показали",
+    ar:"حزمة إعادة بناء كاملة تشمل بطاقات العمل مثل التي عرضتها"
+  },
+  "case-brochure":{
+    en:"a corporate brochure/presentation cover like the one you showed",
+    es:"una portada de brochure/presentación corporativa como la que mostraste",
+    pt:"uma capa de brochura/apresentação corporativa como a que você mostrou",
+    fr:"une couverture de brochure/présentation corporate comme celle que vous avez montrée",
+    de:"ein Titelblatt einer Firmenbroschüre/Präsentation wie das, das Sie gezeigt haben",
+    zh:"像您展示的企业宣传册/演示封面",
+    ru:"обложку корпоративного буклета/презентации, как ту, что вы показали",
+    ar:"غلاف كتيب/عرض تقديمي للشركة مثل الذي عرضته"
+  },
+  "case-3":{
+    en:"a corporate website like the one you showed",
+    es:"una web corporativa como la que mostraste",
+    pt:"um site corporativo como o que você mostrou",
+    fr:"un site corporate comme celui que vous avez montré",
+    de:"eine Unternehmenswebsite wie die, die Sie gezeigt haben",
+    zh:"像您展示的企业网站",
+    ru:"корпоративный сайт, как тот, что вы показали",
+    ar:"موقع شركة مثل الذي عرضته"
+  }
 };
 
 function buildServiceMessage(key, price) {
@@ -3957,6 +4067,9 @@ function buyCase(caseId, channel) {
   openChannel(channel, message, subject);
 }
 
+/* =========================================================
+   CLIPBOARD + TOAST
+   ========================================================= */
 function copyToClipboard(text) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
@@ -4070,6 +4183,9 @@ if (wechatContactCard) {
   });
 }
 
+/* =========================================================
+   EVENTS — MENUS & BUY FLOWS
+   ========================================================= */
 document.addEventListener("click", e => {
 
   const tab = e.target.closest(".plan-mode-tab");
@@ -4180,79 +4296,22 @@ document.getElementById("portfolioGrid").addEventListener("click", e => {
 /* =========================================================
    SCROLL REVEAL
    ========================================================= */
-const revealObserver = new IntersectionObserver(entries => {
+const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      entry.target.style.willChange = "opacity, transform";
-      setTimeout(() => { entry.target.style.willChange = "auto"; }, 900);
-    }
+    if (entry.isIntersecting) entry.target.classList.add("visible");
   });
 }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
 
-document.querySelectorAll("section").forEach(el => revealObserver.observe(el));
-
-document.addEventListener("visibilitychange", () => {
-  if (document.hidden) {
-    document.documentElement.classList.add("animations-paused");
-    document.body.classList.add("animations-paused");
-  } else {
-    document.documentElement.classList.remove("animations-paused");
-    document.body.classList.remove("animations-paused");
-  }
-});
+document.querySelectorAll("section").forEach(el => observer.observe(el));
 
 /* =========================================================
-   CANVAS · PARTICLE FIELD — v3 SUPER-OPTIMIZADO
-   Spatial Hashing + Canvas Offscreen + Auto-Adaptación
+   CANVAS · PARTICLE FIELD
    ========================================================= */
-
-const mqReduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-const mqDarkMode     = window.matchMedia("(prefers-color-scheme: dark)");
-
-/* -------- Detección de tier -------- */
-function detectTier() {
-  const w = window.innerWidth;
-  const ua = navigator.userAgent || "";
-  const isMobileUA = /Android|iPhone|iPad|iPod|Mobile|Windows Phone/i.test(ua);
-  const isTouch = ("ontouchstart" in window) || (navigator.maxTouchPoints > 0);
-  const isSmall = w <= 480;
-  const isMedium = w > 480 && w <= 899;
-  const isHighEnd =
-    (navigator.deviceMemory && navigator.deviceMemory >= 6) &&
-    (navigator.hardwareConcurrency && navigator.hardwareConcurrency >= 6);
-
-  if (mqReduceMotion.matches) return "minimal";
-  if (isSmall || isMobileUA || isTouch) return "mobile";
-  if (isMedium) return "tablet";
-  if (!isHighEnd) return "laptop";
-  return "desktop";
-}
-
-let CURRENT_TIER = detectTier();
-
-/* Configuración por tier — AHORA CON MUCHO MÁS PARTÍCULAS */
-const TIER_CONFIG = {
-  minimal: { dprMax: 1,    baseCount: 0,   maxCount: 0,    connect: 0,   fps: 0,  explosions: false, mouse: false },
-  mobile:  { dprMax: 1.25, baseCount: 180, maxCount: 320,  connect: 85,  fps: 60, explosions: true,  mouse: true  },
-  tablet:  { dprMax: 1.5,  baseCount: 320, maxCount: 520,  connect: 100, fps: 60, explosions: true,  mouse: true  },
-  laptop:  { dprMax: 1.75, baseCount: 480, maxCount: 700,  connect: 115, fps: 60, explosions: true,  mouse: true  },
-  desktop: { dprMax: 2,    baseCount: 650, maxCount: 1000, connect: 125, fps: 0,  explosions: true,  mouse: true  }
-};
-
-let CFG = Object.assign({}, TIER_CONFIG[CURRENT_TIER]);
-let currentCount = CFG.baseCount;
-
-/* -------- Canvas principal + canvas offscreen para conexiones -------- */
 const canvas = document.getElementById("bg-canvas");
-const ctx = canvas.getContext("2d", { alpha: true });
-
-const connectionCanvas = document.createElement("canvas");
-const connectionCtx = connectionCanvas.getContext("2d", { alpha: true });
+const ctx = canvas.getContext("2d");
 
 let width, height;
-let dpr = Math.min(window.devicePixelRatio || 1, CFG.dprMax);
-
+const dpr = Math.min(window.devicePixelRatio || 1, 2);
 let mouseX = -1000, mouseY = -1000;
 let particles = [];
 let explosions = [];
@@ -4261,22 +4320,8 @@ let cursorPulse = 0;
 window.__mouseX = -1000;
 window.__mouseY = -1000;
 
-/* -------- Colores cacheados -------- */
-let cachedColors = null;
-function refreshColors() {
-  const isDark = mqDarkMode.matches;
-  cachedColors = {
-    dot: isDark ? "rgba(255, 45, 85, 0.55)" : "rgba(255, 45, 85, 0.4)",
-    dotAlt: isDark ? "rgba(255, 107, 53, 0.9)" : "rgba(255, 107, 53, 0.7)",
-    dotAbduct: isDark ? "rgba(255, 107, 53, 1)" : "rgba(255, 107, 53, 0.85)"
-  };
-}
-refreshColors();
-
-if (mqDarkMode.addEventListener) mqDarkMode.addEventListener("change", refreshColors);
-else if (mqDarkMode.addListener) mqDarkMode.addListener(refreshColors);
-
-/* -------- Física -------- */
+const PARTICLE_COUNT = 220;
+const CONNECT_DIST = 130;
 const MARGIN = 20;
 const ABDUCT_RATIO = 0.35;
 const ABDUCT_RADIUS = 300;
@@ -4289,113 +4334,54 @@ const MIN_SPEED = 0.35;
 const BASE_SPEED = 0.6;
 const BORDER_BOUNCE = 0.95;
 const EXPLOSION_FORCE = 26;
-const EXPLOSION_RADIUS = CFG.explosions ? (CURRENT_TIER === "mobile" ? 160 : 280) : 0;
+const EXPLOSION_RADIUS = 280;
 
-/* -------- Spatial Hashing — Grid -------- */
-/* Divide la pantalla en celdas del tamaño de CONNECT_DIST.
-   Cada partícula se asigna a una celda.
-   Al buscar vecinos, solo miramos celdas adyacentes (3×3 = 9 celdas).
-   Complejidad pasa de O(n²) a O(n·k) donde k ≈ vecinos promedio. */
-let gridCols = 0;
-let gridRows = 0;
-let cellSize = 0;
-let grid = [];       // Array de arrays de índices
-let gridFlat = [];   // Bucket pooling
-
-function initGrid() {
-  cellSize = CFG.connect || 100;
-  gridCols = Math.max(1, Math.ceil(width / cellSize));
-  gridRows = Math.max(1, Math.ceil(height / cellSize));
-  const total = gridCols * gridRows;
-  grid = new Array(total);
-  for (let i = 0; i < total; i++) grid[i] = [];
-  gridFlat = new Array(total);
-  for (let i = 0; i < total; i++) gridFlat[i] = [];
-}
-
-function rebuildGrid() {
-  const total = gridCols * gridRows;
-  for (let i = 0; i < total; i++) {
-    if (grid[i].length) grid[i].length = 0;
-  }
-  for (let i = 0; i < particles.length; i++) {
-    const p = particles[i];
-    const cx = Math.min(gridCols - 1, Math.max(0, (p.x / cellSize) | 0));
-    const cy = Math.min(gridRows - 1, Math.max(0, (p.y / cellSize) | 0));
-    const idx = cy * gridCols + cx;
-    grid[idx].push(i);
-  }
-}
-
-/* -------- Canvas resize -------- */
 function resizeCanvas() {
   width = window.innerWidth;
   height = window.innerHeight;
-
-  canvas.width = Math.floor(width * dpr);
-  canvas.height = Math.floor(height * dpr);
+  canvas.width = width * dpr;
+  canvas.height = height * dpr;
   canvas.style.width = width + "px";
   canvas.style.height = height + "px";
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  connectionCanvas.width = canvas.width;
-  connectionCanvas.height = canvas.height;
-  connectionCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-  initGrid();
 }
 
-/* -------- Creación de partículas -------- */
 function createParticles() {
   particles = [];
-  if (CFG.baseCount === 0) return;
-
-  for (let i = 0; i < CFG.baseCount; i++) {
-    particles.push(makeParticle());
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const isAbducible = Math.random() < ABDUCT_RATIO;
+    const angle = Math.random() * Math.PI * 2;
+    const speed = BASE_SPEED * (0.6 + Math.random() * 0.8);
+    particles.push({
+      x: MARGIN + Math.random() * (width - MARGIN * 2),
+      y: MARGIN + Math.random() * (height - MARGIN * 2),
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      r: Math.random() * 2 + 1,
+      baseR: Math.random() * 2 + 1,
+      phase: Math.random() * Math.PI * 2,
+      phaseSpeed: 0.02 + Math.random() * 0.03,
+      driftAngle: Math.random() * Math.PI * 2,
+      driftSpeed: 0.008 + Math.random() * 0.015,
+      driftAmount: 0.02 + Math.random() * 0.04,
+      cooldown: 0,
+      abducible: isAbducible
+    });
   }
-  currentCount = particles.length;
 }
 
-function makeParticle() {
-  const isAbducible = Math.random() < ABDUCT_RATIO;
-  const angle = Math.random() * Math.PI * 2;
-  const speed = BASE_SPEED * (0.6 + Math.random() * 0.8);
+function getColors() {
+  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   return {
-    x: MARGIN + Math.random() * (width - MARGIN * 2),
-    y: MARGIN + Math.random() * (height - MARGIN * 2),
-    vx: Math.cos(angle) * speed,
-    vy: Math.sin(angle) * speed,
-    r: Math.random() * 2 + 1,
-    baseR: Math.random() * 2 + 1,
-    phase: Math.random() * Math.PI * 2,
-    phaseSpeed: 0.02 + Math.random() * 0.03,
-    driftAngle: Math.random() * Math.PI * 2,
-    driftSpeed: 0.008 + Math.random() * 0.015,
-    driftAmount: 0.02 + Math.random() * 0.04,
-    cooldown: 0,
-    abducible: isAbducible
+    dot: isDark ? "rgba(255, 45, 85, 0.55)" : "rgba(255, 45, 85, 0.4)",
+    dotAlt: isDark ? "rgba(255, 107, 53, 0.9)" : "rgba(255, 107, 53, 0.7)",
+    dotAbduct: isDark ? "rgba(255, 107, 53, 1)" : "rgba(255, 107, 53, 0.85)"
   };
 }
 
-/* Añade o quita partículas dinámicamente sin recrear todas */
-function adaptParticleCount(target) {
-  target = Math.max(0, Math.min(CFG.maxCount, target));
-
-  if (target > particles.length) {
-    const diff = target - particles.length;
-    for (let i = 0; i < diff; i++) particles.push(makeParticle());
-  } else if (target < particles.length) {
-    particles.length = target;
-  }
-  currentCount = particles.length;
-}
-
-/* -------- Explosiones -------- */
 function triggerExplosion(x, y) {
-  if (!CFG.explosions) return;
   explosions.push({ x, y, r: 10, maxR: EXPLOSION_RADIUS, alpha: 1 });
-  for (let i = 0; i < particles.length; i++) {
-    const p = particles[i];
+  particles.forEach(p => {
     const dx = p.x - x, dy = p.y - y;
     const dist = Math.sqrt(dx * dx + dy * dy);
     if (dist < EXPLOSION_RADIUS) {
@@ -4406,95 +4392,21 @@ function triggerExplosion(x, y) {
       p.vy = Math.sin(angle) * force;
       p.cooldown = 45;
     }
-  }
+  });
   cursorPulse = 1;
 }
 
-/* -------- Loop principal con auto-adaptación FPS -------- */
-let lastFrameTime = 0;
-let isPaused = false;
-
-/* Métricas FPS */
-let frameCount = 0;
-let fpsTimer = 0;
-let currentFps = 60;
-let lastAdaptTime = 0;
-const ADAPT_INTERVAL = 1500;         // ms entre adaptaciones
-const TARGET_FPS = 60;
-const LOW_FPS_THRESHOLD = 45;        // por debajo → reducir
-const HIGH_FPS_THRESHOLD = 57;       // por encima sostenido → subir
-let consecutiveHighFps = 0;
-let consecutiveLowFps = 0;
-
-document.addEventListener("visibilitychange", () => {
-  isPaused = document.hidden;
-});
-
-function drawParticles(now) {
-  requestAnimationFrame(drawParticles);
-
-  if (isPaused) return;
-  if (CFG.baseCount === 0) {
-    ctx.clearRect(0, 0, width, height);
-    return;
-  }
-
-  /* Cap de FPS */
-  if (CFG.fps > 0) {
-    const interval = 1000 / CFG.fps;
-    if (now - lastFrameTime < interval) return;
-    lastFrameTime = now;
-  }
-
-  /* --- Medición FPS + auto-adaptación --- */
-  frameCount++;
-  if (!fpsTimer) fpsTimer = now;
-  const elapsed = now - fpsTimer;
-  if (elapsed >= 1000) {
-    currentFps = (frameCount * 1000) / elapsed;
-    frameCount = 0;
-    fpsTimer = now;
-
-    /* Auto-adaptación cada ADAPT_INTERVAL */
-    if (now - lastAdaptTime > ADAPT_INTERVAL) {
-      lastAdaptTime = now;
-
-      if (currentFps < LOW_FPS_THRESHOLD) {
-        consecutiveLowFps++;
-        consecutiveHighFps = 0;
-        if (consecutiveLowFps >= 2 && currentCount > 60) {
-          /* Bajar 15% */
-          adaptParticleCount(Math.floor(currentCount * 0.85));
-          consecutiveLowFps = 0;
-        }
-      } else if (currentFps > HIGH_FPS_THRESHOLD) {
-        consecutiveHighFps++;
-        consecutiveLowFps = 0;
-        if (consecutiveHighFps >= 3 && currentCount < CFG.maxCount) {
-          /* Subir 12% */
-          adaptParticleCount(Math.floor(currentCount * 1.12));
-          consecutiveHighFps = 0;
-        }
-      } else {
-        consecutiveLowFps = 0;
-        consecutiveHighFps = 0;
-      }
-    }
-  }
-
-  const colors = cachedColors;
+function drawParticles() {
+  const colors = getColors();
   ctx.clearRect(0, 0, width, height);
 
-  /* --- Update partículas --- */
-  for (let i = 0; i < particles.length; i++) {
-    const p = particles[i];
-
+  particles.forEach(p => {
     if (p.cooldown > 0) p.cooldown--;
     p.driftAngle += p.driftSpeed;
     p.vx += Math.cos(p.driftAngle) * p.driftAmount * 0.3;
     p.vy += Math.sin(p.driftAngle) * p.driftAmount * 0.3;
 
-    if (CFG.mouse && mouseX > 0 && mouseY > 0 && p.cooldown <= 0) {
+    if (mouseX > 0 && mouseY > 0 && p.cooldown <= 0) {
       const dx = mouseX - p.x, dy = mouseY - p.y;
       const dist = Math.sqrt(dx * dx + dy * dy);
       if (p.abducible && dist < ABDUCT_RADIUS && dist > 1) {
@@ -4539,103 +4451,42 @@ function drawParticles(now) {
 
     p.phase += p.phaseSpeed;
     p.r = p.baseR + Math.sin(p.phase) * 0.6;
-  }
+  });
 
-  /* --- Conexiones con Spatial Hashing ---
-     Solo comparamos con partículas de celdas adyacentes (9 celdas).
-     Esto reduce el costo de O(n²) a O(n·k). */
-  rebuildGrid();
-
-  const connectDistSq = CFG.connect * CFG.connect;
-  const halfCell = cellSize * 0.5;
-
-  for (let cy = 0; cy < gridRows; cy++) {
-    for (let cx = 0; cx < gridCols; cx++) {
-      const cellIdx = cy * gridCols + cx;
-      const cell = grid[cellIdx];
-      if (!cell.length) continue;
-
-      /* Revisar las 9 celdas vecinas (incluida la propia) */
-      for (let ny = -1; ny <= 1; ny++) {
-        const nyAbs = cy + ny;
-        if (nyAbs < 0 || nyAbs >= gridRows) continue;
-        for (let nx = -1; nx <= 1; nx++) {
-          const nxAbs = cx + nx;
-          if (nxAbs < 0 || nxAbs >= gridCols) continue;
-          /* Solo comprobar par de celdas una vez: si es la misma celda, solo i<j;
-             si es celda vecina, siempre comparar todas */
-          if (ny === 0 && nx === 0) {
-            for (let a = 0; a < cell.length; a++) {
-              const pi = particles[cell[a]];
-              for (let b = a + 1; b < cell.length; b++) {
-                const pj = particles[cell[b]];
-                const dx = pi.x - pj.x;
-                const dy = pi.y - pj.y;
-                const distSq = dx * dx + dy * dy;
-                if (distSq < connectDistSq) {
-                  const dist = Math.sqrt(distSq);
-                  const alpha = (1 - dist / CFG.connect) * 0.22;
-                  ctx.beginPath();
-                  ctx.moveTo(pi.x, pi.y);
-                  ctx.lineTo(pj.x, pj.y);
-                  ctx.strokeStyle = `rgba(255, 45, 85, ${alpha})`;
-                  ctx.lineWidth = 0.5;
-                  ctx.stroke();
-                }
-              }
-            }
-          } else {
-            const neighborIdx = nyAbs * gridCols + nxAbs;
-            /* Solo procesar vecino "mayor" para no duplicar (nx,ny) y (-nx,-ny) */
-            if (ny < 0 || (ny === 0 && nx < 0)) continue;
-            const neighbor = grid[neighborIdx];
-            for (let a = 0; a < cell.length; a++) {
-              const pi = particles[cell[a]];
-              for (let b = 0; b < neighbor.length; b++) {
-                const pj = particles[neighbor[b]];
-                const dx = pi.x - pj.x;
-                const dy = pi.y - pj.y;
-                const distSq = dx * dx + dy * dy;
-                if (distSq < connectDistSq) {
-                  const dist = Math.sqrt(distSq);
-                  const alpha = (1 - dist / CFG.connect) * 0.22;
-                  ctx.beginPath();
-                  ctx.moveTo(pi.x, pi.y);
-                  ctx.lineTo(pj.x, pj.y);
-                  ctx.strokeStyle = `rgba(255, 45, 85, ${alpha})`;
-                  ctx.lineWidth = 0.5;
-                  ctx.stroke();
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  /* --- Líneas hacia el mouse --- */
-  if (CFG.mouse && mouseX > 0 && mouseY > 0) {
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      const dx = p.x - mouseX, dy = p.y - mouseY;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const radius = p.abducible ? CFG.connect * 1.3 : CFG.connect;
-      if (dist < radius) {
-        const alpha = (1 - dist / radius) * (p.abducible ? 0.5 : 0.2);
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const distSq = dx * dx + dy * dy;
+      if (distSq < CONNECT_DIST * CONNECT_DIST) {
+        const dist = Math.sqrt(distSq);
+        const alpha = (1 - dist / CONNECT_DIST) * 0.25;
         ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(mouseX, mouseY);
-        ctx.strokeStyle = `rgba(255, 107, 53, ${alpha})`;
-        ctx.lineWidth = p.abducible ? 1 : 0.5;
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(255, 45, 85, ${alpha})`;
+        ctx.lineWidth = 0.5;
         ctx.stroke();
       }
     }
   }
 
-  /* --- Dibujar partículas --- */
-  for (let i = 0; i < particles.length; i++) {
-    const p = particles[i];
+  particles.forEach(p => {
+    const dx = p.x - mouseX, dy = p.y - mouseY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const radius = p.abducible ? CONNECT_DIST * 1.3 : CONNECT_DIST;
+    if (dist < radius) {
+      const alpha = (1 - dist / radius) * (p.abducible ? 0.5 : 0.2);
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      ctx.lineTo(mouseX, mouseY);
+      ctx.strokeStyle = `rgba(255, 107, 53, ${alpha})`;
+      ctx.lineWidth = p.abducible ? 1 : 0.5;
+      ctx.stroke();
+    }
+  });
+
+  particles.forEach(p => {
     const dx = p.x - mouseX, dy = p.y - mouseY;
     const dist = Math.sqrt(dx * dx + dy * dy);
     const nearMouse = dist < (p.abducible ? ABDUCT_RADIUS : FREE_RADIUS);
@@ -4649,7 +4500,7 @@ function drawParticles(now) {
     ctx.fillStyle = color;
     ctx.fill();
 
-    if (p.abducible && CURRENT_TIER !== "mobile") {
+    if (p.abducible) {
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r * 2.5, 0, Math.PI * 2);
       const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.5);
@@ -4658,10 +4509,9 @@ function drawParticles(now) {
       ctx.fillStyle = grad;
       ctx.fill();
     }
-  }
+  });
 
-  /* --- Cursor glow --- */
-  if (CFG.mouse && mouseX > 0 && mouseY > 0) {
+  if (mouseX > 0 && mouseY > 0) {
     cursorPulse *= 0.9;
     const glowRadius = 110 + cursorPulse * 140;
     const gradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, glowRadius);
@@ -4679,103 +4529,81 @@ function drawParticles(now) {
     ctx.fill();
   }
 
-  /* --- Explosiones --- */
-  if (CFG.explosions) {
-    explosions = explosions.filter(ex => ex.alpha > 0.02);
-    for (let i = 0; i < explosions.length; i++) {
-      const ex = explosions[i];
-      ex.r += (ex.maxR - ex.r) * 0.14;
-      ex.alpha *= 0.9;
+  explosions = explosions.filter(ex => ex.alpha > 0.02);
+  explosions.forEach(ex => {
+    ex.r += (ex.maxR - ex.r) * 0.14;
+    ex.alpha *= 0.9;
 
+    ctx.beginPath();
+    ctx.arc(ex.x, ex.y, ex.r, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(255, 107, 53, ${ex.alpha * 0.75})`;
+    ctx.lineWidth = 3.5 * ex.alpha;
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.arc(ex.x, ex.y, ex.r * 0.75, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(255, 45, 85, ${ex.alpha * 0.5})`;
+    ctx.lineWidth = 2 * ex.alpha;
+    ctx.stroke();
+
+    if (ex.alpha > 0.4) {
+      const flashGrad = ctx.createRadialGradient(ex.x, ex.y, 0, ex.x, ex.y, 100);
+      flashGrad.addColorStop(0, `rgba(255, 200, 150, ${(ex.alpha - 0.4) * 1.2})`);
+      flashGrad.addColorStop(1, "rgba(255, 45, 85, 0)");
       ctx.beginPath();
-      ctx.arc(ex.x, ex.y, ex.r, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 107, 53, ${ex.alpha * 0.75})`;
-      ctx.lineWidth = 3.5 * ex.alpha;
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.arc(ex.x, ex.y, ex.r * 0.75, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 45, 85, ${ex.alpha * 0.5})`;
-      ctx.lineWidth = 2 * ex.alpha;
-      ctx.stroke();
-
-      if (ex.alpha > 0.4) {
-        const flashGrad = ctx.createRadialGradient(ex.x, ex.y, 0, ex.x, ex.y, 100);
-        flashGrad.addColorStop(0, `rgba(255, 200, 150, ${(ex.alpha - 0.4) * 1.2})`);
-        flashGrad.addColorStop(1, "rgba(255, 45, 85, 0)");
-        ctx.beginPath();
-        ctx.arc(ex.x, ex.y, 100, 0, Math.PI * 2);
-        ctx.fillStyle = flashGrad;
-        ctx.fill();
-      }
+      ctx.arc(ex.x, ex.y, 100, 0, Math.PI * 2);
+      ctx.fillStyle = flashGrad;
+      ctx.fill();
     }
-  }
-}
-
-/* --- Input listeners --- */
-if (CFG.mouse) {
-  window.addEventListener("mousemove", e => {
-    mouseX = e.clientX; mouseY = e.clientY;
-    window.__mouseX = e.clientX; window.__mouseY = e.clientY;
-  }, { passive: true });
-
-  window.addEventListener("touchmove", e => {
-    if (e.touches.length > 0) {
-      mouseX = e.touches[0].clientX;
-      mouseY = e.touches[0].clientY;
-      window.__mouseX = mouseX;
-      window.__mouseY = mouseY;
-    }
-  }, { passive: true });
-
-  window.addEventListener("touchstart", e => {
-    if (e.touches.length > 0) {
-      mouseX = e.touches[0].clientX;
-      mouseY = e.touches[0].clientY;
-      window.__mouseX = mouseX;
-      window.__mouseY = mouseY;
-    }
-  }, { passive: true });
-
-  window.addEventListener("mouseleave", () => {
-    mouseX = -1000; mouseY = -1000;
-    window.__mouseX = -1000; window.__mouseY = -1000;
   });
+
+  requestAnimationFrame(drawParticles);
 }
+
+window.addEventListener("mousemove", e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  window.__mouseX = e.clientX; window.__mouseY = e.clientY;
+});
+
+window.addEventListener("touchmove", e => {
+  if (e.touches.length > 0) {
+    mouseX = e.touches[0].clientX;
+    mouseY = e.touches[0].clientY;
+    window.__mouseX = mouseX;
+    window.__mouseY = mouseY;
+  }
+}, { passive: true });
+
+window.addEventListener("touchstart", e => {
+  if (e.touches.length > 0) {
+    mouseX = e.touches[0].clientX;
+    mouseY = e.touches[0].clientY;
+    window.__mouseX = mouseX;
+    window.__mouseY = mouseY;
+  }
+}, { passive: true });
 
 const EXPLOSION_IGNORE = "a, button, .fab-container, .lang-selector, .lang-menu, .lang-trigger, .header, .about-blob, .buy-menu, .portfolio-card, .case-modal, .plan-cta, .btn-plans, .wechat-modal, .global-scroll-hint, input, textarea";
 
 window.addEventListener("click", e => {
-  if (!CFG.explosions) return;
   if (e.target.closest(EXPLOSION_IGNORE)) return;
   triggerExplosion(e.clientX, e.clientY);
 });
 
-/* --- Resize con debounce --- */
-let resizeTimer = null;
+window.addEventListener("mouseleave", () => {
+  mouseX = -1000; mouseY = -1000;
+  window.__mouseX = -1000; window.__mouseY = -1000;
+});
+
 window.addEventListener("resize", () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    const newTier = detectTier();
-    if (newTier !== CURRENT_TIER) {
-      CURRENT_TIER = newTier;
-      CFG = Object.assign({}, TIER_CONFIG[newTier]);
-      dpr = Math.min(window.devicePixelRatio || 1, CFG.dprMax);
-      refreshColors();
-      resizeCanvas();
-      createParticles();
-    } else {
-      resizeCanvas();
-      initGrid();
-    }
-  }, 200);
+  resizeCanvas();
+  createParticles();
 });
 
 function initCanvas() {
   resizeCanvas();
   createParticles();
-  if (CFG.baseCount === 0) return;
-  requestAnimationFrame(drawParticles);
+  drawParticles();
 }
 
 /* =========================================================
@@ -4800,9 +4628,6 @@ function initCanvas() {
   const BASE_RADIUS = 128;
   const CENTER = 150;
   const MAX_PULL = 14;
-  const reduceMotion = mqReduceMotion.matches;
-  const blobFps = (CURRENT_TIER === "mobile") ? 24 : 30;
-  const blobInterval = 1000 / blobFps;
 
   function buildPath(time) {
     const pts = [];
@@ -4812,7 +4637,7 @@ function initCanvas() {
       const wave2 = Math.cos(angle * 3 + time * 0.0012) * 2.5;
 
       let pull = 0;
-      if (!reduceMotion && window.__mouseX > 0 && window.__mouseY > 0) {
+      if (window.__mouseX > 0 && window.__mouseY > 0) {
         const rect = blob.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
@@ -4853,16 +4678,11 @@ function initCanvas() {
     return d;
   }
 
-  let blobLastFrame = 0;
   function animate(t) {
-    requestAnimationFrame(animate);
-    if (document.hidden) return;
-    if (t - blobLastFrame < blobInterval) return;
-    blobLastFrame = t;
-
     const d = buildPath(t);
     if (path) path.setAttribute("d", d);
     if (frame) frame.setAttribute("d", d);
+    requestAnimationFrame(animate);
   }
 
   requestAnimationFrame(animate);
@@ -4878,6 +4698,7 @@ function init() {
   const browserLang = (navigator.language || "en").slice(0, 2).toLowerCase();
   const initialLang = SUPPORTED_LANGS.includes(browserLang) ? browserLang : "en";
   applyTranslations(initialLang);
+
   closeLangMenu();
 }
 
