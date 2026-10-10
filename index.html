@@ -12,7 +12,6 @@
 <meta property="og:type" content="website">
 <title>Vielma. Freelance Studio</title>
 
-<!-- ✅ FAVICON "V." -->
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <link rel="shortcut icon" href="assets/favicon.png">
@@ -47,6 +46,11 @@
   --header-h: 60px;
   --header-pad-x: 24px;
 
+  /* Fallback para navegadores sin color-mix() */
+  --glass-bg: rgba(255, 255, 255, 0.78);
+  --glass-bg-soft: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(0, 0, 0, 0.06);
+
   --glass-bg: color-mix(in srgb, var(--bg) 78%, transparent);
   --glass-bg-soft: color-mix(in srgb, var(--bg) 72%, transparent);
   --glass-border: color-mix(in srgb, var(--border) 60%, transparent);
@@ -68,9 +72,13 @@
     --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 32px rgba(0,0,0,0.4);
     --shadow-lg: 0 8px 40px rgba(0,0,0,0.6);
 
+    /* Fallback dark */
+    --glass-bg: rgba(21, 21, 21, 0.62);
+    --glass-bg-soft: rgba(17, 17, 17, 0.68);
+    --glass-border: rgba(255, 255, 255, 0.06);
+
     --glass-bg: color-mix(in srgb, #151515 62%, transparent);
     --glass-bg-soft: color-mix(in srgb, #111111 68%, transparent);
-    --glass-border: rgba(255, 255, 255, 0.06);
   }
 }
 
@@ -164,15 +172,15 @@ img { max-width: 100%; display: block; }
 .icon-svg--lg { width: 26px; height: 26px; }
 
 /* =========================================================
-   LANGUAGE BLUR
+   LANGUAGE BLUR — blur solo en hijos, sin doble blur en shade
    ========================================================= */
 body.lang-blur .content-wrapper,
 body.lang-blur .header,
 body.lang-blur .fab-container,
 body.lang-blur .global-scroll-hint,
 body.lang-blur #bg-canvas {
-  filter: blur(14px);
-  opacity: 0.65;
+  filter: blur(6px);
+  opacity: 0.5;
   transition: filter 0.35s cubic-bezier(0.4, 0, 0.2, 1),
               opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
@@ -192,26 +200,20 @@ body.lang-blur #bg-canvas {
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  background: rgba(255, 255, 255, 0);
-  backdrop-filter: blur(0px);
-  -webkit-backdrop-filter: blur(0px);
+  background: transparent;
   opacity: 0;
-  transition: opacity 0.4s ease, backdrop-filter 0.4s ease, -webkit-backdrop-filter 0.4s ease;
+  transition: opacity 0.4s ease;
 }
 
 body.lang-blur .lang-shade {
   opacity: 1;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 @media (prefers-color-scheme: dark) {
-  .lang-shade { background: rgba(0, 0, 0, 0); }
-  body.lang-blur .lang-shade { background: rgba(0, 0, 0, 0.15); }
-}
-
-@media (prefers-color-scheme: light) {
-  body.lang-blur .lang-shade { background: rgba(255, 255, 255, 0.15); }
+  body.lang-blur .lang-shade {
+    background: rgba(0, 0, 0, 0.25);
+  }
 }
 
 /* =========================================================
@@ -520,7 +522,6 @@ section {
   transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
 }
 section.visible { opacity: 1; transform: translateY(0); }
-
 /* =========================================================
    HERO
    ========================================================= */
@@ -1516,7 +1517,6 @@ html[lang="ar"] .hero-title__brand {
   transition: all var(--transition); font-family: inherit;
 }
 .wechat-modal__close:hover { background: var(--accent); transform: rotate(90deg); }
-
 /* =========================================================
    PROCESS
    ========================================================= */
@@ -2002,6 +2002,7 @@ html[lang="ar"] .hero-title__brand {
   font-weight: 600;
   transition: opacity var(--transition);
   white-space: nowrap;
+  cursor: pointer;
 }
 .footer__links a:hover { opacity: 0.7; }
 .footer__links .sep {
@@ -2126,13 +2127,9 @@ html[lang="ar"] .hero-title__brand {
   .toast { font-size: 0.78rem; padding: 10px 18px; }
 }
 
-.fade-in {
-  opacity: 0; transform: translateY(30px);
-  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
-}
-
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-
+/* =========================================================
+   MEDIA QUERIES GLOBALES
+   ========================================================= */
 @media (min-width: 900px) { .nav { display: flex; } }
 
 @media (max-width: 899px) {
@@ -2163,59 +2160,314 @@ html[lang="ar"] * {
   unicode-bidi: plaintext;
 }
 
-/* =========================================================
-   ABOUT H2 — gradiente también en árabe
-   ========================================================= */
-html[lang="ar"] #about h2.about-title,
+html[lang="ar"] .hero-title__brand,
 html[lang="ar"] h2.about-title {
   direction: ltr;
   unicode-bidi: isolate;
-  background: linear-gradient(
-    115deg,
-    var(--accent) 0%,
-    var(--accent-2) 22%,
-    #1a1a1a 55%,
-    #0a0a0a 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-}
-
-@media (prefers-color-scheme: dark) {
-  html[lang="ar"] #about h2.about-title,
-  html[lang="ar"] h2.about-title {
-    background: linear-gradient(
-      115deg,
-      var(--accent) 0%,
-      var(--accent-2) 22%,
-      #ffffff 62%,
-      #e6e6e6 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
 }
 
 /* =========================================================
-   HERO H1 — gradiente también en árabe
+   COOKIE POLICY MODAL
    ========================================================= */
-html[lang="ar"] .hero-title__brand {
-  direction: ltr;
-  unicode-bidi: isolate;
-  background: linear-gradient(
-    115deg,
-    var(--accent) 0%,
-    var(--accent-2) 45%,
-    var(--accent) 100%
-  );
+.cookie-modal {
+  position: fixed; inset: 0; z-index: 400;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s var(--ease);
+}
+.cookie-modal.open { opacity: 1; pointer-events: all; }
+
+.cookie-modal__backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.cookie-modal__panel {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  max-width: 720px;
+  width: 100%;
+  max-height: 88vh;
+  overflow: hidden;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.4s var(--ease);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cookie-modal.open .cookie-modal__panel {
+  transform: translateY(0) scale(1);
+}
+
+.cookie-modal__close {
+  position: absolute; top: 14px; right: 14px;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6); color: #fff;
+  font-size: 1.5rem; line-height: 1; border: none;
+  cursor: pointer; z-index: 3; display: flex;
+  align-items: center; justify-content: center;
+  transition: all var(--transition); font-family: inherit;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.cookie-modal__close:hover {
+  background: var(--accent);
+  transform: rotate(90deg);
+}
+
+.cookie-modal__header {
+  padding: 28px 32px 16px;
+  border-bottom: 1px solid var(--border-soft);
+  flex-shrink: 0;
+}
+
+.cookie-modal__title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin-bottom: 6px;
+  color: var(--text);
+  background: linear-gradient(115deg, var(--accent) 0%, var(--accent-2) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  color: transparent;
+  display: inline-block;
+}
+
+.cookie-modal__subtitle {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.cookie-modal__content {
+  padding: 24px 32px 32px;
+  overflow-y: auto;
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text-dim);
+  scrollbar-width: thin;
+}
+
+.cookie-modal__content::-webkit-scrollbar { width: 6px; }
+.cookie-modal__content::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+.cookie-modal__content::-webkit-scrollbar-track { background: transparent; }
+
+.cookie-modal__content h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--text);
+  margin: 22px 0 8px;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.cookie-modal__content h3:first-child { margin-top: 0; }
+
+.cookie-modal__content h3::before {
+  content: '';
+  width: 4px;
+  height: 16px;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.cookie-modal__content p {
+  margin-bottom: 12px;
+}
+
+.cookie-modal__content ul {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 16px;
+}
+
+.cookie-modal__content ul li {
+  position: relative;
+  padding-left: 20px;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+.cookie-modal__content ul li::before {
+  content: '◆';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+  font-size: 0.7rem;
+  line-height: 1.9;
+}
+
+.cookie-modal__content strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.cookie-modal__content a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: opacity var(--transition);
+}
+.cookie-modal__content a:hover { opacity: 0.7; }
+
+.cookie-modal__badge {
+  display: inline-block;
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+}
+
+.cookie-modal__updated {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border-soft);
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  font-style: italic;
+}
+
+@media (max-width: 480px) {
+  .cookie-modal__header { padding: 22px 20px 14px; }
+  .cookie-modal__content { padding: 20px 20px 26px; font-size: 0.85rem; }
+  .cookie-modal__title { font-size: 1.2rem; }
+}
+
+/* =========================================================
+   COOKIE BANNER (aviso inferior al entrar)
+   ========================================================= */
+.cookie-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(140%);
+  z-index: 250;
+  max-width: 720px;
+  width: calc(100% - 32px);
+  padding: 16px 20px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.4s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .cookie-banner { box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6); }
+}
+
+.cookie-banner.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.cookie-banner__text {
+  flex: 1;
+  min-width: 200px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+.cookie-banner__text strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.cookie-banner__text a {
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.cookie-banner__actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.cookie-banner__btn {
+  padding: 9px 18px;
+  border-radius: 100px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  border: 1px solid var(--glass-border);
+  background: var(--glass-bg-soft);
+  color: var(--text);
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.cookie-banner__btn:hover {
+  transform: translateY(-1px);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.cookie-banner__btn--primary {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  border: none;
+  box-shadow: 0 6px 18px rgba(255, 45, 85, 0.35);
+}
+
+.cookie-banner__btn--primary:hover {
+  filter: brightness(1.06);
+  transform: translateY(-1px);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(255, 45, 85, 0.5);
+}
+
+@media (max-width: 480px) {
+  .cookie-banner {
+    bottom: 14px;
+    padding: 14px 16px;
+    gap: 12px;
+  }
+  .cookie-banner__actions {
+    width: 100%;
+  }
+  .cookie-banner__btn {
+    flex: 1;
+    text-align: center;
+  }
 }
 </style>
 </head>
@@ -2257,7 +2509,6 @@ html[lang="ar"] .hero-title__brand {
            ========================================================= -->
       <div class="lang-selector" id="langSelector">
 
-        <!-- Botón trigger (cerrado) -->
         <button class="lang-trigger" id="langTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-label="Change language">
           <span class="lang-trigger__code" id="langTriggerCode">EN</span>
           <span class="lang-trigger__label" id="langTriggerLabel">English</span>
@@ -2268,7 +2519,6 @@ html[lang="ar"] .hero-title__brand {
           </span>
         </button>
 
-        <!-- Panel desplegable con los 8 idiomas -->
         <div class="lang-menu" id="langMenu" role="listbox" aria-label="Language options">
 
           <button class="lang-option" type="button" role="option" data-lang="en">
@@ -2362,11 +2612,11 @@ html[lang="ar"] .hero-title__brand {
     </div>
   </section>
 
-  <section id="about" class="fade-in">
+  <section id="about">
     <div class="section-label" data-i18n="about.label">Victor Vielma</div>
     <h2 class="about-title" data-i18n="about.title">The person behind the work</h2>
     <div class="about-grid">
-      <div class="about-blob" id="aboutBlob">
+      <div class="about-blob" id="aboutBlob" data-no-explosion>
         <svg class="about-blob__svg" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
           <defs>
             <linearGradient id="blobGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -2409,26 +2659,26 @@ html[lang="ar"] .hero-title__brand {
     </div>
   </section>
 
-  <section id="services" class="fade-in">
+  <section id="services">
     <div class="section-label" data-i18n="services.label">Services</div>
     <h2 data-i18n="services.title">What I can do for you</h2>
     <div class="services-grid" id="servicesGrid"></div>
   </section>
 
-  <section id="portfolio" class="fade-in">
+  <section id="portfolio">
     <div class="section-label" data-i18n="portfolio.label">Portfolio</div>
     <h2 data-i18n="portfolio.title">Selected work</h2>
     <div class="portfolio-grid" id="portfolioGrid"></div>
     <p class="portfolio-note" data-i18n="portfolio.note">Even the page where I offer my services is part of this portfolio.</p>
   </section>
 
-  <section id="process" class="fade-in">
+  <section id="process">
     <div class="section-label" data-i18n="process.label">Process</div>
     <h2 data-i18n="process.title">How we work together</h2>
     <div class="process-list" id="processList"></div>
   </section>
 
-  <section id="pricing" class="fade-in">
+  <section id="pricing">
     <div class="section-label" data-i18n="pricing.label">Pricing &amp; Terms</div>
     <h2 data-i18n="pricing.title">Clear and simple</h2>
     <p class="pricing-intro" data-i18n="pricing.intro">All projects are quoted per project. Payment is in USD. A 50% advance is required to start — no exceptions.</p>
@@ -2482,7 +2732,7 @@ html[lang="ar"] .hero-title__brand {
       </p>
       <p class="terms-note">
         <strong data-i18n="pricing.terms.hourlyTitle">Hourly support:</strong>
-        <span data-i18n="pricing.terms.hourlyNote">$20/hour · billed in 30-min increments · 50% advance.</span>
+        <span data-i18n="pricing.terms.hourlyNote">$5/hour · billed in 30-min increments · 50% advance.</span>
       </p>
       <p class="terms-note">
         <strong data-i18n="pricing.terms.contractTitle">Contract:</strong>
@@ -2491,7 +2741,7 @@ html[lang="ar"] .hero-title__brand {
     </div>
   </section>
 
-  <section id="contact" class="fade-in">
+  <section id="contact">
     <div class="section-label" data-i18n="contact.label">Contact</div>
     <h2 data-i18n="contact.title">Let's talk</h2>
     <div class="contact-grid">
@@ -2579,6 +2829,8 @@ html[lang="ar"] .hero-title__brand {
       <a href="https://www.instagram.com/vielma.studio?stkn=MWptMmkweGt0Z2EwZQ==" target="_blank" rel="noopener">Instagram</a>
       <span class="sep">·</span>
       <a href="https://www.tiktok.com/@vielma.studio" target="_blank" rel="noopener">TikTok</a>
+      <span class="sep">·</span>
+      <a href="#" id="cookiePolicyLink" data-i18n="footer.cookies">Cookies</a>
     </p>
   </footer>
 
@@ -2595,7 +2847,7 @@ html[lang="ar"] .hero-title__brand {
   <span class="scroll-hint__arrow" aria-hidden="true">↓</span>
 </button>
 
-<div class="fab-container">
+<div class="fab-container" data-no-explosion>
   <button class="fab-main" id="fabMain" aria-label="Contact options">
     <span class="fab-icon" aria-hidden="true">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -2627,6 +2879,9 @@ html[lang="ar"] .hero-title__brand {
   </div>
 </div>
 
+<!-- =========================================================
+     WECHAT QR MODAL
+     ========================================================= -->
 <div class="wechat-modal" id="wechatModal" aria-hidden="true">
   <div class="wechat-modal__backdrop" data-close-wechat></div>
   <div class="wechat-modal__panel">
@@ -2640,6 +2895,89 @@ html[lang="ar"] .hero-title__brand {
   </div>
 </div>
 
+<!-- =========================================================
+     COOKIE POLICY MODAL
+     ========================================================= -->
+<div class="cookie-modal" id="cookieModal" aria-hidden="true" role="dialog" aria-labelledby="cookieModalTitle">
+  <div class="cookie-modal__backdrop" data-close-cookie></div>
+  <div class="cookie-modal__panel">
+    <button class="cookie-modal__close" type="button" aria-label="Close" data-close-cookie>×</button>
+
+    <div class="cookie-modal__header">
+      <div class="cookie-modal__badge" data-i18n="cookies.badge">Legal</div>
+      <h2 class="cookie-modal__title" id="cookieModalTitle" data-i18n="cookies.title">Cookie Policy</h2>
+      <div class="cookie-modal__subtitle" data-i18n="cookies.subtitle">How we use cookies on this site</div>
+    </div>
+
+    <div class="cookie-modal__content">
+
+      <h3 data-i18n="cookies.introTitle">1. What are cookies?</h3>
+      <p data-i18n="cookies.introText">Cookies are small text files stored on your device (computer, mobile or tablet) when you visit a website. They allow the site to remember your preferences and actions over a period of time, so you don't have to reconfigure them each time you return.</p>
+
+      <h3 data-i18n="cookies.typesTitle">2. Types of cookies we use</h3>
+
+      <p><strong data-i18n="cookies.essentialTitle">Essential cookies (technical)</strong></p>
+      <p data-i18n="cookies.essentialText">Necessary for the basic functioning of the site. Without them, services such as navigation or language selection would not work properly. These cookies do not require prior consent.</p>
+
+      <p><strong data-i18n="cookies.prefTitle">Preference cookies</strong></p>
+      <p data-i18n="cookies.prefText">They store your configuration preferences, such as the selected language (EN, ES, PT, FR, DE, ZH, RU, AR), to offer you a personalized experience on future visits.</p>
+
+      <p><strong data-i18n="cookies.analyticsTitle">Analytics cookies (only if implemented)</strong></p>
+      <p data-i18n="cookies.analyticsText">If statistical tools are added in the future, these cookies would allow us to understand how visitors interact with the page. They would be anonymous and would only be activated with your express consent.</p>
+
+      <p><strong data-i18n="cookies.thirdTitle">Third-party cookies (only if implemented)</strong></p>
+      <p data-i18n="cookies.thirdText">External services such as Google Fonts or communication platforms (WhatsApp, Telegram, Discord) may install their own cookies. Currently, Google Fonts does not install tracking cookies, it only loads typographies.</p>
+
+      <h3 data-i18n="cookies.consentTitle">3. Consent</h3>
+      <p data-i18n="cookies.consentText">For cookies that are not strictly necessary, we will request your consent clearly. You can:</p>
+      <ul>
+        <li data-i18n="cookies.consentLi1">Accept all cookies</li>
+        <li data-i18n="cookies.consentLi2">Reject non-essential cookies</li>
+        <li data-i18n="cookies.consentLi3">Configure your preferences by category</li>
+      </ul>
+      <p data-i18n="cookies.consentNote">Keep in mind that rejecting non-essential cookies does not affect your general access to the page content.</p>
+
+      <h3 data-i18n="cookies.manageTitle">4. How to manage or delete cookies</h3>
+      <p data-i18n="cookies.manageText">You can control and/or delete cookies as you wish. To do so, check your browser settings:</p>
+      <ul>
+        <li><strong>Chrome:</strong> <span data-i18n="cookies.manageChrome">Settings → Privacy and security → Cookies and other site data</span></li>
+        <li><strong>Firefox:</strong> <span data-i18n="cookies.manageFirefox">Preferences → Privacy and security → Cookies and site data</span></li>
+        <li><strong>Safari:</strong> <span data-i18n="cookies.manageSafari">Preferences → Privacy → Manage website data</span></li>
+        <li><strong>Edge:</strong> <span data-i18n="cookies.manageEdge">Settings → Cookies and site permissions → Cookies and site data</span></li>
+      </ul>
+      <p data-i18n="cookies.manageNote">Keep in mind that blocking all cookies may affect the functionality of some parts of the page.</p>
+
+      <h3 data-i18n="cookies.changesTitle">5. Changes to this policy</h3>
+      <p data-i18n="cookies.changesText">We may update this policy to reflect changes in our practices or for legal reasons. We will notify you of any important changes by publishing the new version on this page with the corresponding update date.</p>
+
+      <h3 data-i18n="cookies.contactTitle">6. Contact</h3>
+      <p>
+        <span data-i18n="cookies.contactText">If you have questions about the use of cookies, you can contact us at:</span>
+        <a href="mailto:vvielmacriollo@mail.ru">vvielmacriollo@mail.ru</a>
+      </p>
+
+      <div class="cookie-modal__updated">
+        <span data-i18n="cookies.updated">Last updated:</span> <span data-i18n="cookies.updatedDate">October 2026</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     COOKIE BANNER
+     ========================================================= -->
+<div class="cookie-banner" id="cookieBanner" role="region" aria-label="Cookie notice">
+  <div class="cookie-banner__text">
+    <strong data-i18n="cookies.bannerTitle">We use cookies</strong>
+    <span data-i18n="cookies.bannerText"> to ensure the site works correctly and to remember your language preference.</span>
+    <a href="#" id="cookieBannerLearnMore" data-i18n="cookies.bannerMore">Learn more</a>
+  </div>
+  <div class="cookie-banner__actions">
+    <button class="cookie-banner__btn" type="button" id="cookieReject" data-i18n="cookies.bannerReject">Reject</button>
+    <button class="cookie-banner__btn cookie-banner__btn--primary" type="button" id="cookieAccept" data-i18n="cookies.bannerAccept">Accept</button>
+  </div>
+</div>
 <script>
   "use strict";
 
@@ -2678,7 +3016,7 @@ const translations = {
     "process.step6.title":"Ongoing support","process.step6.desc":"30 days free for web / according to plan for the rest.",
     "pricing.label":"Pricing & Terms","pricing.title":"Clear and simple",
     "pricing.intro":"All projects are quoted per project. Payment is in USD. A 50% advance is required to start — no exceptions.",
-    "pricing.highlight":"🔒 50% advance payment required to start any project.",
+    "pricing.highlight":"🔒 50% advance payment required to start any project. Prices adapted to the Venezuelan market.",
     "pricing.supportTitle":"Support plans","pricing.mode.monthly":"Monthly","pricing.mode.incident":"Per incident",
     "pricing.coverage":"Covers all 7 services",
     "pricing.period.monthly":"/mo","pricing.period.incident":"/incident",
@@ -2686,12 +3024,51 @@ const translations = {
     "pricing.terms.inc1":"Bug fixes and error corrections","pricing.terms.inc2":"Minor adjustments (text, colors, small layout changes)","pricing.terms.inc3":"Technical advice and best-practice guidance","pricing.terms.inc4":"Software / dependency updates","pricing.terms.inc5":"Priority response based on your plan",
     "pricing.terms.not1":"New features or full redesigns (quoted separately)","pricing.terms.not2":"Content creation (copywriting, images, video)","pricing.terms.not3":"Third-party services (hosting, domains, APIs)","pricing.terms.not4":"Emergencies outside business hours (extra fee)","pricing.terms.not5":"Changes requested by third parties outside the scope",
     "pricing.terms.webTitle":"Web projects:","pricing.terms.webNote":"30 days of free post-delivery support included (bug fixes only). After that, any of the plans above applies.",
-    "pricing.terms.hourlyTitle":"Hourly support:","pricing.terms.hourlyNote":"$20/hour · billed in 30-min increments · 50% advance.",
+    "pricing.terms.hourlyTitle":"Hourly support:","pricing.terms.hourlyNote":"$5/hour · billed in 30-min increments · 50% advance.",
     "pricing.terms.contractTitle":"Contract:","pricing.terms.contractNote":"Monthly plans renew automatically. Cancel anytime with 15 days' notice. No setup fees.",
     "contact.label":"Contact","contact.title":"Let's talk",
     "footer.tag":"Documents · Presentations · Web · IT",
+    "footer.cookies":"Cookies",
     "buy.cta":"Get started","buy.copied":"📋 Message copied — paste it in the chat",
-    "scroll.up":"Scroll up","scroll.down":"Scroll down"
+    "scroll.up":"Scroll up","scroll.down":"Scroll down",
+    "cookies.badge":"Legal",
+    "cookies.title":"Cookie Policy",
+    "cookies.subtitle":"How we use cookies on this site",
+    "cookies.introTitle":"1. What are cookies?",
+    "cookies.introText":"Cookies are small text files stored on your device (computer, mobile or tablet) when you visit a website. They allow the site to remember your preferences and actions over a period of time, so you don't have to reconfigure them each time you return.",
+    "cookies.typesTitle":"2. Types of cookies we use",
+    "cookies.essentialTitle":"Essential cookies (technical)",
+    "cookies.essentialText":"Necessary for the basic functioning of the site. Without them, services such as navigation or language selection would not work properly. These cookies do not require prior consent.",
+    "cookies.prefTitle":"Preference cookies",
+    "cookies.prefText":"They store your configuration preferences, such as the selected language (EN, ES, PT, FR, DE, ZH, RU, AR), to offer you a personalized experience on future visits.",
+    "cookies.analyticsTitle":"Analytics cookies (only if implemented)",
+    "cookies.analyticsText":"If statistical tools are added in the future, these cookies would allow us to understand how visitors interact with the page. They would be anonymous and would only be activated with your express consent.",
+    "cookies.thirdTitle":"Third-party cookies (only if implemented)",
+    "cookies.thirdText":"External services such as Google Fonts or communication platforms (WhatsApp, Telegram, Discord) may install their own cookies. Currently, Google Fonts does not install tracking cookies, it only loads typographies.",
+    "cookies.consentTitle":"3. Consent",
+    "cookies.consentText":"For cookies that are not strictly necessary, we will request your consent clearly. You can:",
+    "cookies.consentLi1":"Accept all cookies",
+    "cookies.consentLi2":"Reject non-essential cookies",
+    "cookies.consentLi3":"Configure your preferences by category",
+    "cookies.consentNote":"Keep in mind that rejecting non-essential cookies does not affect your general access to the page content.",
+    "cookies.manageTitle":"4. How to manage or delete cookies",
+    "cookies.manageText":"You can control and/or delete cookies as you wish. To do so, check your browser settings:",
+    "cookies.manageChrome":"Settings → Privacy and security → Cookies and other site data",
+    "cookies.manageFirefox":"Preferences → Privacy and security → Cookies and site data",
+    "cookies.manageSafari":"Preferences → Privacy → Manage website data",
+    "cookies.manageEdge":"Settings → Cookies and site permissions → Cookies and site data",
+    "cookies.manageNote":"Keep in mind that blocking all cookies may affect the functionality of some parts of the page.",
+    "cookies.changesTitle":"5. Changes to this policy",
+    "cookies.changesText":"We may update this policy to reflect changes in our practices or for legal reasons. We will notify you of any important changes by publishing the new version on this page with the corresponding update date.",
+    "cookies.contactTitle":"6. Contact",
+    "cookies.contactText":"If you have questions about the use of cookies, you can contact us at:",
+    "cookies.updated":"Last updated:",
+    "cookies.updatedDate":"October 2026",
+    "cookies.bannerTitle":"We use cookies",
+    "cookies.bannerText":" to ensure the site works correctly and to remember your language preference.",
+    "cookies.bannerMore":"Learn more",
+    "cookies.bannerReject":"Reject",
+    "cookies.bannerAccept":"Accept"
   },
   es: {
     "nav.services":"Servicios","nav.portfolio":"Portafolio","nav.process":"Proceso","nav.pricing":"Precios","nav.contact":"Contacto",
@@ -2724,7 +3101,7 @@ const translations = {
     "process.step6.title":"Soporte continuo","process.step6.desc":"30 días gratis en web / según plan en los demás.",
     "pricing.label":"Precios y Modalidad","pricing.title":"Claro y simple",
     "pricing.intro":"Todos los proyectos se cotizan por proyecto. Pago en USD. Se requiere 50% de adelanto para iniciar — sin excepciones.",
-    "pricing.highlight":"🔒 50% de adelanto obligatorio para iniciar cualquier proyecto.",
+    "pricing.highlight":"🔒 50% de adelanto obligatorio para iniciar cualquier proyecto. Precios adaptados al mercado venezolano.",
     "pricing.supportTitle":"Planes de soporte","pricing.mode.monthly":"Mensual","pricing.mode.incident":"Por incidencia",
     "pricing.coverage":"Cubre los 7 servicios",
     "pricing.period.monthly":"/mes","pricing.period.incident":"/incidencia",
@@ -2732,12 +3109,51 @@ const translations = {
     "pricing.terms.inc1":"Corrección de errores y fallos","pricing.terms.inc2":"Ajustes menores (texto, colores, pequeños cambios de maquetación)","pricing.terms.inc3":"Asesoría técnica y buenas prácticas","pricing.terms.inc4":"Actualizaciones de software / dependencias","pricing.terms.inc5":"Respuesta prioritaria según tu plan",
     "pricing.terms.not1":"Nuevas funcionalidades o rediseños completos (cotización aparte)","pricing.terms.not2":"Creación de contenido (copywriting, imágenes, video)","pricing.terms.not3":"Servicios de terceros (hosting, dominios, APIs)","pricing.terms.not4":"Emergencias fuera del horario laboral (cargo extra)","pricing.terms.not5":"Cambios solicitados por terceros fuera del alcance",
     "pricing.terms.webTitle":"Proyectos web:","pricing.terms.webNote":"30 días de soporte gratis post-entrega (solo corrección de errores). Después, aplica cualquiera de los planes de arriba.",
-    "pricing.terms.hourlyTitle":"Soporte por hora:","pricing.terms.hourlyNote":"$20/hora · facturado en bloques de 30 min · 50% de adelanto.",
+    "pricing.terms.hourlyTitle":"Soporte por hora:","pricing.terms.hourlyNote":"$5/hora · facturado en bloques de 30 min · 50% de adelanto.",
     "pricing.terms.contractTitle":"Contrato:","pricing.terms.contractNote":"Los planes mensuales se renuevan automáticamente. Cancela cuando quieras con 15 días de aviso. Sin costos de instalación.",
     "contact.label":"Contacto","contact.title":"Hablemos",
     "footer.tag":"Documentos · Presentaciones · Web · IT",
+    "footer.cookies":"Cookies",
     "buy.cta":"Contratar","buy.copied":"📋 Mensaje copiado — pégalo en el chat",
-    "scroll.up":"Subir","scroll.down":"Desliza hacia abajo"
+    "scroll.up":"Subir","scroll.down":"Desliza hacia abajo",
+    "cookies.badge":"Legal",
+    "cookies.title":"Política de Cookies",
+    "cookies.subtitle":"Cómo usamos las cookies en este sitio",
+    "cookies.introTitle":"1. ¿Qué son las cookies?",
+    "cookies.introText":"Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo (ordenador, móvil o tablet) cuando visitas una página web. Permiten que el sitio recuerde tus preferencias y acciones durante un período de tiempo, evitando que tengas que configurarlas cada vez que regreses.",
+    "cookies.typesTitle":"2. Tipos de cookies que utilizamos",
+    "cookies.essentialTitle":"Cookies esenciales (técnicas)",
+    "cookies.essentialText":"Son necesarias para el funcionamiento básico de la página. Sin ellas, servicios como la navegación o la selección de idioma no funcionarían correctamente. Estas cookies no requieren consentimiento previo.",
+    "cookies.prefTitle":"Cookies de preferencia",
+    "cookies.prefText":"Guardan tus preferencias de configuración, como el idioma seleccionado (EN, ES, PT, FR, DE, ZH, RU, AR), para ofrecerte una experiencia personalizada en futuras visitas.",
+    "cookies.analyticsTitle":"Cookies de análisis (solo si se implementan)",
+    "cookies.analyticsText":"Si en el futuro se añaden herramientas estadísticas, estas cookies nos permitirían entender cómo los visitantes interactúan con la página. Serían anónimas y solo se activarían con tu consentimiento expreso.",
+    "cookies.thirdTitle":"Cookies de terceros (solo si se implementan)",
+    "cookies.thirdText":"Servicios externos como Google Fonts o plataformas de comunicación (WhatsApp, Telegram, Discord) pueden instalar sus propias cookies. Actualmente, Google Fonts no instala cookies de seguimiento, solo realiza la carga de tipografías.",
+    "cookies.consentTitle":"3. Consentimiento",
+    "cookies.consentText":"Para las cookies que no son estrictamente necesarias, solicitaremos tu consentimiento de forma clara. Puedes:",
+    "cookies.consentLi1":"Aceptar todas las cookies",
+    "cookies.consentLi2":"Rechazar las cookies no esenciales",
+    "cookies.consentLi3":"Configurar tus preferencias por categorías",
+    "cookies.consentNote":"Ten en cuenta que rechazar cookies no esenciales no afecta tu acceso general al contenido de la página.",
+    "cookies.manageTitle":"4. Cómo gestionar o eliminar cookies",
+    "cookies.manageText":"Puedes controlar y/o eliminar las cookies según desees. Para ello, consulta la configuración de tu navegador:",
+    "cookies.manageChrome":"Configuración → Privacidad y seguridad → Cookies y otros datos de sitios",
+    "cookies.manageFirefox":"Preferencias → Privacidad y seguridad → Cookies y datos del sitio",
+    "cookies.manageSafari":"Preferencias → Privacidad → Gestionar datos de sitios web",
+    "cookies.manageEdge":"Configuración → Cookies y permisos del sitio → Cookies y datos del sitio",
+    "cookies.manageNote":"Ten en cuenta que bloquear todas las cookies puede afectar la funcionalidad de algunas partes de la página.",
+    "cookies.changesTitle":"5. Cambios en esta política",
+    "cookies.changesText":"Podemos actualizar esta política para reflejar cambios en nuestras prácticas o por razones legales. Te notificaremos cualquier cambio importante publicando la nueva versión en esta página con la fecha de actualización correspondiente.",
+    "cookies.contactTitle":"6. Contacto",
+    "cookies.contactText":"Si tienes preguntas sobre el uso de cookies, puedes contactarnos en:",
+    "cookies.updated":"Última actualización:",
+    "cookies.updatedDate":"Octubre 2026",
+    "cookies.bannerTitle":"Usamos cookies",
+    "cookies.bannerText":" para asegurar el correcto funcionamiento del sitio y recordar tu idioma.",
+    "cookies.bannerMore":"Saber más",
+    "cookies.bannerReject":"Rechazar",
+    "cookies.bannerAccept":"Aceptar"
   },
   pt: {
     "nav.services":"Serviços","nav.portfolio":"Portfólio","nav.process":"Processo","nav.pricing":"Preços","nav.contact":"Contato",
@@ -2770,7 +3186,7 @@ const translations = {
     "process.step6.title":"Suporte contínuo","process.step6.desc":"30 dias grátis para web / conforme o plano para os demais.",
     "pricing.label":"Preços e Condições","pricing.title":"Claro e simples",
     "pricing.intro":"Todos os projetos são orçados por projeto. Pagamento em USD. É exigido 50% de adiantamento para iniciar — sem exceções.",
-    "pricing.highlight":"🔒 50% de adiantamento obrigatório para iniciar qualquer projeto.",
+    "pricing.highlight":"🔒 50% de adiantamento obrigatório para iniciar qualquer projeto. Preços adaptados ao mercado venezuelano.",
     "pricing.supportTitle":"Planos de suporte","pricing.mode.monthly":"Mensal","pricing.mode.incident":"Por incidente",
     "pricing.coverage":"Cobre os 7 serviços",
     "pricing.period.monthly":"/mês","pricing.period.incident":"/incidente",
@@ -2778,12 +3194,51 @@ const translations = {
     "pricing.terms.inc1":"Correção de bugs e falhas","pricing.terms.inc2":"Ajustes menores (texto, cores, pequenas mudanças de layout)","pricing.terms.inc3":"Consultoria técnica e boas práticas","pricing.terms.inc4":"Atualizações de software / dependências","pricing.terms.inc5":"Resposta prioritária conforme o seu plano",
     "pricing.terms.not1":"Novas funcionalidades ou redesigns completos (orçamento separado)","pricing.terms.not2":"Criação de conteúdo (copywriting, imagens, vídeo)","pricing.terms.not3":"Serviços de terceiros (hospedagem, domínios, APIs)","pricing.terms.not4":"Emergências fora do horário comercial (taxa extra)","pricing.terms.not5":"Alterações solicitadas por terceiros fora do escopo",
     "pricing.terms.webTitle":"Projetos web:","pricing.terms.webNote":"30 dias de suporte gratuito pós-entrega (somente correção de bugs). Depois disso, aplica-se qualquer um dos planos acima.",
-    "pricing.terms.hourlyTitle":"Suporte por hora:","pricing.terms.hourlyNote":"$20/hora · cobrado em blocos de 30 min · 50% de adiantamento.",
+    "pricing.terms.hourlyTitle":"Suporte por hora:","pricing.terms.hourlyNote":"$5/hora · cobrado em blocos de 30 min · 50% de adiantamento.",
     "pricing.terms.contractTitle":"Contrato:","pricing.terms.contractNote":"Planos mensais renovam automaticamente. Cancele quando quiser com 15 dias de aviso. Sem taxa de instalação.",
     "contact.label":"Contato","contact.title":"Vamos conversar",
     "footer.tag":"Documentos · Apresentações · Web · IT",
+    "footer.cookies":"Cookies",
     "buy.cta":"Contratar","buy.copied":"📋 Mensagem copiada — cole no chat",
-    "scroll.up":"Subir","scroll.down":"Role para baixo"
+    "scroll.up":"Subir","scroll.down":"Role para baixo",
+    "cookies.badge":"Legal",
+    "cookies.title":"Política de Cookies",
+    "cookies.subtitle":"Como usamos cookies neste site",
+    "cookies.introTitle":"1. O que são cookies?",
+    "cookies.introText":"Cookies são pequenos arquivos de texto armazenados no seu dispositivo (computador, celular ou tablet) quando você visita um site. Eles permitem que o site lembre suas preferências e ações por um período de tempo, para que você não precise reconfigurá-las a cada retorno.",
+    "cookies.typesTitle":"2. Tipos de cookies que usamos",
+    "cookies.essentialTitle":"Cookies essenciais (técnicos)",
+    "cookies.essentialText":"Necessários para o funcionamento básico do site. Sem eles, serviços como navegação ou seleção de idioma não funcionariam corretamente. Esses cookies não requerem consentimento prévio.",
+    "cookies.prefTitle":"Cookies de preferência",
+    "cookies.prefText":"Armazenam suas preferências de configuração, como o idioma selecionado (EN, ES, PT, FR, DE, ZH, RU, AR), para oferecer uma experiência personalizada em visitas futuras.",
+    "cookies.analyticsTitle":"Cookies de análise (apenas se implementados)",
+    "cookies.analyticsText":"Se ferramentas estatísticas forem adicionadas no futuro, esses cookies nos permitiriam entender como os visitantes interagem com a página. Seriam anônimos e só seriam ativados com seu consentimento expresso.",
+    "cookies.thirdTitle":"Cookies de terceiros (apenas se implementados)",
+    "cookies.thirdText":"Serviços externos como Google Fonts ou plataformas de comunicação (WhatsApp, Telegram, Discord) podem instalar seus próprios cookies. Atualmente, o Google Fonts não instala cookies de rastreamento, apenas carrega tipografias.",
+    "cookies.consentTitle":"3. Consentimento",
+    "cookies.consentText":"Para cookies que não são estritamente necessários, solicitaremos seu consentimento de forma clara. Você pode:",
+    "cookies.consentLi1":"Aceitar todos os cookies",
+    "cookies.consentLi2":"Rejeitar cookies não essenciais",
+    "cookies.consentLi3":"Configurar suas preferências por categoria",
+    "cookies.consentNote":"Lembre-se de que rejeitar cookies não essenciais não afeta seu acesso geral ao conteúdo da página.",
+    "cookies.manageTitle":"4. Como gerenciar ou excluir cookies",
+    "cookies.manageText":"Você pode controlar e/ou excluir cookies como desejar. Para isso, consulte as configurações do seu navegador:",
+    "cookies.manageChrome":"Configurações → Privacidade e segurança → Cookies e outros dados do site",
+    "cookies.manageFirefox":"Preferências → Privacidade e segurança → Cookies e dados do site",
+    "cookies.manageSafari":"Preferências → Privacidade → Gerenciar dados de sites",
+    "cookies.manageEdge":"Configurações → Cookies e permissões do site → Cookies e dados do site",
+    "cookies.manageNote":"Lembre-se de que bloquear todos os cookies pode afetar a funcionalidade de algumas partes da página.",
+    "cookies.changesTitle":"5. Alterações nesta política",
+    "cookies.changesText":"Podemos atualizar esta política para refletir mudanças em nossas práticas ou por razões legais. Notificaremos você sobre quaisquer alterações importantes publicando a nova versão nesta página com a data de atualização correspondente.",
+    "cookies.contactTitle":"6. Contato",
+    "cookies.contactText":"Se você tiver dúvidas sobre o uso de cookies, entre em contato conosco em:",
+    "cookies.updated":"Última atualização:",
+    "cookies.updatedDate":"Outubro de 2026",
+    "cookies.bannerTitle":"Usamos cookies",
+    "cookies.bannerText":" para garantir o funcionamento correto do site e lembrar seu idioma.",
+    "cookies.bannerMore":"Saiba mais",
+    "cookies.bannerReject":"Rejeitar",
+    "cookies.bannerAccept":"Aceitar"
   },
   fr: {
     "nav.services":"Services","nav.portfolio":"Portfolio","nav.process":"Processus","nav.pricing":"Tarifs","nav.contact":"Contact",
@@ -2816,7 +3271,7 @@ const translations = {
     "process.step6.title":"Support continu","process.step6.desc":"30 jours gratuits pour le web / selon le plan pour le reste.",
     "pricing.label":"Tarifs et Conditions","pricing.title":"Clair et simple",
     "pricing.intro":"Tous les projets sont devisés au projet. Paiement en USD. Un acompte de 50% est requis pour démarrer — sans exception.",
-    "pricing.highlight":"🔒 Acompte de 50% obligatoire pour démarrer tout projet.",
+    "pricing.highlight":"🔒 Acompte de 50% obligatoire pour démarrer tout projet. Prix adaptés au marché vénézuélien.",
     "pricing.supportTitle":"Plans de support","pricing.mode.monthly":"Mensuel","pricing.mode.incident":"Par incident",
     "pricing.coverage":"Couvre les 7 services",
     "pricing.period.monthly":"/mois","pricing.period.incident":"/incident",
@@ -2824,12 +3279,51 @@ const translations = {
     "pricing.terms.inc1":"Corrections de bugs et erreurs","pricing.terms.inc2":"Ajustements mineurs (texte, couleurs, petits changements de mise en page)","pricing.terms.inc3":"Conseil technique et bonnes pratiques","pricing.terms.inc4":"Mises à jour logicielles / dépendances","pricing.terms.inc5":"Réponse prioritaire selon votre plan",
     "pricing.terms.not1":"Nouvelles fonctionnalités ou refontes complètes (devis séparé)","pricing.terms.not2":"Création de contenu (copywriting, images, vidéo)","pricing.terms.not3":"Services tiers (hébergement, domaines, APIs)","pricing.terms.not4":"Urgences hors heures ouvrées (frais supplémentaires)","pricing.terms.not5":"Modifications demandées par des tiers hors périmètre",
     "pricing.terms.webTitle":"Projets web :","pricing.terms.webNote":"30 jours de support gratuit post-livraison (corrections de bugs uniquement). Ensuite, l'un des plans ci-dessus s'applique.",
-    "pricing.terms.hourlyTitle":"Support horaire :","pricing.terms.hourlyNote":"$20/heure · facturé par blocs de 30 min · 50% d'acompte.",
+    "pricing.terms.hourlyTitle":"Support horaire :","pricing.terms.hourlyNote":"$5/heure · facturé par blocs de 30 min · 50% d'acompte.",
     "pricing.terms.contractTitle":"Contrat :","pricing.terms.contractNote":"Les plans mensuels se renouvellent automatiquement. Annulation à tout moment avec 15 jours de préavis. Sans frais d'installation.",
     "contact.label":"Contact","contact.title":"Parlons-en",
     "footer.tag":"Documents · Présentations · Web · IT",
+    "footer.cookies":"Cookies",
     "buy.cta":"Démarrer","buy.copied":"📋 Message copié — collez-le dans le chat",
-    "scroll.up":"Remonter","scroll.down":"Faites défiler"
+    "scroll.up":"Remonter","scroll.down":"Faites défiler",
+    "cookies.badge":"Légal",
+    "cookies.title":"Politique de Cookies",
+    "cookies.subtitle":"Comment nous utilisons les cookies sur ce site",
+    "cookies.introTitle":"1. Que sont les cookies ?",
+    "cookies.introText":"Les cookies sont de petits fichiers texte stockés sur votre appareil (ordinateur, mobile ou tablette) lorsque vous visitez un site web. Ils permettent au site de mémoriser vos préférences et actions pendant un certain temps, évitant ainsi de les reconfigurer à chaque visite.",
+    "cookies.typesTitle":"2. Types de cookies que nous utilisons",
+    "cookies.essentialTitle":"Cookies essentiels (techniques)",
+    "cookies.essentialText":"Nécessaires au fonctionnement de base du site. Sans eux, des services comme la navigation ou la sélection de langue ne fonctionneraient pas correctement. Ces cookies ne nécessitent pas de consentement préalable.",
+    "cookies.prefTitle":"Cookies de préférence",
+    "cookies.prefText":"Ils stockent vos préférences de configuration, comme la langue sélectionnée (EN, ES, PT, FR, DE, ZH, RU, AR), pour vous offrir une expérience personnalisée lors de futures visites.",
+    "cookies.analyticsTitle":"Cookies d'analyse (uniquement si mis en œuvre)",
+    "cookies.analyticsText":"Si des outils statistiques sont ajoutés à l'avenir, ces cookies nous permettraient de comprendre comment les visiteurs interagissent avec la page. Ils seraient anonymes et ne seraient activés qu'avec votre consentement exprès.",
+    "cookies.thirdTitle":"Cookies tiers (uniquement si mis en œuvre)",
+    "cookies.thirdText":"Des services externes tels que Google Fonts ou des plateformes de communication (WhatsApp, Telegram, Discord) peuvent installer leurs propres cookies. Actuellement, Google Fonts n'installe pas de cookies de suivi, il charge uniquement les typographies.",
+    "cookies.consentTitle":"3. Consentement",
+    "cookies.consentText":"Pour les cookies qui ne sont pas strictement nécessaires, nous demanderons votre consentement de manière claire. Vous pouvez :",
+    "cookies.consentLi1":"Accepter tous les cookies",
+    "cookies.consentLi2":"Refuser les cookies non essentiels",
+    "cookies.consentLi3":"Configurer vos préférences par catégorie",
+    "cookies.consentNote":"Notez que refuser les cookies non essentiels n'affecte pas votre accès général au contenu de la page.",
+    "cookies.manageTitle":"4. Comment gérer ou supprimer les cookies",
+    "cookies.manageText":"Vous pouvez contrôler et/ou supprimer les cookies comme vous le souhaitez. Pour ce faire, consultez les paramètres de votre navigateur :",
+    "cookies.manageChrome":"Paramètres → Confidentialité et sécurité → Cookies et autres données des sites",
+    "cookies.manageFirefox":"Préférences → Vie privée et sécurité → Cookies et données des sites",
+    "cookies.manageSafari":"Préférences → Confidentialité → Gérer les données des sites web",
+    "cookies.manageEdge":"Paramètres → Cookies et autorisations de site → Cookies et données de site",
+    "cookies.manageNote":"Notez que bloquer tous les cookies peut affecter la fonctionnalité de certaines parties de la page.",
+    "cookies.changesTitle":"5. Modifications de cette politique",
+    "cookies.changesText":"Nous pouvons mettre à jour cette politique pour refléter des changements dans nos pratiques ou pour des raisons légales. Nous vous informerons de tout changement important en publiant la nouvelle version sur cette page avec la date de mise à jour correspondante.",
+    "cookies.contactTitle":"6. Contact",
+    "cookies.contactText":"Si vous avez des questions sur l'utilisation des cookies, vous pouvez nous contacter à :",
+    "cookies.updated":"Dernière mise à jour :",
+    "cookies.updatedDate":"Octobre 2026",
+    "cookies.bannerTitle":"Nous utilisons des cookies",
+    "cookies.bannerText":" pour assurer le bon fonctionnement du site et mémoriser votre langue.",
+    "cookies.bannerMore":"En savoir plus",
+    "cookies.bannerReject":"Refuser",
+    "cookies.bannerAccept":"Accepter"
   },
   de: {
     "nav.services":"Leistungen","nav.portfolio":"Portfolio","nav.process":"Prozess","nav.pricing":"Preise","nav.contact":"Kontakt",
@@ -2862,7 +3356,7 @@ const translations = {
     "process.step6.title":"Laufender Support","process.step6.desc":"30 Tage kostenlos für Web / je nach Plan für andere.",
     "pricing.label":"Preise & Bedingungen","pricing.title":"Klar und einfach",
     "pricing.intro":"Alle Projekte werden projektbezogen kalkuliert. Zahlung in USD. 50% Anzahlung erforderlich — keine Ausnahmen.",
-    "pricing.highlight":"🔒 50% Anzahlung erforderlich, um jedes Projekt zu starten.",
+    "pricing.highlight":"🔒 50% Anzahlung erforderlich, um jedes Projekt zu starten. Preise an den venezolanischen Markt angepasst.",
     "pricing.supportTitle":"Support-Pläne","pricing.mode.monthly":"Monatlich","pricing.mode.incident":"Pro Vorfall",
     "pricing.coverage":"Deckt alle 7 Leistungen ab",
     "pricing.period.monthly":"/Monat","pricing.period.incident":"/Vorfall",
@@ -2870,12 +3364,51 @@ const translations = {
     "pricing.terms.inc1":"Bugfixes und Fehlerkorrekturen","pricing.terms.inc2":"Kleine Anpassungen (Text, Farben, kleine Layoutänderungen)","pricing.terms.inc3":"Technische Beratung und Best Practices","pricing.terms.inc4":"Software- / Abhängigkeits-Updates","pricing.terms.inc5":"Prioritätsantwort je nach Plan",
     "pricing.terms.not1":"Neue Funktionen oder komplette Redesigns (separat kalkuliert)","pricing.terms.not2":"Content-Erstellung (Copywriting, Bilder, Video)","pricing.terms.not3":"Drittanbieter-Dienste (Hosting, Domains, APIs)","pricing.terms.not4":"Notfälle außerhalb der Geschäftszeiten (Zusatzgebühr)","pricing.terms.not5":"Von Dritten angeforderte Änderungen außerhalb des Umfangs",
     "pricing.terms.webTitle":"Web-Projekte:","pricing.terms.webNote":"30 Tage kostenloser Support nach Lieferung (nur Bugfixes). Danach gilt einer der obigen Pläne.",
-    "pricing.terms.hourlyTitle":"Stündlicher Support:","pricing.terms.hourlyNote":"$20/Stunde · Abrechnung in 30-Min-Blöcken · 50% Anzahlung.",
+    "pricing.terms.hourlyTitle":"Stündlicher Support:","pricing.terms.hourlyNote":"$5/Stunde · Abrechnung in 30-Min-Blöcken · 50% Anzahlung.",
     "pricing.terms.contractTitle":"Vertrag:","pricing.terms.contractNote":"Monatspläne verlängern sich automatisch. Jederzeit kündbar mit 15 Tagen Vorlauf. Keine Einrichtungsgebühren.",
     "contact.label":"Kontakt","contact.title":"Sprechen wir",
     "footer.tag":"Dokumente · Präsentationen · Web · IT",
+    "footer.cookies":"Cookies",
     "buy.cta":"Starten","buy.copied":"📋 Nachricht kopiert — im Chat einfügen",
-    "scroll.up":"Nach oben","scroll.down":"Nach unten scrollen"
+    "scroll.up":"Nach oben","scroll.down":"Nach unten scrollen",
+    "cookies.badge":"Rechtliches",
+    "cookies.title":"Cookie-Richtlinie",
+    "cookies.subtitle":"Wie wir Cookies auf dieser Website verwenden",
+    "cookies.introTitle":"1. Was sind Cookies?",
+    "cookies.introText":"Cookies sind kleine Textdateien, die auf Ihrem Gerät (Computer, Mobiltelefon oder Tablet) gespeichert werden, wenn Sie eine Website besuchen. Sie ermöglichen es der Website, Ihre Einstellungen und Aktionen über einen bestimmten Zeitraum zu speichern, sodass Sie sie bei jedem Besuch nicht neu konfigurieren müssen.",
+    "cookies.typesTitle":"2. Arten von Cookies, die wir verwenden",
+    "cookies.essentialTitle":"Wesentliche Cookies (technisch)",
+    "cookies.essentialText":"Erforderlich für die grundlegende Funktion der Website. Ohne sie würden Dienste wie Navigation oder Sprachauswahl nicht richtig funktionieren. Diese Cookies erfordern keine vorherige Zustimmung.",
+    "cookies.prefTitle":"Präferenz-Cookies",
+    "cookies.prefText":"Sie speichern Ihre Konfigurationseinstellungen, wie die ausgewählte Sprache (EN, ES, PT, FR, DE, ZH, RU, AR), um Ihnen bei zukünftigen Besuchen ein personalisiertes Erlebnis zu bieten.",
+    "cookies.analyticsTitle":"Analyse-Cookies (nur wenn implementiert)",
+    "cookies.analyticsText":"Wenn in Zukunft statistische Tools hinzugefügt werden, würden diese Cookies es uns ermöglichen zu verstehen, wie Besucher mit der Seite interagieren. Sie wären anonym und würden nur mit Ihrer ausdrücklichen Zustimmung aktiviert.",
+    "cookies.thirdTitle":"Drittanbieter-Cookies (nur wenn implementiert)",
+    "cookies.thirdText":"Externe Dienste wie Google Fonts oder Kommunikationsplattformen (WhatsApp, Telegram, Discord) können ihre eigenen Cookies installieren. Derzeit installiert Google Fonts keine Tracking-Cookies, sondern lädt nur Schriftarten.",
+    "cookies.consentTitle":"3. Zustimmung",
+    "cookies.consentText":"Für Cookies, die nicht unbedingt erforderlich sind, fordern wir Ihre Zustimmung klar an. Sie können:",
+    "cookies.consentLi1":"Alle Cookies akzeptieren",
+    "cookies.consentLi2":"Nicht wesentliche Cookies ablehnen",
+    "cookies.consentLi3":"Ihre Einstellungen nach Kategorie konfigurieren",
+    "cookies.consentNote":"Beachten Sie, dass die Ablehnung nicht wesentlicher Cookies Ihren allgemeinen Zugriff auf den Seiteninhalt nicht beeinträchtigt.",
+    "cookies.manageTitle":"4. Wie man Cookies verwaltet oder löscht",
+    "cookies.manageText":"Sie können Cookies nach Belieben kontrollieren und/oder löschen. Überprüfen Sie dazu Ihre Browsereinstellungen:",
+    "cookies.manageChrome":"Einstellungen → Datenschutz und Sicherheit → Cookies und andere Websitedaten",
+    "cookies.manageFirefox":"Einstellungen → Datenschutz und Sicherheit → Cookies und Websitedaten",
+    "cookies.manageSafari":"Einstellungen → Datenschutz → Website-Daten verwalten",
+    "cookies.manageEdge":"Einstellungen → Cookies und Site-Berechtigungen → Cookies und Websitedaten",
+    "cookies.manageNote":"Beachten Sie, dass das Blockieren aller Cookies die Funktionalität einiger Teile der Seite beeinträchtigen kann.",
+    "cookies.changesTitle":"5. Änderungen dieser Richtlinie",
+    "cookies.changesText":"Wir können diese Richtlinie aktualisieren, um Änderungen unserer Praktiken oder aus rechtlichen Gründen widerzuspiegeln. Wir werden Sie über wichtige Änderungen informieren, indem wir die neue Version auf dieser Seite mit dem entsprechenden Aktualisierungsdatum veröffentlichen.",
+    "cookies.contactTitle":"6. Kontakt",
+    "cookies.contactText":"Wenn Sie Fragen zur Verwendung von Cookies haben, können Sie uns kontaktieren unter:",
+    "cookies.updated":"Letzte Aktualisierung:",
+    "cookies.updatedDate":"Oktober 2026",
+    "cookies.bannerTitle":"Wir verwenden Cookies",
+    "cookies.bannerText":" um den korrekten Betrieb der Website sicherzustellen und Ihre Sprache zu speichern.",
+    "cookies.bannerMore":"Mehr erfahren",
+    "cookies.bannerReject":"Ablehnen",
+    "cookies.bannerAccept":"Akzeptieren"
   },
   zh: {
     "nav.services":"服务","nav.portfolio":"作品集","nav.process":"流程","nav.pricing":"价格","nav.contact":"联系",
@@ -2908,7 +3441,7 @@ const translations = {
     "process.step6.title":"持续支持","process.step6.desc":"网站30天免费 / 其他按计划。",
     "pricing.label":"价格与条款","pricing.title":"清晰简单",
     "pricing.intro":"所有项目按项目报价。以美元支付。启动需要50%预付款——无例外。",
-    "pricing.highlight":"🔒 启动任何项目需要50%预付款。",
+    "pricing.highlight":"🔒 启动任何项目需要50%预付款。价格适应委内瑞拉市场。",
     "pricing.supportTitle":"支持计划","pricing.mode.monthly":"按月","pricing.mode.incident":"按次",
     "pricing.coverage":"覆盖全部7项服务",
     "pricing.period.monthly":"/月","pricing.period.incident":"/次",
@@ -2916,12 +3449,51 @@ const translations = {
     "pricing.terms.inc1":"错误修复和问题更正","pricing.terms.inc2":"小调整（文本、颜色、布局微调）","pricing.terms.inc3":"技术建议和最佳实践指导","pricing.terms.inc4":"软件/依赖项更新","pricing.terms.inc5":"根据您的计划提供的优先响应",
     "pricing.terms.not1":"新功能或完全重设计（单独报价）","pricing.terms.not2":"内容创作（文案、图片、视频）","pricing.terms.not3":"第三方服务（托管、域名、API）","pricing.terms.not4":"非工作时间的紧急情况（额外收费）","pricing.terms.not5":"范围外第三方要求的变化",
     "pricing.terms.webTitle":"网站项目：","pricing.terms.webNote":"包含30天免费交付后支持（仅错误修复）。之后适用上述任一计划。",
-    "pricing.terms.hourlyTitle":"小时支持：","pricing.terms.hourlyNote":"$20/小时 · 以30分钟为单位计费 · 50%预付款。",
+    "pricing.terms.hourlyTitle":"小时支持：","pricing.terms.hourlyNote":"$5/小时 · 以30分钟为单位计费 · 50%预付款。",
     "pricing.terms.contractTitle":"合同：","pricing.terms.contractNote":"月度计划自动续订。提前15天通知可随时取消。无设置费。",
     "contact.label":"联系","contact.title":"让我们聊聊",
     "footer.tag":"文档 · 演示 · 网站 · IT",
+    "footer.cookies":"Cookie",
     "buy.cta":"订阅","buy.copied":"📋 消息已复制 — 粘贴到聊天中",
-    "scroll.up":"向上","scroll.down":"向下滑动"
+    "scroll.up":"向上","scroll.down":"向下滑动",
+    "cookies.badge":"法律",
+    "cookies.title":"Cookie政策",
+    "cookies.subtitle":"我们如何在本网站使用Cookie",
+    "cookies.introTitle":"1. 什么是Cookie？",
+    "cookies.introText":"Cookie是您访问网站时存储在设备（电脑、手机或平板）上的小型文本文件。它们允许网站在一段时间内记住您的偏好和操作，这样您每次返回时都无需重新配置。",
+    "cookies.typesTitle":"2. 我们使用的Cookie类型",
+    "cookies.essentialTitle":"必要Cookie（技术性）",
+    "cookies.essentialText":"网站基本运行所必需。没有它们，导航或语言选择等服务将无法正常工作。这些Cookie不需要事先同意。",
+    "cookies.prefTitle":"偏好Cookie",
+    "cookies.prefText":"它们存储您的配置偏好，例如所选语言（EN、ES、PT、FR、DE、ZH、RU、AR），以便在将来访问时为您提供个性化体验。",
+    "cookies.analyticsTitle":"分析Cookie（仅在实施时）",
+    "cookies.analyticsText":"如果将来添加统计工具，这些Cookie将使我们能够了解访问者如何与页面互动。它们将是匿名的，并且仅在您明确同意时才会激活。",
+    "cookies.thirdTitle":"第三方Cookie（仅在实施时）",
+    "cookies.thirdText":"Google Fonts 等外部服务或通信平台（WhatsApp、Telegram、Discord）可能会安装自己的Cookie。目前，Google Fonts 不安装跟踪Cookie，仅加载字体。",
+    "cookies.consentTitle":"3. 同意",
+    "cookies.consentText":"对于非严格必要的Cookie，我们将明确请求您的同意。您可以：",
+    "cookies.consentLi1":"接受所有Cookie",
+    "cookies.consentLi2":"拒绝非必要Cookie",
+    "cookies.consentLi3":"按类别配置您的偏好",
+    "cookies.consentNote":"请记住，拒绝非必要Cookie不会影响您对页面内容的总体访问。",
+    "cookies.manageTitle":"4. 如何管理或删除Cookie",
+    "cookies.manageText":"您可以随意控制和/或删除Cookie。为此，请检查您的浏览器设置：",
+    "cookies.manageChrome":"设置 → 隐私和安全 → Cookie和其他网站数据",
+    "cookies.manageFirefox":"首选项 → 隐私和安全 → Cookie和网站数据",
+    "cookies.manageSafari":"首选项 → 隐私 → 管理网站数据",
+    "cookies.manageEdge":"设置 → Cookie和网站权限 → Cookie和网站数据",
+    "cookies.manageNote":"请记住，阻止所有Cookie可能会影响页面某些部分的功能。",
+    "cookies.changesTitle":"5. 本政策的变更",
+    "cookies.changesText":"我们可能会更新此政策以反映我们实践的变化或出于法律原因。我们将通过在此页面上发布新版本并附上相应的更新日期来通知您任何重要变更。",
+    "cookies.contactTitle":"6. 联系",
+    "cookies.contactText":"如果您对Cookie的使用有疑问，可以通过以下方式联系我们：",
+    "cookies.updated":"最后更新：",
+    "cookies.updatedDate":"2026年10月",
+    "cookies.bannerTitle":"我们使用Cookie",
+    "cookies.bannerText":" 以确保网站正常运行并记住您的语言。",
+    "cookies.bannerMore":"了解更多",
+    "cookies.bannerReject":"拒绝",
+    "cookies.bannerAccept":"接受"
   },
   ru: {
     "nav.services":"Услуги","nav.portfolio":"Портфолио","nav.process":"Процесс","nav.pricing":"Цены","nav.contact":"Контакт",
@@ -2954,7 +3526,7 @@ const translations = {
     "process.step6.title":"Постоянная поддержка","process.step6.desc":"30 дней бесплатно для веба / по плану для остальных.",
     "pricing.label":"Цены и условия","pricing.title":"Ясно и просто",
     "pricing.intro":"Все проекты оцениваются индивидуально. Оплата в USD. Требуется 50% аванс для начала — без исключений.",
-    "pricing.highlight":"🔒 50% аванс обязателен для начала любого проекта.",
+    "pricing.highlight":"🔒 50% аванс обязателен для начала любого проекта. Цены адаптированы к венесуэльскому рынку.",
     "pricing.supportTitle":"Планы поддержки","pricing.mode.monthly":"Ежемесячно","pricing.mode.incident":"За инцидент",
     "pricing.coverage":"Охватывает все 7 услуг",
     "pricing.period.monthly":"/мес","pricing.period.incident":"/инцидент",
@@ -2962,12 +3534,51 @@ const translations = {
     "pricing.terms.inc1":"Исправление ошибок и сбоев","pricing.terms.inc2":"Мелкие правки (текст, цвета, небольшие изменения вёрстки)","pricing.terms.inc3":"Технические консультации и лучшие практики","pricing.terms.inc4":"Обновления ПО / зависимостей","pricing.terms.inc5":"Приоритетный ответ согласно вашему плану",
     "pricing.terms.not1":"Новые функции или полные редизайны (оценивается отдельно)","pricing.terms.not2":"Создание контента (копирайтинг, изображения, видео)","pricing.terms.not3":"Сторонние сервисы (хостинг, домены, API)","pricing.terms.not4":"Экстренные ситуации вне рабочих часов (доп. плата)","pricing.terms.not5":"Изменения, запрошенные третьими лицами вне объёма",
     "pricing.terms.webTitle":"Веб-проекты:","pricing.terms.webNote":"Включено 30 дней бесплатной поддержки после сдачи (только исправление ошибок). После этого применяется любой из планов выше.",
-    "pricing.terms.hourlyTitle":"Почасовая поддержка:","pricing.terms.hourlyNote":"$20/час · оплата блоками по 30 мин · 50% аванс.",
+    "pricing.terms.hourlyTitle":"Почасовая поддержка:","pricing.terms.hourlyNote":"$5/час · оплата блоками по 30 мин · 50% аванс.",
     "pricing.terms.contractTitle":"Контракт:","pricing.terms.contractNote":"Месячные планы продлеваются автоматически. Отмена в любое время с уведомлением за 15 дней. Без платы за подключение.",
     "contact.label":"Контакт","contact.title":"Давайте поговорим",
     "footer.tag":"Документы · Презентации · Веб · IT",
+    "footer.cookies":"Cookie",
     "buy.cta":"Подписаться","buy.copied":"📋 Сообщение скопировано — вставьте в чат",
-    "scroll.up":"Наверх","scroll.down":"Прокрутите вниз"
+    "scroll.up":"Наверх","scroll.down":"Прокрутите вниз",
+    "cookies.badge":"Правовая информация",
+    "cookies.title":"Политика Cookie",
+    "cookies.subtitle":"Как мы используем Cookie на этом сайте",
+    "cookies.introTitle":"1. Что такое Cookie?",
+    "cookies.introText":"Cookie — это небольшие текстовые файлы, которые сохраняются на вашем устройстве (компьютере, телефоне или планшете) при посещении веб-сайта. Они позволяют сайту запоминать ваши предпочтения и действия в течение определённого времени, чтобы вам не приходилось настраивать их заново при каждом возвращении.",
+    "cookies.typesTitle":"2. Типы Cookie, которые мы используем",
+    "cookies.essentialTitle":"Основные Cookie (технические)",
+    "cookies.essentialText":"Необходимы для базовой работы сайта. Без них такие функции, как навигация или выбор языка, не будут работать корректно. Эти Cookie не требуют предварительного согласия.",
+    "cookies.prefTitle":"Cookie предпочтений",
+    "cookies.prefText":"Они хранят ваши настройки, например выбранный язык (EN, ES, PT, FR, DE, ZH, RU, AR), чтобы обеспечить персонализированный опыт при будущих посещениях.",
+    "cookies.analyticsTitle":"Аналитические Cookie (только если реализованы)",
+    "cookies.analyticsText":"Если в будущем будут добавлены статистические инструменты, эти Cookie позволят нам понять, как посетители взаимодействуют со страницей. Они будут анонимными и будут активироваться только с вашего явного согласия.",
+    "cookies.thirdTitle":"Сторонние Cookie (только если реализованы)",
+    "cookies.thirdText":"Внешние сервисы, такие как Google Fonts или платформы связи (WhatsApp, Telegram, Discord), могут устанавливать свои собственные Cookie. В настоящее время Google Fonts не устанавливает отслеживающие Cookie, а только загружает шрифты.",
+    "cookies.consentTitle":"3. Согласие",
+    "cookies.consentText":"Для Cookie, которые не являются строго необходимыми, мы запросим ваше согласие чётко и ясно. Вы можете:",
+    "cookies.consentLi1":"Принять все Cookie",
+    "cookies.consentLi2":"Отклонить необязательные Cookie",
+    "cookies.consentLi3":"Настроить предпочтения по категориям",
+    "cookies.consentNote":"Имейте в виду, что отклонение необязательных Cookie не влияет на ваш общий доступ к содержимому страницы.",
+    "cookies.manageTitle":"4. Как управлять или удалять Cookie",
+    "cookies.manageText":"Вы можете контролировать и/или удалять Cookie по своему усмотрению. Для этого проверьте настройки вашего браузера:",
+    "cookies.manageChrome":"Настройки → Конфиденциальность и безопасность → Cookie и другие данные сайтов",
+    "cookies.manageFirefox":"Настройки → Приватность и защита → Cookie и данные сайтов",
+    "cookies.manageSafari":"Настройки → Конфиденциальность → Управление данными сайтов",
+    "cookies.manageEdge":"Настройки → Cookie и разрешения сайтов → Cookie и данные сайтов",
+    "cookies.manageNote":"Имейте в виду, что блокировка всех Cookie может повлиять на функциональность некоторых частей страницы.",
+    "cookies.changesTitle":"5. Изменения в этой политике",
+    "cookies.changesText":"Мы можем обновить эту политику, чтобы отразить изменения в нашей практике или по юридическим причинам. Мы уведомим вас о любых важных изменениях, опубликовав новую версию на этой странице с соответствующей датой обновления.",
+    "cookies.contactTitle":"6. Контакт",
+    "cookies.contactText":"Если у вас есть вопросы об использовании Cookie, вы можете связаться с нами по адресу:",
+    "cookies.updated":"Последнее обновление:",
+    "cookies.updatedDate":"Октябрь 2026",
+    "cookies.bannerTitle":"Мы используем Cookie",
+    "cookies.bannerText":" для обеспечения корректной работы сайта и запоминания вашего языка.",
+    "cookies.bannerMore":"Подробнее",
+    "cookies.bannerReject":"Отклонить",
+    "cookies.bannerAccept":"Принять"
   },
   ar: {
     "nav.services":"الخدمات","nav.portfolio":"الأعمال","nav.process":"العملية","nav.pricing":"الأسعار","nav.contact":"اتصل",
@@ -3000,7 +3611,7 @@ const translations = {
     "process.step6.title":"دعم مستمر","process.step6.desc":"30 يوماً مجاناً للويب / حسب الخطة للبقية.",
     "pricing.label":"الأسعار والشروط","pricing.title":"واضح وبسيط",
     "pricing.intro":"تُسعَّر جميع المشاريع لكل مشروع. الدفع بالدولار الأمريكي. مطلوب دفعة مقدمة 50% للبدء — بدون استثناءات.",
-    "pricing.highlight":"🔒 دفعة مقدمة 50% إلزامية لبدء أي مشروع.",
+    "pricing.highlight":"🔒 دفعة مقدمة 50% إلزامية لبدء أي مشروع. أسعار متكيفة مع السوق الفنزويلي.",
     "pricing.supportTitle":"خطط الدعم","pricing.mode.monthly":"شهرياً","pricing.mode.incident":"لكل حادث",
     "pricing.coverage":"تغطي جميع الخدمات السبع",
     "pricing.period.monthly":"/شهر","pricing.period.incident":"/حادث",
@@ -3008,17 +3619,56 @@ const translations = {
     "pricing.terms.inc1":"إصلاح الأخطاء والخلل","pricing.terms.inc2":"تعديلات طفيفة (نص، ألوان، تغييرات بسيطة في التخطيط)","pricing.terms.inc3":"استشارات تقنية وأفضل الممارسات","pricing.terms.inc4":"تحديثات البرامج / التبعيات","pricing.terms.inc5":"استجابة ذات أولوية حسب خطتك",
     "pricing.terms.not1":"ميزات جديدة أو إعادة تصميم كاملة (تسعير منفصل)","pricing.terms.not2":"إنشاء المحتوى (كتابة، صور، فيديو)","pricing.terms.not3":"خدمات الأطراف الثالثة (استضافة، نطاقات، APIs)","pricing.terms.not4":"حالات الطوارئ خارج ساعات العمل (رسوم إضافية)","pricing.terms.not5":"التغييرات التي يطلبها أطراف ثالثة خارج النطاق",
     "pricing.terms.webTitle":"مشاريع الويب:","pricing.terms.webNote":"30 يوماً دعم مجاني بعد التسليم (إصلاح الأخطاء فقط). بعد ذلك، تنطبق أي من الخطط أعلاه.",
-    "pricing.terms.hourlyTitle":"الدعم بالساعة:","pricing.terms.hourlyNote":"20$/ساعة · تُحسب بفترات 30 دقيقة · 50% مقدماً.",
+    "pricing.terms.hourlyTitle":"الدعم بالساعة:","pricing.terms.hourlyNote":"5$/ساعة · تُحسب بفترات 30 دقيقة · 50% مقدماً.",
     "pricing.terms.contractTitle":"العقد:","pricing.terms.contractNote":"تتجدد الخطط الشهرية تلقائياً. الإلغاء متاح في أي وقت بإشعار 15 يوماً. بدون رسوم إعداد.",
     "contact.label":"اتصل","contact.title":"لنتحدث",
     "footer.tag":"مستندات · عروض · ويب · تقنية",
+    "footer.cookies":"ملفات تعريف الارتباط",
     "buy.cta":"اشترك","buy.copied":"📋 تم نسخ الرسالة — الصقها في المحادثة",
-    "scroll.up":"للأعلى","scroll.down":"اسحب للأسفل"
+    "scroll.up":"للأعلى","scroll.down":"اسحب للأسفل",
+    "cookies.badge":"قانوني",
+    "cookies.title":"سياسة ملفات تعريف الارتباط",
+    "cookies.subtitle":"كيف نستخدم ملفات تعريف الارتباط على هذا الموقع",
+    "cookies.introTitle":"1. ما هي ملفات تعريف الارتباط؟",
+    "cookies.introText":"ملفات تعريف الارتباط هي ملفات نصية صغيرة تُخزَّن على جهازك (كمبيوتر أو هاتف محمول أو جهاز لوحي) عند زيارة موقع ويب. تسمح للموقع بتذكر تفضيلاتك وإجراءاتك خلال فترة زمنية، حتى لا تضطر إلى إعادة تكوينها في كل مرة تعود فيها.",
+    "cookies.typesTitle":"2. أنواع ملفات تعريف الارتباط التي نستخدمها",
+    "cookies.essentialTitle":"ملفات تعريف الارتباط الأساسية (تقنية)",
+    "cookies.essentialText":"ضرورية للتشغيل الأساسي للموقع. بدونها، لن تعمل خدمات مثل التنقل أو اختيار اللغة بشكل صحيح. لا تتطلب هذه الملفات موافقة مسبقة.",
+    "cookies.prefTitle":"ملفات تعريف الارتباط التفضيلية",
+    "cookies.prefText":"تخزّن تفضيلات التكوين الخاصة بك، مثل اللغة المحددة (EN، ES، PT، FR، DE، ZH، RU، AR)، لتقديم تجربة مخصصة في الزيارات المستقبلية.",
+    "cookies.analyticsTitle":"ملفات تعريف الارتباط التحليلية (فقط إذا تم تنفيذها)",
+    "cookies.analyticsText":"إذا تمت إضافة أدوات إحصائية في المستقبل، فإن ملفات تعريف الارتباط هذه ستسمح لنا بفهم كيفية تفاعل الزوار مع الصفحة. ستكون مجهولة الهوية ولن يتم تنشيطها إلا بموافقتك الصريحة.",
+    "cookies.thirdTitle":"ملفات تعريف ارتباط الطرف الثالث (فقط إذا تم تنفيذها)",
+    "cookies.thirdText":"قد تقوم الخدمات الخارجية مثل Google Fonts أو منصات الاتصال (WhatsApp، Telegram، Discord) بتثبيت ملفات تعريف الارتباط الخاصة بها. حالياً، لا يقوم Google Fonts بتثبيت ملفات تعريف ارتباط التتبع، بل يحمّل الخطوط فقط.",
+    "cookies.consentTitle":"3. الموافقة",
+    "cookies.consentText":"بالنسبة لملفات تعريف الارتباط التي ليست ضرورية بشكل صارم، سنطلب موافقتك بوضوح. يمكنك:",
+    "cookies.consentLi1":"قبول جميع ملفات تعريف الارتباط",
+    "cookies.consentLi2":"رفض ملفات تعريف الارتباط غير الأساسية",
+    "cookies.consentLi3":"تكوين تفضيلاتك حسب الفئة",
+    "cookies.consentNote":"ضع في اعتبارك أن رفض ملفات تعريف الارتباط غير الأساسية لا يؤثر على وصولك العام إلى محتوى الصفحة.",
+    "cookies.manageTitle":"4. كيفية إدارة أو حذف ملفات تعريف الارتباط",
+    "cookies.manageText":"يمكنك التحكم في ملفات تعريف الارتباط و/أو حذفها كما تريد. للقيام بذلك، تحقق من إعدادات المتصفح:",
+    "cookies.manageChrome":"الإعدادات → الخصوصية والأمان → ملفات تعريف الارتباط وبيانات الموقع الأخرى",
+    "cookies.manageFirefox":"التفضيلات → الخصوصية والأمان → ملفات تعريف الارتباط وبيانات الموقع",
+    "cookies.manageSafari":"التفضيلات → الخصوصية → إدارة بيانات الموقع",
+    "cookies.manageEdge":"الإعدادات → ملفات تعريف الارتباط وأذونات الموقع → ملفات تعريف الارتباط وبيانات الموقع",
+    "cookies.manageNote":"ضع في اعتبارك أن حظر جميع ملفات تعريف الارتباط قد يؤثر على وظائف بعض أجزاء الصفحة.",
+    "cookies.changesTitle":"5. التغييرات في هذه السياسة",
+    "cookies.changesText":"قد نقوم بتحديث هذه السياسة لتعكس التغييرات في ممارساتنا أو لأسباب قانونية. سنخطرك بأي تغييرات مهمة بنشر النسخة الجديدة على هذه الصفحة مع تاريخ التحديث المقابل.",
+    "cookies.contactTitle":"6. الاتصال",
+    "cookies.contactText":"إذا كانت لديك أسئلة حول استخدام ملفات تعريف الارتباط، يمكنك الاتصال بنا على:",
+    "cookies.updated":"آخر تحديث:",
+    "cookies.updatedDate":"أكتوبر 2026",
+    "cookies.bannerTitle":"نستخدم ملفات تعريف الارتباط",
+    "cookies.bannerText":" لضمان عمل الموقع بشكل صحيح وتذكر لغتك.",
+    "cookies.bannerMore":"اعرف المزيد",
+    "cookies.bannerReject":"رفض",
+    "cookies.bannerAccept":"قبول"
   }
 };
 
 /* =========================================================
-   LANGUAGE METADATA — para el selector desplegable
+   LANGUAGE METADATA
    ========================================================= */
 const LANG_META = {
   en: { code:"EN", label:"English" },
@@ -3032,16 +3682,16 @@ const LANG_META = {
 };
 
 /* =========================================================
-   DATA
+   DATA — PRECIOS ADAPTADOS AL MERCADO VENEZOLANO
    ========================================================= */
 const servicesData = [
-  { key:"doc",        icon:"📄", price:25,  hasPlans:true },
-  { key:"pres",       icon:"📊", price:80,  hasPlans:true },
-  { key:"web",        icon:"🌐", price:300, hasPlans:true },
-  { key:"it",         icon:"🖥️", price:35,  hasPlans:true },
-  { key:"ai",         icon:"🤖", price:200, hasPlans:true },
-  { key:"rebranding", icon:"🎨", price:250, hasPlans:true },
-  { key:"support",    icon:"🔧", price:20,  hasPlans:true }
+  { key:"doc",        icon:"📄", price:5,   hasPlans:true },
+  { key:"pres",       icon:"📊", price:15,  hasPlans:true },
+  { key:"web",        icon:"🌐", price:80,  hasPlans:true },
+  { key:"it",         icon:"🖥️", price:8,   hasPlans:true },
+  { key:"ai",         icon:"🤖", price:40,  hasPlans:true },
+  { key:"rebranding", icon:"🎨", price:50,  hasPlans:true },
+  { key:"support",    icon:"🔧", price:5,   hasPlans:true }
 ];
 
 const processSteps = [
@@ -3073,7 +3723,7 @@ const plansData = [
       fr:"Support stable sur les 7 services.", de:"Stabile Unterstützung für alle 7 Leistungen.", zh:"覆盖全部7项服务的稳定支持。",
       ru:"Стабильная поддержка по всем 7 услугам.", ar:"دعم مستقر لجميع الخدمات السبع."
     },
-    monthly:20, incident:15,
+    monthly:5, incident:3,
     response:{
       en:"48h response", es:"Respuesta 48h", pt:"Resposta 48h", fr:"Réponse 48h",
       de:"48h Antwort", zh:"48小时响应", ru:"Ответ за 48ч", ar:"استجابة 48 ساعة"
@@ -3098,7 +3748,7 @@ const plansData = [
       fr:"Support prioritaire sur les 7 services.", de:"Priority-Support für alle 7 Leistungen.", zh:"覆盖全部7项服务的优先支持。",
       ru:"Приоритетная поддержка по всем 7 услугам.", ar:"دعم ذو أولوية لجميع الخدمات السبع."
     },
-    monthly:60, incident:35,
+    monthly:12, incident:7,
     response:{
       en:"8h response", es:"Respuesta 8h", pt:"Resposta 8h", fr:"Réponse 8h",
       de:"8h Antwort", zh:"8小时响应", ru:"Ответ за 8ч", ar:"استجابة 8 ساعات"
@@ -3124,7 +3774,7 @@ const plansData = [
       fr:"Support critique sur les 7 services.", de:"Kritischer Support für alle 7 Leistungen.", zh:"覆盖全部7项服务的关键支持。",
       ru:"Критическая поддержка по всем 7 услугам.", ar:"دعم حرج لجميع الخدمات السبع."
     },
-    monthly:150, incident:75,
+    monthly:25, incident:12,
     response:{
       en:"4h response", es:"Respuesta 4h", pt:"Resposta 4h", fr:"Réponse 4h",
       de:"4h Antwort", zh:"4小时响应", ru:"Ответ за 4ч", ar:"استجابة 4 ساعات"
@@ -3313,7 +3963,7 @@ const CONTACTS = {
 };
 
 /* =========================================================
-   ICON PATHS
+   ICONS
    ========================================================= */
 const ICONS = {
   whatsapp: "assets/icons/whatsapp.svg",
@@ -3466,7 +4116,7 @@ function renderServices() {
       <p>${escapeHtml(t("services." + s.key + ".desc"))}</p>
       <div class="service-price">${escapeHtml(fromLabel)} $${s.price}</div>
       <div class="service-card__actions">
-        <div class="buy-menu" data-service="${s.key}" data-price="${s.price}">
+        <div class="buy-menu" data-service="${s.key}" data-price="${s.price}" data-no-explosion>
           <button class="buy-trigger" type="button">${escapeHtml(buyLabel)}</button>
           <div class="buy-options">
             <button class="buy-option" type="button" data-channel="whatsapp">${iconSpan("whatsapp")}<span>WhatsApp</span></button>
@@ -3543,7 +4193,7 @@ function renderPlans() {
         <ul class="plan-card__features">
           ${features.map(f => `<li>${escapeHtml(f)}</li>`).join("")}
         </ul>
-        <div class="plan-cta" data-plan="${p.id}" data-price="${price}" data-period="${periodLabel}">
+        <div class="plan-cta" data-plan="${p.id}" data-price="${price}" data-period="${periodLabel}" data-no-explosion>
           <button class="plan-cta__btn" type="button">${escapeHtml(ctaLabel)}</button>
           <div class="plan-cta__menu">
             <button class="plan-cta__option" type="button" data-channel="whatsapp">${iconSpan("whatsapp")}<span>WhatsApp</span></button>
@@ -3576,7 +4226,7 @@ function renderPortfolio() {
     const hasLink = p.link && p.link.length > 0;
 
     return `
-      <article class="portfolio-card" data-case="${p.id}">
+      <article class="portfolio-card" data-case="${p.id}" data-no-explosion>
         <div class="portfolio-card__media">
           <div class="portfolio-card__emoji">${p.emoji}</div>
           <img src="${p.image}" alt="${title}" loading="lazy" onerror="this.style.display='none';">
@@ -3597,7 +4247,6 @@ function renderPortfolio() {
     `;
   }).join("");
 }
-
 /* =========================================================
    MODAL · CASE
    ========================================================= */
@@ -3615,6 +4264,7 @@ function openCaseModal(id) {
     modal = document.createElement("div");
     modal.id = "caseModal";
     modal.className = "case-modal";
+    modal.setAttribute("data-no-explosion", "");
     modal.innerHTML = `
       <div class="case-modal__backdrop"></div>
       <div class="case-modal__panel" id="caseModalPanel">
@@ -3689,7 +4339,7 @@ function openCaseModal(id) {
     `;
   }
   html += `
-    <div class="case-modal__contact-menu" id="${contactMenuId}" data-case-id="${item.id}">
+    <div class="case-modal__contact-menu" id="${contactMenuId}" data-case-id="${item.id}" data-no-explosion>
       <button class="case-modal__btn case-modal__contact-trigger" type="button">
         ${wantLabel} <span aria-hidden="true"></span>
       </button>
@@ -3724,14 +4374,6 @@ function closeCaseModal() {
   document.body.style.overflow = "";
 }
 
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") {
-    closeCaseModal();
-    closeWechatModal();
-    closeLangMenu();
-  }
-});
-
 /* =========================================================
    WECHAT MODAL
    ========================================================= */
@@ -3749,6 +4391,63 @@ function closeWechatModal() {
   modal.classList.remove("open");
   modal.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+}
+
+/* =========================================================
+   COOKIE POLICY & BANNER
+   ========================================================= */
+const COOKIE_STORAGE_KEY = "vielma_cookie_consent";
+const COOKIE_BANNER_DELAY = 1200;
+
+function openCookieModal() {
+  const modal = document.getElementById("cookieModal");
+  if (!modal) return;
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeCookieModal() {
+  const modal = document.getElementById("cookieModal");
+  if (!modal) return;
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+function hideCookieBanner() {
+  const banner = document.getElementById("cookieBanner");
+  if (!banner) return;
+  banner.classList.remove("show");
+}
+
+function showCookieBanner() {
+  const banner = document.getElementById("cookieBanner");
+  if (!banner) return;
+  setTimeout(() => banner.classList.add("show"), COOKIE_BANNER_DELAY);
+}
+
+function saveCookieConsent(value) {
+  try {
+    localStorage.setItem(COOKIE_STORAGE_KEY, value);
+  } catch (e) { /* localStorage bloqueado */ }
+}
+
+function getCookieConsent() {
+  try {
+    return localStorage.getItem(COOKIE_STORAGE_KEY);
+  } catch (e) {
+    return null;
+  }
+}
+
+function initCookieBanner() {
+  const consent = getCookieConsent();
+  if (!consent) {
+    showCookieBanner();
+  } else {
+    hideCookieBanner();
+  }
 }
 
 /* =========================================================
@@ -3788,25 +4487,6 @@ function updateGlobalScrollVisibility() {
   }
 }
 
-window.addEventListener("scroll", updateGlobalScrollVisibility, { passive: true });
-window.addEventListener("resize", updateGlobalScrollVisibility);
-
-document.addEventListener("click", e => {
-  const down = e.target.closest("#globalScrollDown");
-  if (down) {
-    e.preventDefault();
-    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
-    return;
-  }
-
-  const up = e.target.closest("#globalScrollUp");
-  if (up) {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    return;
-  }
-});
-
 /* =========================================================
    APPLY TRANSLATIONS (init)
    ========================================================= */
@@ -3842,22 +4522,21 @@ function applyTranslations(lang) {
 }
 
 /* =========================================================
-   CHANGE LANGUAGE — blur + swap
+   CHANGE LANGUAGE
    ========================================================= */
 function changeLanguage(lang) {
+  if (document.body.style.overflow === "hidden") return;
   if (lang === currentLang) return;
   if (langSwapInProgress) return;
   if (!SUPPORTED_LANGS.includes(lang)) return;
 
   langSwapInProgress = true;
-
   updateLangSelectorUI();
-
   blurSwapLanguage(lang);
 }
 
 /* =========================================================
-   CHANNELS & MESSAGES — CONTEXTUALES
+   CHANNELS & MESSAGES
    ========================================================= */
 const serviceNames = {
   doc:{ en:"Corporate Documents", es:"Documentos Corporativos", pt:"Documentos Corporativos", fr:"Documents d'Entreprise", de:"Unternehmensdokumente", zh:"企业文档", ru:"Корпоративные документы", ar:"مستندات الشركات" },
@@ -4104,6 +4783,18 @@ function showToast(message) {
 }
 
 /* =========================================================
+   EVENTS — KEYBOARD
+   ========================================================= */
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    closeCaseModal();
+    closeWechatModal();
+    closeCookieModal();
+    closeLangMenu();
+  }
+});
+
+/* =========================================================
    EVENTS — LANGUAGE SELECTOR
    ========================================================= */
 document.addEventListener("click", e => {
@@ -4180,6 +4871,52 @@ if (wechatContactCard) {
   wechatContactCard.addEventListener("click", e => {
     e.preventDefault();
     openWechatModal();
+  });
+}
+
+/* =========================================================
+   EVENTS — COOKIE BANNER & MODAL
+   ========================================================= */
+const cookieBanner = document.getElementById("cookieBanner");
+if (cookieBanner) {
+  const acceptBtn = document.getElementById("cookieAccept");
+  const rejectBtn = document.getElementById("cookieReject");
+  const learnMore = document.getElementById("cookieBannerLearnMore");
+
+  if (acceptBtn) {
+    acceptBtn.addEventListener("click", () => {
+      saveCookieConsent("accepted");
+      hideCookieBanner();
+    });
+  }
+
+  if (rejectBtn) {
+    rejectBtn.addEventListener("click", () => {
+      saveCookieConsent("rejected");
+      hideCookieBanner();
+    });
+  }
+
+  if (learnMore) {
+    learnMore.addEventListener("click", e => {
+      e.preventDefault();
+      openCookieModal();
+    });
+  }
+}
+
+const cookieModal = document.getElementById("cookieModal");
+if (cookieModal) {
+  cookieModal.addEventListener("click", e => {
+    if (e.target.closest("[data-close-cookie]")) closeCookieModal();
+  });
+}
+
+const cookiePolicyLink = document.getElementById("cookiePolicyLink");
+if (cookiePolicyLink) {
+  cookiePolicyLink.addEventListener("click", e => {
+    e.preventDefault();
+    openCookieModal();
   });
 }
 
@@ -4286,11 +5023,36 @@ document.addEventListener("click", e => {
   document.querySelectorAll(".case-modal__contact-menu.open").forEach(m => m.classList.remove("open"));
 });
 
-document.getElementById("portfolioGrid").addEventListener("click", e => {
-  const card = e.target.closest(".portfolio-card");
-  if (!card) return;
-  if (e.target.closest('a[target="_blank"]')) return;
-  openCaseModal(card.dataset.case);
+const portfolioGrid = document.getElementById("portfolioGrid");
+if (portfolioGrid) {
+  portfolioGrid.addEventListener("click", e => {
+    const card = e.target.closest(".portfolio-card");
+    if (!card) return;
+    if (e.target.closest('a[target="_blank"]')) return;
+    openCaseModal(card.dataset.case);
+  });
+}
+
+/* =========================================================
+   EVENTS — GLOBAL SCROLL HINT
+   ========================================================= */
+window.addEventListener("scroll", updateGlobalScrollVisibility, { passive: true });
+window.addEventListener("resize", updateGlobalScrollVisibility);
+
+document.addEventListener("click", e => {
+  const down = e.target.closest("#globalScrollDown");
+  if (down) {
+    e.preventDefault();
+    window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+    return;
+  }
+
+  const up = e.target.closest("#globalScrollUp");
+  if (up) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
 });
 
 /* =========================================================
@@ -4316,9 +5078,6 @@ let mouseX = -1000, mouseY = -1000;
 let particles = [];
 let explosions = [];
 let cursorPulse = 0;
-
-window.__mouseX = -1000;
-window.__mouseY = -1000;
 
 const PARTICLE_COUNT = 220;
 const CONNECT_DIST = 130;
@@ -4562,15 +5321,12 @@ function drawParticles() {
 
 window.addEventListener("mousemove", e => {
   mouseX = e.clientX; mouseY = e.clientY;
-  window.__mouseX = e.clientX; window.__mouseY = e.clientY;
 });
 
 window.addEventListener("touchmove", e => {
   if (e.touches.length > 0) {
     mouseX = e.touches[0].clientX;
     mouseY = e.touches[0].clientY;
-    window.__mouseX = mouseX;
-    window.__mouseY = mouseY;
   }
 }, { passive: true });
 
@@ -4578,26 +5334,37 @@ window.addEventListener("touchstart", e => {
   if (e.touches.length > 0) {
     mouseX = e.touches[0].clientX;
     mouseY = e.touches[0].clientY;
-    window.__mouseX = mouseX;
-    window.__mouseY = mouseY;
   }
 }, { passive: true });
 
-const EXPLOSION_IGNORE = "a, button, .fab-container, .lang-selector, .lang-menu, .lang-trigger, .header, .about-blob, .buy-menu, .portfolio-card, .case-modal, .plan-cta, .btn-plans, .wechat-modal, .global-scroll-hint, input, textarea";
+window.addEventListener("mouseleave", () => {
+  mouseX = -1000; mouseY = -1000;
+});
+
+const EXPLOSION_IGNORE = "a, button, input, textarea, [data-no-explosion], .no-explosion";
 
 window.addEventListener("click", e => {
   if (e.target.closest(EXPLOSION_IGNORE)) return;
   triggerExplosion(e.clientX, e.clientY);
 });
 
-window.addEventListener("mouseleave", () => {
-  mouseX = -1000; mouseY = -1000;
-  window.__mouseX = -1000; window.__mouseY = -1000;
-});
+let resizeTimer = null;
+let lastW = window.innerWidth;
+let lastH = window.innerHeight;
 
 window.addEventListener("resize", () => {
-  resizeCanvas();
-  createParticles();
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+
+  if (Math.abs(w - lastW) < 80 && Math.abs(h - lastH) < 120) return;
+
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => {
+    lastW = w;
+    lastH = h;
+    resizeCanvas();
+    createParticles();
+  }, 200);
 });
 
 function initCanvas() {
@@ -4637,12 +5404,12 @@ function initCanvas() {
       const wave2 = Math.cos(angle * 3 + time * 0.0012) * 2.5;
 
       let pull = 0;
-      if (window.__mouseX > 0 && window.__mouseY > 0) {
+      if (mouseX > 0 && mouseY > 0) {
         const rect = blob.getBoundingClientRect();
         const cx = rect.left + rect.width / 2;
         const cy = rect.top + rect.height / 2;
-        const mdx = window.__mouseX - cx;
-        const mdy = window.__mouseY - cy;
+        const mdx = mouseX - cx;
+        const mdy = mouseY - cy;
         const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
         if (mdist > 1) {
           const mouseAngle = Math.atan2(mdy, mdx);
@@ -4691,7 +5458,8 @@ function initCanvas() {
 /* =========================================================
    INIT
    ========================================================= */
-document.getElementById("footerYear").textContent = new Date().getFullYear();
+const footerYear = document.getElementById("footerYear");
+if (footerYear) footerYear.textContent = new Date().getFullYear();
 
 function init() {
   initCanvas();
@@ -4700,6 +5468,7 @@ function init() {
   applyTranslations(initialLang);
 
   closeLangMenu();
+  initCookieBanner();
 }
 
 init();
@@ -4711,6 +5480,8 @@ window.applyTranslations = applyTranslations;
 window.changeLanguage = changeLanguage;
 window.openWechatModal = openWechatModal;
 window.closeWechatModal = closeWechatModal;
+window.openCookieModal = openCookieModal;
+window.closeCookieModal = closeCookieModal;
 </script>
 </body>
 </html>
